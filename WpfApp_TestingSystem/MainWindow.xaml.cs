@@ -23,6 +23,43 @@ namespace WpfApp_TestingSystem
         public MainWindow()
         {
             InitializeComponent();
+
+            this.Loaded += MainWindow_Loaded;
+        }
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.listBoxAllTests.MouseLeftButtonUp += ListBoxAllTests_MouseLeftButtonUp;
+        }
+
+        private void ListBoxAllTests_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            // загрузить страницу прохождения теста
+            this.gridTestSelection.Visibility = Visibility.Hidden;
+
+            this.gridPassingTheTest.Visibility = Visibility.Visible;
+
+            //
+            this.textBlockPassing_Title.Text
+                = this.listBoxAllTests.SelectedValue.ToString();
+        }
+
+        private void buttonStudent_Click(object sender, RoutedEventArgs e)
+        {
+            this.gridUserTypeSelection.Visibility = Visibility.Hidden;
+
+            this.gridTestSelection.Visibility = Visibility.Visible;
+
+
+            using (TestingSystemEntities db = new TestingSystemEntities())
+            {
+                this.listBoxAllTests.ItemsSource
+                    = (
+                    from test in db.Test
+                    select test.Name
+                    )
+                    .ToList();
+            }
         }
     }
 }

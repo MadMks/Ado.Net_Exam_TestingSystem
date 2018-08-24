@@ -13,7 +13,10 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" Name="gridUserTypeSelection" 
-              Background="Aqua">
+              Background="Aqua"
+              Visibility="Hidden"
+              >
+            <!--Temp Visibility="Hidden"-->
 
             <Grid.RowDefinitions>
                 <RowDefinition/>
@@ -26,16 +29,67 @@
             <TextBlock Grid.Row="1" Text="Выберите тип пользователя"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"/>
-            <Button Grid.Row="2"
+            <Button Grid.Row="2" Name="buttonTeacher"
                     HorizontalAlignment="Center">
                 Учитель
             </Button>
-            <Button Grid.Row="3"
-                    HorizontalAlignment="Center">
+            <Button Grid.Row="3" Name="buttonStudent"
+                    HorizontalAlignment="Center"
+                    Click="buttonStudent_Click">
                 Студент
             </Button>
             
+        </Grid>
 
+        <Grid Grid.Row="0" Name="gridTestSelection"
+              Background="Beige"
+              Visibility="Hidden">
+
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <TabControl Name="tabControlForStudent">
+                <TabItem Header="Полный список">
+                    <ListBox Name="listBoxAllTests"/>
+                </TabItem>
+                <TabItem Header="Категории">
+                    Размещение категорий
+                </TabItem>
+            </TabControl>
+        </Grid>
+
+        
+        <!--Страница прохождения теста-->
+        <Grid Grid.Row="0" Name="gridPassingTheTest"
+              Background="Blue"
+              >
+            <!--Visibility="Hidden"-->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <!--Title-->
+            <TextBlock Grid.Row="0" Name="textBlockPassing_Title"/>
+            <!--Question-->
+            <TextBlock Grid.Row="1" Name="textBlockPassing_Question"
+                  Background="CadetBlue"/>
+            <!--Answer-->
+            <TextBlock Grid.Row="2" Name="textBlockPassing_Answer"
+                       Background="Chocolate"/>
+            <!--Reply-->
+            <Button Grid.Row="3" Name="buttonPassing_Reply"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+                Ответить
+            </Button>
+            <!--Empty Block-->
+            <!-- -->
+            
         </Grid>
         
     </Grid>
