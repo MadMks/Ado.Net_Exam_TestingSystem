@@ -7,6 +7,36 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Name="gridUserTypeSelection" 
+              Background="Aqua">
+
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="1" Text="Выберите тип пользователя"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"/>
+            <Button Grid.Row="2"
+                    HorizontalAlignment="Center">
+                Учитель
+            </Button>
+            <Button Grid.Row="3"
+                    HorizontalAlignment="Center">
+                Студент
+            </Button>
+            
+
+        </Grid>
         
     </Grid>
 </Window>
