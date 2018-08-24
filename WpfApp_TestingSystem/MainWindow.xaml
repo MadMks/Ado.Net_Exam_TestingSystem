@@ -80,8 +80,11 @@
             <TextBlock Grid.Row="1" Name="textBlockPassing_Question"
                   Background="CadetBlue"/>
             <!--Answer-->
-            <TextBlock Grid.Row="2" Name="textBlockPassing_Answer"
-                       Background="Chocolate"/>
+            <StackPanel Grid.Row="2" Name="stackPanelPassing_Answer"
+                       Background="Chocolate">
+                <!--<Grid.RowDefinitions></Grid.RowDefinitions>-->
+                
+            </StackPanel>
             <!--Reply-->
             <Button Grid.Row="3" Name="buttonPassing_Reply"
                     HorizontalAlignment="Center"

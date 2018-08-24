@@ -22,6 +22,7 @@ namespace WpfApp_TestingSystem
     {
         private int numberOfTheCurrentQuestion;
         private List<Question> questions;
+        private List<Answer> answers;
 
         public MainWindow()
         {
@@ -40,9 +41,11 @@ namespace WpfApp_TestingSystem
 
         private void ButtonPassing_Reply_Click(object sender, RoutedEventArgs e)
         {
+            // TODO подсчет правильных ответов - метод
+
             this.numberOfTheCurrentQuestion++;
 
-            this.ShowCurrentQuestion();
+            this.ShowQuestionWithAnswers();
         }
 
         private void ListBoxAllTests_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -56,7 +59,7 @@ namespace WpfApp_TestingSystem
             this.textBlockPassing_Title.Text
                 = this.listBoxAllTests.SelectedValue.ToString();
 
-            
+            this.answers = new List<Answer>();
 
             using (TestingSystemEntities db = new TestingSystemEntities())
             {
@@ -70,11 +73,55 @@ namespace WpfApp_TestingSystem
                     )
                     .ToList();
 
+                // пробую загрузить ответы для одого текущего теста.
+
+                foreach (var item in this.questions)
+                {
+                    this.answers.AddRange(item.Answer.Where(x => x.QuestionId == item.Id).Select(x => x));
+                }
+
+
+                this.ShowQuestionWithAnswers();
+            }
+        }
+
+        private void ShowQuestionWithAnswers()
+        {
+            // проверка на кол-во вопросов
+            if (this.numberOfTheCurrentQuestion < this.questions.Count)
+            {
                 // Show
                 // Вывод на экран 1го вопроса
                 this.ShowCurrentQuestion();
                 // ответов для 1го вопроса
+                this.ShowCurrentAnswers();
             }
+            else
+            {
+                // TODO подсчет результатов
+            }
+        }
+
+        /// <summary>
+        /// Показать ответы для вопроса.
+        /// </summary>
+        private void ShowCurrentAnswers()
+        {
+            if (this.stackPanelPassing_Answer.Children.Count > 0)
+            {
+                this.stackPanelPassing_Answer.Children.Clear();
+            }
+
+            // TODO динамическое создание элементов
+
+            Thickness margin = new Thickness(5.0);
+
+            foreach (var answer in this.questions[this.numberOfTheCurrentQuestion].Answer)
+            {
+                this.stackPanelPassing_Answer.Children.Add(
+                    new RadioButton { Content = answer.ResponseText, Margin = margin }
+                    );
+            } 
         }
 
         /// <summary>
@@ -82,12 +129,9 @@ namespace WpfApp_TestingSystem
         /// </summary>
         private void ShowCurrentQuestion()
         {
-            // проверка на кол-во вопросов
-            if (this.numberOfTheCurrentQuestion < this.questions.Count)
-            {
-                this.textBlockPassing_Question.Text
+            this.textBlockPassing_Question.Text
                 = this.questions[this.numberOfTheCurrentQuestion].QuestionText;
-            }
+
         }
 
         private void buttonStudent_Click(object sender, RoutedEventArgs e)
@@ -99,6 +143,8 @@ namespace WpfApp_TestingSystem
 
             using (TestingSystemEntities db = new TestingSystemEntities())
             {
+                db.Database.Log = Console.Write;
+
                 this.listBoxAllTests.ItemsSource
                     = (
                     from test in db.Test
