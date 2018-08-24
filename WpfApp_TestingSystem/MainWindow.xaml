@@ -14,7 +14,7 @@
 
         <Grid Grid.Row="0" Name="gridUserTypeSelection" 
               Background="Aqua"
-              Visibility="Hidden"
+              
               >
             <!--Temp Visibility="Hidden"-->
 
@@ -63,6 +63,7 @@
         <!--Страница прохождения теста-->
         <Grid Grid.Row="0" Name="gridPassingTheTest"
               Background="Blue"
+              Visibility="Hidden"
               >
             <!--Visibility="Hidden"-->
             <Grid.RowDefinitions>
@@ -70,7 +71,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition/>
+                <RowDefinition />
             </Grid.RowDefinitions>
 
             <!--Title-->
