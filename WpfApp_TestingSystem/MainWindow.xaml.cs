@@ -62,37 +62,18 @@ namespace WpfApp_TestingSystem
             {
                 db.Database.Log = Console.Write;
 
-                // TODO загрузить все вопросы -
+                // TODO загрузить все вопросы и ответы
                 questions = (
                     from question in db.Question
                     where question.Test.Name == this.listBoxAllTests.SelectedValue.ToString()
                     select question
                     )
                     .ToList();
-                // TODO загрузить все ответы -
-                //var answers = from answer in db.Answer
-                //                  //join 
-                //              where answer.QuestionId
-
-                // Question
-                //this.textBlockPassing_Question.Text
-                //    = (
-                //    from question in db.Question
-                //    where question.
-                //    select question.QuestionText
-                //    )
-                //    .FirstOrDefault();
-
 
                 // Show
                 // Вывод на экран 1го вопроса
                 this.ShowCurrentQuestion();
-
-                // вывод вопросов
-                //for (int i = 0; i < questions.Count; i++)
-                //{
-                //    MessageBox.Show(questions[i].QuestionText);
-                //}
+                // ответов для 1го вопроса
             }
         }
 
@@ -102,9 +83,11 @@ namespace WpfApp_TestingSystem
         private void ShowCurrentQuestion()
         {
             // проверка на кол-во вопросов
-
-            this.textBlockPassing_Question.Text
-                = questions[this.numberOfTheCurrentQuestion].QuestionText;
+            if (this.numberOfTheCurrentQuestion < this.questions.Count)
+            {
+                this.textBlockPassing_Question.Text
+                = this.questions[this.numberOfTheCurrentQuestion].QuestionText;
+            }
         }
 
         private void buttonStudent_Click(object sender, RoutedEventArgs e)
