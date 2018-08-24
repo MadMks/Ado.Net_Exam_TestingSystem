@@ -65,16 +65,18 @@ namespace WpfApp_TestingSystem
             {
                 db.Database.Log = Console.Write;
 
+                //db.Configuration.LazyLoadingEnabled = false;
+
                 // TODO загрузить все вопросы и ответы
                 questions = (
-                    from question in db.Question
+                    from question in db.Question.Include("Answer")  // HACK или безотложная (много маленьких запросов)
                     where question.Test.Name == this.listBoxAllTests.SelectedValue.ToString()
                     select question
                     )
                     .ToList();
 
                 // пробую загрузить ответы для одого текущего теста.
-
+                
                 foreach (var item in this.questions)
                 {
                     this.answers.AddRange(item.Answer.Where(x => x.QuestionId == item.Id).Select(x => x));
