@@ -103,6 +103,7 @@
           <Property Name="ResponseText" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="QuestionId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Question" Relationship="Self.FK__Answer__Question__182C9B23" FromRole="Answer" ToRole="Question" />
+          <Property Name="CorrectAnswer" Type="Boolean" Nullable="false" DefaultValue="false" />
         </EntityType>
         <EntityType Name="Category">
           <Key>

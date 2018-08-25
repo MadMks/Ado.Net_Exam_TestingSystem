@@ -21,6 +21,15 @@ namespace WpfApp_TestingSystem
     public partial class MainWindow : Window
     {
         private int numberOfTheCurrentQuestion;
+        /// <summary>
+        /// Кол-во правильных ответов студента.
+        /// </summary>
+        private int numberOfCorrectAnswersStudent; // HACK можно поменять на свойство в связи
+        /// <summary>
+        /// Результат тестирования в процентах.
+        /// </summary>
+        private int testResultInPercent;
+
         private List<Question> questions;
         private List<Answer> answers;
 
@@ -34,6 +43,7 @@ namespace WpfApp_TestingSystem
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             this.numberOfTheCurrentQuestion = 0;
+            this.numberOfCorrectAnswersStudent = 0;
 
             this.listBoxAllTests.MouseLeftButtonUp += ListBoxAllTests_MouseLeftButtonUp;
             this.buttonPassing_Reply.Click += ButtonPassing_Reply_Click;
@@ -42,10 +52,22 @@ namespace WpfApp_TestingSystem
         private void ButtonPassing_Reply_Click(object sender, RoutedEventArgs e)
         {
             // TODO подсчет правильных ответов - метод
+            this.CheckingTheCorrectAnswers();
 
             this.numberOfTheCurrentQuestion++;
 
             this.ShowQuestionWithAnswers();
+        }
+
+        /// <summary>
+        /// Проверка правильных ответов (подсчет).
+        /// </summary>
+        private void CheckingTheCorrectAnswers()
+        {
+            if (true)
+            {
+                
+            }
         }
 
         private void ListBoxAllTests_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -101,7 +123,28 @@ namespace WpfApp_TestingSystem
             else
             {
                 // TODO подсчет результатов
+                this.ComputeOfResults();
             }
+        }
+
+        /// <summary>
+        /// Подсчет результатов.
+        /// </summary>
+        private void ComputeOfResults()
+        {
+            // TODO подсчет
+            this.ComputeOfPercent();
+
+            // TODO вывод результата на экран - метод
+
+            // TODO запись результата в таблицу.
+
+            throw new NotImplementedException();
+        }
+
+        private void ComputeOfPercent()
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
