@@ -14,12 +14,6 @@ namespace WpfApp_TestingSystem
     
     public partial class Answer
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Answer()
-        {
-            this.CorrectAnswer = false;
-        }
-    
         public int Id { get; set; }
         public string ResponseText { get; set; }
         public int QuestionId { get; set; }

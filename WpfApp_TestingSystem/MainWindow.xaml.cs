@@ -64,9 +64,15 @@ namespace WpfApp_TestingSystem
         /// </summary>
         private void CheckingTheCorrectAnswers()
         {
-            if (true)
+            if (this.stackPanelPassing_Answer.Children.Count > 0)
             {
-                
+                foreach (RadioButton item in this.stackPanelPassing_Answer.Children)
+                {
+                    if (item.IsChecked == true && Convert.ToBoolean(item.Tag) == true)
+                    {
+                        this.numberOfCorrectAnswersStudent++;
+                    }
+                }
             }
         }
 
@@ -134,17 +140,17 @@ namespace WpfApp_TestingSystem
         {
             // TODO подсчет
             this.ComputeOfPercent();
-
+            MessageBox.Show(this.numberOfCorrectAnswersStudent.ToString());
             // TODO вывод результата на экран - метод
 
             // TODO запись результата в таблицу.
 
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         private void ComputeOfPercent()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         /// <summary>
@@ -164,7 +170,11 @@ namespace WpfApp_TestingSystem
             foreach (var answer in this.questions[this.numberOfTheCurrentQuestion].Answer)
             {
                 this.stackPanelPassing_Answer.Children.Add(
-                    new RadioButton { Content = answer.ResponseText, Margin = margin }
+                    new RadioButton {
+                        Content = answer.ResponseText,
+                        Tag = answer.CorrectAnswer,
+                        Margin = margin
+                        }
                     );
             } 
         }
