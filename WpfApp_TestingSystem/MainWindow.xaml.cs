@@ -151,17 +151,18 @@ namespace WpfApp_TestingSystem
         {
             // TODO подсчет
             this.ComputeOfPercent();
-            MessageBox.Show(this.numberOfCorrectAnswersStudent.ToString());
+
             // TODO вывод результата на экран - метод
+            MessageBox.Show(this.testResultInPercent.ToString());
 
             // TODO запись результата в таблицу.
 
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         private void ComputeOfPercent()
         {
-            throw new NotImplementedException();
+            this.testResultInPercent = (100 / this.questions.Count) * this.numberOfCorrectAnswersStudent;
         }
 
         /// <summary>
