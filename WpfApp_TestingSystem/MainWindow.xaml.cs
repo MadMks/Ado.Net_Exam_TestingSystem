@@ -68,12 +68,23 @@ namespace WpfApp_TestingSystem
             {
                 foreach (RadioButton item in this.stackPanelPassing_Answer.Children)
                 {
-                    if (item.IsChecked == true && Convert.ToBoolean(item.Tag) == true)
+                    if (this.IsCorrectAnswerIsSelected(item))
                     {
                         this.numberOfCorrectAnswersStudent++;
+                        return;
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// Выбран правильный ответ.
+        /// </summary>
+        /// <param name="item">radioButton</param>
+        /// <returns>true если выбран правильный ответ.</returns>
+        private bool IsCorrectAnswerIsSelected(RadioButton item)
+        {
+            return item.IsChecked == true && Convert.ToBoolean(item.Tag) == true;
         }
 
         private void ListBoxAllTests_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -145,12 +156,12 @@ namespace WpfApp_TestingSystem
 
             // TODO запись результата в таблицу.
 
-            //throw new NotImplementedException();
+            throw new NotImplementedException();
         }
 
         private void ComputeOfPercent()
         {
-            //throw new NotImplementedException();
+            throw new NotImplementedException();
         }
 
         /// <summary>
