@@ -153,11 +153,11 @@ namespace WpfApp_TestingSystem
             this.ComputeOfPercent();
 
             // TODO вывод результата на экран - метод
-            MessageBox.Show(this.testResultInPercent.ToString());
+            
 
             // TODO запись результата в таблицу.
 
-            //throw new NotImplementedException();
+            throw new NotImplementedException();
         }
 
         private void ComputeOfPercent()
