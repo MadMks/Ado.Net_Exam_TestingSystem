@@ -45,8 +45,17 @@ namespace WpfApp_TestingSystem
             this.numberOfTheCurrentQuestion = 0;
             this.numberOfCorrectAnswersStudent = 0;
 
+            this.buttonTeacher.Click += ButtonTeacher_Click;
+
             this.listBoxAllTests.MouseLeftButtonUp += ListBoxAllTests_MouseLeftButtonUp;
             this.buttonPassing_Reply.Click += ButtonPassing_Reply_Click;
+        }
+
+        private void ButtonTeacher_Click(object sender, RoutedEventArgs e)
+        {
+            this.gridUserTypeSelection.Visibility = Visibility.Hidden;
+
+            this.gridCategoryOrAllTest.Visibility = Visibility.Visible;
         }
 
         private void ButtonPassing_Reply_Click(object sender, RoutedEventArgs e)
