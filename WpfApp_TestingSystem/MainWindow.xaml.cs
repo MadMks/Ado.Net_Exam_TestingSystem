@@ -94,7 +94,7 @@ namespace WpfApp_TestingSystem
                 //this.gridSelection.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 
                 // Кнопка для новой строки (для контейнера)
-                //Button button = new Button();     // TODO в кнопку поместить все элементы
+                Button button = new Button { Padding = new Thickness(15.0) };     // TODO в кнопку поместить все элементы
                 // контейнер для объектов в новой строке
                 Grid gridLine = new Grid();
                 gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto});
@@ -109,8 +109,10 @@ namespace WpfApp_TestingSystem
                 Grid.SetColumn(number, 0);
                 Grid.SetColumn(name, 1);
 
-                
-                this.gridSelection.Children.Add(gridLine);
+                button.Content = gridLine;
+                this.gridSelection.Children.Add(button);
+
+                //this.gridSelection.Children.Add(gridLine);
 
                 //Grid.SetRow(gridLine, i);
             }
