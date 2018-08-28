@@ -13,8 +13,8 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" Name="gridUserTypeSelection" 
-              Background="Aqua"
-              Visibility="Hidden"
+              Background="Aqua" d:IsHidden="True"
+
               >
             <!--Temp Visibility="Hidden"-->
 
@@ -43,7 +43,7 @@
 
         <Grid Grid.Row="0" Name="gridCategoryOrAllTest"
               Background="Crimson"
-              
+              Visibility="Hidden"
               >
 
             <Grid.RowDefinitions>
@@ -58,12 +58,22 @@
                 Все тесты
             </Button>
             <Button Grid.Row="2" Name="buttonCategory"
-                    HorizontalAlignment="Center"
-                    Click="buttonStudent_Click">
+                    HorizontalAlignment="Center">
                 По категории
             </Button>
 
         </Grid>
+
+        <StackPanel Grid.Row="0" Name="gridSelection"
+              Background="DodgerBlue"
+              Visibility="Hidden">
+
+            <!--<Grid.RowDefinitions>
+                <RowDefinition/>
+            </Grid.RowDefinitions>-->
+
+            
+        </StackPanel>
 
         <Grid Grid.Row="0" Name="gridTestSelection"
               Background="Beige"

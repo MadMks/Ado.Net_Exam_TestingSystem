@@ -30,6 +30,8 @@ namespace WpfApp_TestingSystem
         /// </summary>
         private int testResultInPercent;
 
+        private List<Category> categories;
+
         private List<Question> questions;
         private List<Answer> answers;
 
@@ -42,13 +44,89 @@ namespace WpfApp_TestingSystem
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
+            // new memory
+            this.categories = new List<Category>();
+
+            // await
+            this.LoadingCategoriesFromTheDatabase();
+
+
             this.numberOfTheCurrentQuestion = 0;
             this.numberOfCorrectAnswersStudent = 0;
 
             this.buttonTeacher.Click += ButtonTeacher_Click;
 
+            this.buttonCategory.Click += ButtonCategory_Click;
+
             this.listBoxAllTests.MouseLeftButtonUp += ListBoxAllTests_MouseLeftButtonUp;
             this.buttonPassing_Reply.Click += ButtonPassing_Reply_Click;
+        }
+
+        private void LoadingCategoriesFromTheDatabase()
+        {
+            using (TestingSystemEntities db = new TestingSystemEntities())
+            {
+                db.Database.Log = Console.Write;
+
+                this.categories
+                    = (
+                    from category in db.Category
+                    select category
+                    )
+                    .ToList();
+            }
+        }
+
+        private void ButtonCategory_Click(object sender, RoutedEventArgs e)
+        {
+            this.gridCategoryOrAllTest.Visibility = Visibility.Hidden;
+
+            this.gridSelection.Visibility = Visibility.Visible;
+
+            this.ShowAllCategories();
+        }
+
+        private void ShowAllCategories()
+        {
+            for (int i = 0; i < this.categories.Count; i++)
+            {
+                // новая строка
+                //this.gridSelection.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+
+                // Кнопка для новой строки (для контейнера)
+                //Button button = new Button();     // TODO в кнопку поместить все элементы
+                // контейнер для объектов в новой строке
+                Grid gridLine = new Grid();
+                gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto});
+                gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto});
+                // объекты новой строки
+                TextBlock number = new TextBlock { Text = (i + 1).ToString() };
+                TextBlock name = new TextBlock { Text = this.categories[i].Name };
+
+                gridLine.Children.Add(number);
+                gridLine.Children.Add(name);
+
+                Grid.SetColumn(number, 0);
+                Grid.SetColumn(name, 1);
+
+                
+                this.gridSelection.Children.Add(gridLine);
+
+                //Grid.SetRow(gridLine, i);
+            }
+
+            //foreach (var category in this.categories)
+            //{
+            //    Grid grid = new Grid();
+            //    grid.RowDefinitions.Add(new RowDefinition());
+            //    grid.Children.Add(new TextBlock { Text = "1" });
+            //    grid.Children.Add(new TextBlock { Text = category.Name});
+            //    Grid.SetRow(grid, 0);
+
+            //    this.gridSelection.Children.Add(
+            //        grid
+            //        );
+            //}
         }
 
         private void ButtonTeacher_Click(object sender, RoutedEventArgs e)
@@ -229,5 +307,6 @@ namespace WpfApp_TestingSystem
                     .ToList();
             }
         }
+
     }
 }
