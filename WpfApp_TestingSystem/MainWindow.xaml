@@ -64,7 +64,7 @@
 
         </Grid>
 
-        <StackPanel Grid.Row="0" Name="gridSelection"
+        <StackPanel Grid.Row="0" Name="stackPanelSelection"
               Background="DodgerBlue"
               Visibility="Hidden">
 

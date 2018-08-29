@@ -81,7 +81,7 @@ namespace WpfApp_TestingSystem
         {
             this.gridCategoryOrAllTest.Visibility = Visibility.Hidden;
 
-            this.gridSelection.Visibility = Visibility.Visible;
+            this.stackPanelSelection.Visibility = Visibility.Visible;
 
             this.ShowAllCategories();
         }
@@ -94,9 +94,10 @@ namespace WpfApp_TestingSystem
                 //this.gridSelection.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 
                 // Кнопка для новой строки (для контейнера)
-                Button button = new Button { Padding = new Thickness(15.0) };     // TODO в кнопку поместить все элементы
+                Button button = new Button { /*Padding = new Thickness(15.0)*/ };     // TODO в кнопку поместить все элементы
                 // контейнер для объектов в новой строке
                 Grid gridLine = new Grid();
+
                 gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto});
                 gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto});
                 // объекты новой строки
@@ -111,7 +112,7 @@ namespace WpfApp_TestingSystem
                 Grid.SetColumn(name, 1);
 
                 button.Content = gridLine;
-                this.gridSelection.Children.Add(button);
+                this.stackPanelSelection.Children.Add(button);
 
                 //this.gridSelection.Children.Add(gridLine);
 

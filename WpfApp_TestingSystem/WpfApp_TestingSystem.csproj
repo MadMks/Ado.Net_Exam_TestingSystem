@@ -93,6 +93,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TestingSystemModel.edmx</DependentUpon>
     </Compile>
+    <Page Include="DictionaryStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
