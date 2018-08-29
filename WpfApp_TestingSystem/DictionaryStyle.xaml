@@ -4,17 +4,20 @@
     
     <!--Шаблон-->
     <ControlTemplate x:Key="templateButtonForList" TargetType="Button">
-        <Grid>
-            <TextBlock>
-                <ContentPresenter/>
-            </TextBlock>
-        </Grid>
+        <Border>
+            <Grid>
+                <TextBlock>
+                    <ContentPresenter></ContentPresenter>
+                </TextBlock>
+            </Grid>
+        </Border>
     </ControlTemplate>
     
-    <!--Стили-->
+    <!--Стиль-->
     <Style TargetType="Button" x:Key="styleButtonForList">
         <Style.Setters>
             <Setter Property="Template" Value="{StaticResource templateButtonForList}"/>
+            <!--<Setter Property="Background" Value="Aqua"/>-->
         </Style.Setters>
     </Style>
     

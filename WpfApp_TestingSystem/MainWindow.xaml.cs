@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
 namespace WpfApp_TestingSystem
 {
     /// <summary>
@@ -94,15 +95,24 @@ namespace WpfApp_TestingSystem
                 //this.gridSelection.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 
                 // Кнопка для новой строки (для контейнера)
-                Button button = new Button { /*Padding = new Thickness(15.0)*/ };     // TODO в кнопку поместить все элементы
+                Button button = new Button {
+                    Style = (Style)(this.Resources["styleButtonForList"])
+                    /*Padding = new Thickness(15.0)*/
+                };     // TODO в кнопку поместить все элементы
                 // контейнер для объектов в новой строке
                 Grid gridLine = new Grid();
 
                 gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto});
                 gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto});
                 // объекты новой строки
-                TextBlock number = new TextBlock { Text = (i + 1).ToString() };
-                TextBlock name = new TextBlock { Text = this.categories[i].Name };
+                TextBlock number = new TextBlock {
+                    Text = (i + 1).ToString(),
+                    Background = Brushes.AliceBlue
+                };
+                TextBlock name = new TextBlock {
+                    Text = this.categories[i].Name,
+                    Background = Brushes.AntiqueWhite
+                };
                 // TODO кол-во тестов
 
                 gridLine.Children.Add(number);
