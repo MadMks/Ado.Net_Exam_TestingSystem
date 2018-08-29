@@ -102,6 +102,7 @@ namespace WpfApp_TestingSystem
                 // объекты новой строки
                 TextBlock number = new TextBlock { Text = (i + 1).ToString() };
                 TextBlock name = new TextBlock { Text = this.categories[i].Name };
+                // TODO кол-во тестов
 
                 gridLine.Children.Add(number);
                 gridLine.Children.Add(name);
