@@ -91,8 +91,8 @@ namespace WpfApp_TestingSystem
         {
             for (int i = 0; i < this.categories.Count; i++)
             {
-                // новая строка
-                //this.gridSelection.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+                // TODO new line fo list category - method
+                // TODO LineButtonForCategory - class
 
                 // Кнопка для новой строки (для контейнера)
                 Button button = new Button {
@@ -107,12 +107,18 @@ namespace WpfApp_TestingSystem
                 // объекты новой строки
                 TextBlock number = new TextBlock {
                     Text = (i + 1).ToString(),
-                    Background = Brushes.AliceBlue
+                    Background = Brushes.AliceBlue,
+                    Width = 30,
+                    //Height = 25,
+                    Padding = new Thickness(0.0, 10.0, 0.0, 10.0),
+                    TextAlignment = TextAlignment.Center,
+                    Margin = new Thickness(5.0)
                 };
                 TextBlock name = new TextBlock {
                     Text = this.categories[i].Name,
                     Background = Brushes.AntiqueWhite
                 };
+
                 // TODO кол-во тестов
 
                 gridLine.Children.Add(number);
@@ -123,24 +129,7 @@ namespace WpfApp_TestingSystem
 
                 button.Content = gridLine;
                 this.stackPanelSelection.Children.Add(button);
-
-                //this.gridSelection.Children.Add(gridLine);
-
-                //Grid.SetRow(gridLine, i);
             }
-
-            //foreach (var category in this.categories)
-            //{
-            //    Grid grid = new Grid();
-            //    grid.RowDefinitions.Add(new RowDefinition());
-            //    grid.Children.Add(new TextBlock { Text = "1" });
-            //    grid.Children.Add(new TextBlock { Text = category.Name});
-            //    Grid.SetRow(grid, 0);
-
-            //    this.gridSelection.Children.Add(
-            //        grid
-            //        );
-            //}
         }
 
         private void ButtonTeacher_Click(object sender, RoutedEventArgs e)

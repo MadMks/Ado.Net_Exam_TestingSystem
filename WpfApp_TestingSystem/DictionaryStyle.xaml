@@ -17,7 +17,7 @@
     <Style TargetType="Button" x:Key="styleButtonForList">
         <Style.Setters>
             <Setter Property="Template" Value="{StaticResource templateButtonForList}"/>
-            <!--<Setter Property="Background" Value="Aqua"/>-->
+
         </Style.Setters>
     </Style>
     
