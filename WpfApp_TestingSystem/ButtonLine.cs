@@ -27,7 +27,7 @@ namespace WpfApp_TestingSystem
 
             gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
             gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-            gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+            gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1.0, GridUnitType.Star) });
 
             TextBlock textBlockNumber = new TextBlock
             {
