@@ -67,7 +67,43 @@ namespace WpfApp_TestingSystem
 
         private void ButtonAllTests_Click(object sender, RoutedEventArgs e)
         {
-            this.ShowTests();
+            this.gridCategoryOrAllTest.Visibility = Visibility.Hidden;
+
+            this.stackPanelSelection.Visibility = Visibility.Visible;
+
+            this.ShowAllTests();
+        }
+
+        private void ShowAllTests()
+        {
+            // TODO clear stackP
+
+            //this.LoadingCategoriesFromTheDatabase();
+
+            using (TestingSystemEntities db = new TestingSystemEntities())
+            {
+                db.Database.Log = Console.Write;
+
+                var tempTests
+                    = (
+                    from test in db.Test
+                    select test
+                    )
+                    .ToList();
+
+                for (int i = 0; i < tempTests.Count(); i++)
+                {
+                    // TODO new line fo list category - method
+                    // TODO LineButtonForCategory - class
+
+                    //Button button = CreateaButtonForTheRow(i);
+
+                    ButtonLine buttonLine
+                        = new ButtonLine(i, tempTests[i].Name, tempTests[i].Category.Name, tempTests[i].Question.Count);
+                    buttonLine.Style = (Style)(this.Resources["styleButtonForList"]); // What #1 ???
+                    this.stackPanelSelection.Children.Add(buttonLine);
+                }
+            }
         }
 
         private void LoadingCategoriesFromTheDatabase()
@@ -96,15 +132,33 @@ namespace WpfApp_TestingSystem
 
         private void ShowAllCategories()
         {
-            this.LoadingCategoriesFromTheDatabase();
+            // TODO clear stackP
 
-            for (int i = 0; i < this.categories.Count; i++)
+            //this.LoadingCategoriesFromTheDatabase();
+
+            using (TestingSystemEntities db = new TestingSystemEntities())
             {
-                // TODO new line fo list category - method
-                // TODO LineButtonForCategory - class
+                db.Database.Log = Console.Write;
 
-                Button button = CreateaButtonForTheRow(i);
-                this.stackPanelSelection.Children.Add(button);
+                var tempCategories
+                    = (
+                    from category in db.Category
+                    select category
+                    )
+                    .ToList();
+
+                for (int i = 0; i < tempCategories.Count(); i++)
+                {
+                    // TODO new line fo list category - method
+                    // TODO LineButtonForCategory - class
+
+                    //Button button = CreateaButtonForTheRow(i);
+
+                    ButtonLine buttonLine
+                        = new ButtonLine(i, tempCategories[i].Name, tempCategories[i].Test.Count);
+                    buttonLine.Style = (Style)(this.Resources["styleButtonForList"]); // What #1 ???
+                    this.stackPanelSelection.Children.Add(buttonLine);
+                }
             }
         }
 
@@ -283,7 +337,7 @@ namespace WpfApp_TestingSystem
                     };
                     TextBlock nameCategory = new TextBlock
                     {
-                        Text = this.tests,
+                        Text = this.tests[i].Category.Name,
                         Background = Brushes.Azure,
                         //Padding = new Thickness(0.0, 10.0, 0.0, 10.0)
                         VerticalAlignment = VerticalAlignment.Center
@@ -371,6 +425,20 @@ namespace WpfApp_TestingSystem
                     .ToList();
             }
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         private void ButtonTeacher_Click(object sender, RoutedEventArgs e)
         {

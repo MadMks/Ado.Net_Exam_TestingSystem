@@ -73,6 +73,15 @@
 
         </Grid>
 
+        <!--<Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+        </Grid>-->
+
         <StackPanel Grid.Row="0" Name="stackPanelSelection"
               Background="DodgerBlue"
               Visibility="Hidden">
