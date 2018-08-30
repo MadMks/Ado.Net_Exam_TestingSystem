@@ -4,7 +4,7 @@
     
     <!--Шаблон-->
     <ControlTemplate x:Key="templateButtonForList" TargetType="Button">
-        <Border>
+        <Border Background="{TemplateBinding Background}">
             <Grid>
                 <TextBlock>
                     <ContentPresenter></ContentPresenter>
@@ -17,7 +17,7 @@
     <Style TargetType="Button" x:Key="styleButtonForList">
         <Style.Setters>
             <Setter Property="Template" Value="{StaticResource templateButtonForList}"/>
-
+            <Setter Property="Background" Value="Gray"/>
         </Style.Setters>
     </Style>
     
