@@ -99,7 +99,12 @@ namespace WpfApp_TestingSystem
                     //Button button = CreateaButtonForTheRow(i);
 
                     ButtonLine buttonLine
-                        = new ButtonLine(i, tempTests[i].Name, tempTests[i].Category.Name, tempTests[i].Question.Count);
+                        = new ButtonLine(
+                            i,
+                            tempTests[i].Name,
+                            tempTests[i].Category.Name,
+                            tempTests[i].Question.Count
+                        );
                     buttonLine.Style = (Style)(this.Resources["styleButtonForList"]); // What #1 ???
                     this.stackPanelSelection.Children.Add(buttonLine);
                 }
@@ -155,7 +160,11 @@ namespace WpfApp_TestingSystem
                     //Button button = CreateaButtonForTheRow(i);
 
                     ButtonLine buttonLine
-                        = new ButtonLine(i, tempCategories[i].Name, tempCategories[i].Test.Count);
+                        = new ButtonLine(
+                            i,
+                            tempCategories[i].Name,
+                            tempCategories[i].Test.Count()// .Where(x => x.CategoryId == tempCategories[i].Id).Count()
+                        );
                     buttonLine.Style = (Style)(this.Resources["styleButtonForList"]); // What #1 ???
                     this.stackPanelSelection.Children.Add(buttonLine);
                 }
