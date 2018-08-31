@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Media;
 
 
@@ -23,58 +24,75 @@ namespace WpfApp_TestingSystem
         {
             //this.Style = (Style)(this.Resources["styleButtonForList"]);   // What #1 ???
 
-            this.gridLine = new Grid();
+            this.gridLine = new Grid { Background = Brushes.Red };
 
+            // Растягиваем Grid в кнопке - на всю ширину Button.
+            Binding binding = new Binding();
+            binding.ElementName = "stackPanelSelection";
+            binding.Path = new PropertyPath("ActualWidth");
+            gridLine.SetBinding(Grid.WidthProperty, binding);
+
+            //gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(50.0, GridUnitType.Pixel) });
             gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-            gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+            gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(11.0, GridUnitType.Star) });
             gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1.0, GridUnitType.Star) });
-
-            TextBlock textBlockNumber = new TextBlock
+            // объекты новой строки
+            TextBlock tbNumber = new TextBlock
             {
                 Text = (number + 1).ToString(),
-
                 Background = Brushes.AliceBlue,
                 Width = 30,
-                //Padding = new Thickness(0.0, 10.0, 0.0, 10.0),
+                //Height = 25,
+                Padding = new Thickness(0.0, 10.0, 0.0, 10.0),
                 TextAlignment = TextAlignment.Center,
                 Margin = new Thickness(5.0)
             };
-            TextBlock textBlockNameCategory = new TextBlock
+            TextBlock tbNameCategory = new TextBlock
             {
                 Text = nameCategory,
-
                 Background = Brushes.AntiqueWhite,
+                //Padding = new Thickness(0.0, 10.0, 0.0, 10.0)
                 VerticalAlignment = VerticalAlignment.Center
             };
-            TextBlock textBlockQuantityTests = new TextBlock
+            TextBlock tbQuantityTests = new TextBlock
             {
                 Text = quantityTests.ToString(),
-
-                Background = Brushes.Azure,
+                Background = Brushes.Green,
+                //Padding = new Thickness(0.0, 10.0, 0.0, 10.0)
                 VerticalAlignment = VerticalAlignment.Center
             };
 
+            // TODO кол-во тестов
 
-            gridLine.Children.Add(textBlockNumber);
-            gridLine.Children.Add(textBlockNameCategory);
-            gridLine.Children.Add(textBlockQuantityTests);
+            gridLine.Children.Add(tbNumber);
+            gridLine.Children.Add(tbNameCategory);
+            gridLine.Children.Add(tbQuantityTests);
 
-            Grid.SetColumn(textBlockNumber, 0);
-            Grid.SetColumn(textBlockNameCategory, 1);
-            Grid.SetColumn(textBlockQuantityTests, 2);
+            Grid.SetColumn(tbNumber, 0);
+            Grid.SetColumn(tbNameCategory, 1);
+            Grid.SetColumn(tbQuantityTests, 2);
 
+            //buttonForRowCategory.Content = gridLine;
+            //buttonForRowCategory.Tag = this.categories[i].Id;
+            //buttonForRowCategory.Click += ButtonForRowCategory_Click;
 
-            this.Content = this.gridLine;
+            this.Content = gridLine;
         }
 
         public ButtonLine(int number, string nameTest, string nameCategory, int quantityQuestion)
         {
             //this.Style = (Style)(this.Resources["styleButtonForList"]);   // What #1 ???
 
-            this.gridLine = new Grid();
+            this.gridLine = new Grid { Background = Brushes.Red };
+
+            // Растягиваем Grid в кнопке - на всю ширину Button.
+            Binding binding = new Binding();
+            binding.ElementName = "stackPanelSelection";
+            binding.Path = new PropertyPath("ActualWidth");
+            gridLine.SetBinding(Grid.WidthProperty, binding);
 
             gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-            gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+            gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(8.0, GridUnitType.Star) });
             gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(2.0, GridUnitType.Star) });
             gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1.0, GridUnitType.Star) });
 
@@ -84,7 +102,7 @@ namespace WpfApp_TestingSystem
 
                 Background = Brushes.AliceBlue,
                 Width = 30,
-                //Padding = new Thickness(0.0, 10.0, 0.0, 10.0),
+                Padding = new Thickness(0.0, 10.0, 0.0, 10.0),
                 TextAlignment = TextAlignment.Center,
                 Margin = new Thickness(5.0)
             };
@@ -105,7 +123,7 @@ namespace WpfApp_TestingSystem
             TextBlock textBlockQuantityQuestion = new TextBlock
             {
                 Text = quantityQuestion.ToString(),
-                HorizontalAlignment = HorizontalAlignment.Right,
+                //HorizontalAlignment = HorizontalAlignment.Right,
                 Background = Brushes.Azure,
                 VerticalAlignment = VerticalAlignment.Center
             };

@@ -155,81 +155,87 @@ namespace WpfApp_TestingSystem
                 for (int i = 0; i < tempCategories.Count(); i++)
                 {
                     // TODO new line fo list category - method
-                    // TODO LineButtonForCategory - class
 
-                    //Button button = CreateaButtonForTheRow(i);
+                    #region WorkButtonLine
 
-                    //ButtonLine buttonLine
-                    //    = new ButtonLine(
-                    //        i,
-                    //        tempCategories[i].Name,
-                    //        tempCategories[i].Test.Count()// .Where(x => x.CategoryId == tempCategories[i].Id).Count()
-                    //    );
-                    //buttonLine.Style = (Style)(this.Resources["styleButtonForList"]); // What #1 ???
+
+
+                    //ButtonLine buttonLine = new ButtonLine();
+                    //buttonLine.Style = (Style)(this.Resources["styleButtonForList"]);
+
+                    //Grid gridLine = new Grid{Background = Brushes.Red};
+
+                    //// Растягиваем Grid в кнопке - на всю ширину Button.
+                    //Binding binding = new Binding();
+                    //binding.ElementName = "stackPanelSelection";
+                    //binding.Path = new PropertyPath("ActualWidth");
+                    //gridLine.SetBinding(Grid.WidthProperty, binding);
+
+
+                    //gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+                    //gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(11.0, GridUnitType.Star) });
+                    //gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1.0, GridUnitType.Star) });
+                    //// объекты новой строки
+                    //TextBlock number = new TextBlock
+                    //{
+                    //    Text = (i + 1).ToString(),
+                    //    Background = Brushes.AliceBlue,
+                    //    Width = 30,
+                    //    Padding = new Thickness(0.0, 10.0, 0.0, 10.0),
+                    //    TextAlignment = TextAlignment.Center,
+                    //    Margin = new Thickness(5.0)
+                    //};
+                    //TextBlock nameCategory = new TextBlock
+                    //{
+                    //    Text = tempCategories[i].Name,
+                    //    Background = Brushes.AntiqueWhite,
+                    //    VerticalAlignment = VerticalAlignment.Center
+                    //};
+                    //TextBlock numberOfTests = new TextBlock
+                    //{
+                    //    Text = tempCategories[i].Test.Count().ToString(),
+                    //    Background = Brushes.Green,
+                    //    VerticalAlignment = VerticalAlignment.Center
+                    //};
+
+                    //// TODO кол-во тестов
+
+                    //gridLine.Children.Add(number);
+                    //gridLine.Children.Add(nameCategory);
+                    //gridLine.Children.Add(numberOfTests);
+
+                    //Grid.SetColumn(number, 0);
+                    //Grid.SetColumn(nameCategory, 1);
+                    //Grid.SetColumn(numberOfTests, 2);
+
+                    ////buttonForRowCategory.Content = gridLine;
+                    ////buttonForRowCategory.Tag = this.categories[i].Id;
+                    ////buttonForRowCategory.Click += ButtonForRowCategory_Click;
+
+                    //buttonLine.Content = gridLine;
+
                     //this.stackPanelSelection.Children.Add(buttonLine);
 
+                    #endregion
 
-                    ButtonLine buttonLine = new ButtonLine();
-                    buttonLine.Style = (Style)(this.Resources["styleButtonForList"]);
-
-                    Grid gridLine = new Grid{Background = Brushes.Red};
-
-                    // Растягиваем Grid в кнопке - на всю ширину Button.
-                    Binding binding = new Binding();
-                    binding.ElementName = "stackPanelSelection";
-                    binding.Path = new PropertyPath("ActualWidth");
-                    gridLine.SetBinding(Grid.WidthProperty, binding);
-
-                    //gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(50.0, GridUnitType.Pixel) });
-                    gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-                    gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(11.0, GridUnitType.Star) });
-                    gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1.0, GridUnitType.Star) });
-                    // объекты новой строки
-                    TextBlock number = new TextBlock
-                    {
-                        Text = (i + 1).ToString(),
-                        Background = Brushes.AliceBlue,
-                        Width = 30,
-                        //Height = 25,
-                        Padding = new Thickness(0.0, 10.0, 0.0, 10.0),
-                        TextAlignment = TextAlignment.Center,
-                        Margin = new Thickness(5.0)
-                    };
-                    TextBlock nameCategory = new TextBlock
-                    {
-                        Text = tempCategories[i].Name,
-                        Background = Brushes.AntiqueWhite,
-                        //Padding = new Thickness(0.0, 10.0, 0.0, 10.0)
-                        VerticalAlignment = VerticalAlignment.Center
-                    };
-                    TextBlock numberOfTests = new TextBlock
-                    {
-                        Text = tempCategories[i].Test.Count().ToString(),
-                        Background = Brushes.Green,
-                        //Padding = new Thickness(0.0, 10.0, 0.0, 10.0)
-                        VerticalAlignment = VerticalAlignment.Center
-                    };
-
-                    // TODO кол-во тестов
-
-                    gridLine.Children.Add(number);
-                    gridLine.Children.Add(nameCategory);
-                    gridLine.Children.Add(numberOfTests);
-
-                    Grid.SetColumn(number, 0);
-                    Grid.SetColumn(nameCategory, 1);
-                    Grid.SetColumn(numberOfTests, 2);
-
-                    //buttonForRowCategory.Content = gridLine;
-                    //buttonForRowCategory.Tag = this.categories[i].Id;
-                    //buttonForRowCategory.Click += ButtonForRowCategory_Click;
-
-                    buttonLine.Content = gridLine;
-
-                    //this.stackPanelSelection.Children.Add(gridLine);
-                    this.stackPanelSelection.Children.Add(buttonLine);
+                    ButtonLine buttonLineForCategory
+                        = new ButtonLine(
+                            i,
+                            tempCategories[i].Name,
+                            tempCategories[i].Test.Count()
+                        );
+                    buttonLineForCategory.Style = (Style)(this.Resources["styleButtonForList"]); // What #1 ???
+                    buttonLineForCategory.Click += ButtonLineForCategory_Click;
+                    this.stackPanelSelection.Children.Add(buttonLineForCategory);
                 }
             }
+        }
+
+        private void ButtonLineForCategory_Click(object sender, RoutedEventArgs e)
+        {
+            // TODO показать в стекПанел тесты данной категории.
+
+            throw new NotImplementedException();
         }
 
         private Button CreateaButtonForTheRow(int i)
