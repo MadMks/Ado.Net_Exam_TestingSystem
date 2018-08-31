@@ -170,10 +170,12 @@ namespace WpfApp_TestingSystem
 
 
 
-                    
-                    Grid gridLine = new Grid();
 
+                    Grid gridLine = new Grid{Background = Brushes.Red};
+
+                    //gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(50.0, GridUnitType.Pixel) });
                     gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+                    gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(11.0, GridUnitType.Star) });
                     gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1.0, GridUnitType.Star) });
                     // объекты новой строки
                     TextBlock number = new TextBlock
@@ -193,14 +195,23 @@ namespace WpfApp_TestingSystem
                         //Padding = new Thickness(0.0, 10.0, 0.0, 10.0)
                         VerticalAlignment = VerticalAlignment.Center
                     };
+                    TextBlock numberOfTests = new TextBlock
+                    {
+                        Text = tempCategories[i].Test.Count().ToString(),
+                        Background = Brushes.Green,
+                        //Padding = new Thickness(0.0, 10.0, 0.0, 10.0)
+                        VerticalAlignment = VerticalAlignment.Center
+                    };
 
                     // TODO кол-во тестов
 
                     gridLine.Children.Add(number);
                     gridLine.Children.Add(nameCategory);
+                    gridLine.Children.Add(numberOfTests);
 
                     Grid.SetColumn(number, 0);
                     Grid.SetColumn(nameCategory, 1);
+                    Grid.SetColumn(numberOfTests, 2);
 
                     //buttonForRowCategory.Content = gridLine;
                     //buttonForRowCategory.Tag = this.categories[i].Id;
