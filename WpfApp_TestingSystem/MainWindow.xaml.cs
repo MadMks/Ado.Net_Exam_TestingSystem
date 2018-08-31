@@ -169,9 +169,16 @@ namespace WpfApp_TestingSystem
                     //this.stackPanelSelection.Children.Add(buttonLine);
 
 
-
+                    ButtonLine buttonLine = new ButtonLine();
+                    buttonLine.Style = (Style)(this.Resources["styleButtonForList"]);
 
                     Grid gridLine = new Grid{Background = Brushes.Red};
+
+                    // Растягиваем Grid в кнопке - на всю ширину Button.
+                    Binding binding = new Binding();
+                    binding.ElementName = "stackPanelSelection";
+                    binding.Path = new PropertyPath("ActualWidth");
+                    gridLine.SetBinding(Grid.WidthProperty, binding);
 
                     //gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(50.0, GridUnitType.Pixel) });
                     gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
@@ -217,7 +224,10 @@ namespace WpfApp_TestingSystem
                     //buttonForRowCategory.Tag = this.categories[i].Id;
                     //buttonForRowCategory.Click += ButtonForRowCategory_Click;
 
-                    this.stackPanelSelection.Children.Add(gridLine);
+                    buttonLine.Content = gridLine;
+
+                    //this.stackPanelSelection.Children.Add(gridLine);
+                    this.stackPanelSelection.Children.Add(buttonLine);
                 }
             }
         }
