@@ -15,15 +15,15 @@ namespace WpfApp_TestingSystem
     {
         private Grid gridLine = null;
 
-        private TextBlock tbNameCategory = null;
+        //private TextBlock tbNameCategory = null;
+        // ---
+        //public string CategoryName
+        //{
+        //    get { return tbNameCategory.Text; }
+        //    set { tbNameCategory.Text = value; }    // TODO ?!?!?!? времменно написал - нужно правильно присваивать!
+        //}
 
-        public string CategoryName
-        {
-            get { return tbNameCategory.Text; }
-            set { tbNameCategory.Text = value; }    // TODO ?!?!?!? времменно написал - нужно правильно присваивать!
-        }
-
-
+        // +
         public int CategoryID { get; set; }
 
 
@@ -62,14 +62,14 @@ namespace WpfApp_TestingSystem
                 Margin = new Thickness(5.0)
             };
             /*TextBlock*/
-            tbNameCategory = new TextBlock
+            TextBlock tbNameCategory = new TextBlock
             {
-                //Text = nameCategory,
+                Text = nameCategory,
                 Background = Brushes.AntiqueWhite,
                 //Padding = new Thickness(0.0, 10.0, 0.0, 10.0)
                 VerticalAlignment = VerticalAlignment.Center
             };
-            this.CategoryName = nameCategory;
+            //this.CategoryName = nameCategory;
             TextBlock tbQuantityTests = new TextBlock
             {
                 Text = quantityTests.ToString(),

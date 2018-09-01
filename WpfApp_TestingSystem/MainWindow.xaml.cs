@@ -114,7 +114,7 @@ namespace WpfApp_TestingSystem
                             tempTests[i].Question.Count
                         );
                     buttonLine.Style = (Style)(this.Resources["styleButtonForList"]); // What #1 ???
-                    buttonLine.Click += ButtonLineForTest_Click;
+                    buttonLine.Click += ButtonTestLine_Click;
                     this.stackPanelSelection.Children.Add(buttonLine);
                 }
             }
@@ -244,24 +244,32 @@ namespace WpfApp_TestingSystem
         // TODO +
         private void ButtonCategoryLine_Click(object sender, RoutedEventArgs e)
         {
+            // TODO показать в стекПанел тесты данной категории.
+
+            this.ShowTestsOfCurrentCategory(sender as ButtonCategoryLine);
+        }
+
+        private void ShowTestsOfCurrentCategory(ButtonCategoryLine buttonCategoryLine)
+        {
             if (this.stackPanelSelection.Children.Count > 0)
             {
                 this.stackPanelSelection.Children.Clear();
             }
 
-            // TODO показать в стекПанел тесты данной категории.
+
 
             using (TestingSystemEntities db = new TestingSystemEntities())
             {
                 db.Database.Log = Console.Write;
 
-                int tempCategoryID = (sender as ButtonCategoryLine).CategoryID;
+                //int tempCategoryID = buttonCategoryLine.CategoryID;
 
                 var testsOfTheSelectedCategory
                     = (
                     from test in db.Test
                         //where test.CategoryId == (sender as ButtonCategoryLine).CategoryID    // What #2 ???
-                    where test.CategoryId == tempCategoryID
+                    where test.CategoryId == buttonCategoryLine.CategoryID
+                    //where test.CategoryId == tempCategoryID
                     select test
                     )
                     //.Where(x => x.CategoryId == 1)
@@ -270,24 +278,26 @@ namespace WpfApp_TestingSystem
                 for (int i = 0; i < testsOfTheSelectedCategory.Count(); i++)
                 {
 
-                    ButtonLine buttonLineForTest
-                        = new ButtonLine(
+                    ButtonTestLine buttonTestLine
+                        = new ButtonTestLine(
                             i,
                             testsOfTheSelectedCategory[i].Name,
                             testsOfTheSelectedCategory[i].Category.Name,
                             testsOfTheSelectedCategory[i].Question.Count()
                         );
-                    buttonLineForTest.Style = (Style)(this.Resources["styleButtonForList"]); // What #1 ???
-                    buttonLineForTest.Click += ButtonLineForTest_Click;
-                    this.stackPanelSelection.Children.Add(buttonLineForTest);
+                    buttonTestLine.TestID = testsOfTheSelectedCategory[i].Id;
+
+                    buttonTestLine.Style = (Style)(this.Resources["styleButtonForList"]); // What #1 ???
+                    buttonTestLine.Click += ButtonTestLine_Click;
+                    this.stackPanelSelection.Children.Add(buttonTestLine);
                 }
             }
         }
 
-        private void ButtonLineForTest_Click(object sender, RoutedEventArgs e)
+        private void ButtonTestLine_Click(object sender, RoutedEventArgs e)
         {
             // TODO при нажатии на тест - запуск вопросов теста
-
+            MessageBox.Show("запуск вопросов теста");
             // загрузить страницу прохождения теста
             this.gridTestSelection.Visibility = Visibility.Hidden;
 
@@ -296,8 +306,12 @@ namespace WpfApp_TestingSystem
             // Title название теста   // TODO название категории
             //this.textBlockPassing_Title.Text
             //    = this.listBoxAllTests.SelectedValue.ToString();
+
+            ButtonTestLine buttonTestLine = sender as ButtonTestLine;
+
             this.textBlockPassing_Title.Text
-                = (sender as ButtonLine).CategoryName;
+                = buttonTestLine.CategoryName;
+
 
             this.answers = new List<Answer>();
 
@@ -310,7 +324,8 @@ namespace WpfApp_TestingSystem
                 // TODO загрузить все вопросы и ответы
                 questions = (
                     from question in db.Question.Include("Answer")  // HACK или безотложная (много маленьких запросов)
-                    where question.Test.Name == this.listBoxAllTests.SelectedValue.ToString()
+                    //where question.Test.Name == this.listBoxAllTests.SelectedValue.ToString()
+                    where question.Test.Id == buttonTestLine.TestID
                     select question
                     )
                     .ToList();
@@ -323,7 +338,7 @@ namespace WpfApp_TestingSystem
                 }
 
 
-                this.ShowQuestionWithAnswers();
+                //this.ShowQuestionWithAnswers();
             }
         }
 
