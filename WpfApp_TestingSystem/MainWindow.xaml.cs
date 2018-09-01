@@ -213,36 +213,58 @@ namespace WpfApp_TestingSystem
 
                     #endregion
 
-                    ButtonLine buttonLineForCategory
-                        = new ButtonLine(
+                    //ButtonLine buttonLineForCategory
+                    //    = new ButtonLine(
+                    //        i,
+                    //        listOfAllCategories[i].Name,
+                    //        listOfAllCategories[i].Test.Count()
+                    //    );
+
+                    ////buttonLineForCategory.Tag = listOfAllCategories[i].Id;
+
+
+                    //buttonLineForCategory.Style = (Style)(this.Resources["styleButtonForList"]); // What #1 ???
+                    //buttonLineForCategory.Click += ButtonLineForCategory_Click;
+                    //this.stackPanelSelection.Children.Add(buttonLineForCategory);
+
+                    ButtonCategoryLine buttonCategoryLine
+                        = new ButtonCategoryLine(
                             i,
                             listOfAllCategories[i].Name,
                             listOfAllCategories[i].Test.Count()
-                        );
+                            );
+                    buttonCategoryLine.CategoryID = listOfAllCategories[i].Id;
 
-                    buttonLineForCategory.Tag = listOfAllCategories[i].Id;
-
-                    buttonLineForCategory.Style = (Style)(this.Resources["styleButtonForList"]); // What #1 ???
-                    buttonLineForCategory.Click += ButtonLineForCategory_Click;
-                    this.stackPanelSelection.Children.Add(buttonLineForCategory);
+                    buttonCategoryLine.Style = (Style)(this.Resources["styleButtonForList"]);
+                    buttonCategoryLine.Click += ButtonCategoryLine_Click;
+                    this.stackPanelSelection.Children.Add(buttonCategoryLine);
                 }
             }
         }
         // TODO +
-        private void ButtonLineForCategory_Click(object sender, RoutedEventArgs e)
+        private void ButtonCategoryLine_Click(object sender, RoutedEventArgs e)
         {
+            if (this.stackPanelSelection.Children.Count > 0)
+            {
+                this.stackPanelSelection.Children.Clear();
+            }
+
             // TODO показать в стекПанел тесты данной категории.
 
             using (TestingSystemEntities db = new TestingSystemEntities())
             {
                 db.Database.Log = Console.Write;
 
+                int tempCategoryID = (sender as ButtonCategoryLine).CategoryID;
+
                 var testsOfTheSelectedCategory
                     = (
                     from test in db.Test
-                    where Convert.ToInt16((sender as ButtonLine).Tag) == test.CategoryId
+                        //where test.CategoryId == (sender as ButtonCategoryLine).CategoryID    // What #2 ???
+                    where test.CategoryId == tempCategoryID
                     select test
                     )
+                    //.Where(x => x.CategoryId == 1)
                     .ToList();
 
                 for (int i = 0; i < testsOfTheSelectedCategory.Count(); i++)
