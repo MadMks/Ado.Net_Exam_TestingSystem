@@ -43,8 +43,7 @@
                 Учитель
             </Button>
             <Button Grid.Row="3" Name="buttonStudent"
-                    HorizontalAlignment="Center"
-                    Click="buttonStudent_Click">
+                    HorizontalAlignment="Center">
                 Студент
             </Button>
             

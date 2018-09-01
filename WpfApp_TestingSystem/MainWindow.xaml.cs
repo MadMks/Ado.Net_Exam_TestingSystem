@@ -57,14 +57,22 @@ namespace WpfApp_TestingSystem
             this.numberOfCorrectAnswersStudent = 0;
 
             this.buttonTeacher.Click += ButtonTeacher_Click;
+            this.buttonStudent.Click += ButtonStudent_Click;
 
             this.buttonAllTests.Click += ButtonAllTests_Click;
             this.buttonCategory.Click += ButtonCategory_Click;
 
-            this.listBoxAllTests.MouseLeftButtonUp += ListBoxAllTests_MouseLeftButtonUp;
+            //this.listBoxAllTests.MouseLeftButtonUp += ListBoxAllTests_MouseLeftButtonUp;
             this.buttonPassing_Reply.Click += ButtonPassing_Reply_Click;
         }
+        // +
+        private void ButtonStudent_Click(object sender, RoutedEventArgs e)
+        {
+            this.gridUserTypeSelection.Visibility = Visibility.Hidden;
 
+            this.gridCategoryOrAllTest.Visibility = Visibility.Visible;
+        }
+        // +
         private void ButtonAllTests_Click(object sender, RoutedEventArgs e)
         {
             this.gridCategoryOrAllTest.Visibility = Visibility.Hidden;
@@ -73,7 +81,7 @@ namespace WpfApp_TestingSystem
 
             this.ShowAllTests();
         }
-
+        // +
         private void ShowAllTests()
         {
             // TODO clear stackP
@@ -106,26 +114,13 @@ namespace WpfApp_TestingSystem
                             tempTests[i].Question.Count
                         );
                     buttonLine.Style = (Style)(this.Resources["styleButtonForList"]); // What #1 ???
+                    buttonLine.Click += ButtonLineForTest_Click;
                     this.stackPanelSelection.Children.Add(buttonLine);
                 }
             }
         }
-
-        private void LoadingCategoriesFromTheDatabase()
-        {
-            using (TestingSystemEntities db = new TestingSystemEntities())
-            {
-                db.Database.Log = Console.Write;
-
-                this.categories
-                    = (
-                    from category in db.Category
-                    select category
-                    )
-                    .ToList();
-            }
-        }
-
+        
+        // +
         private void ButtonCategory_Click(object sender, RoutedEventArgs e)
         {
             this.gridCategoryOrAllTest.Visibility = Visibility.Hidden;
@@ -134,7 +129,7 @@ namespace WpfApp_TestingSystem
 
             this.ShowAllCategories();
         }
-
+        // +
         private void ShowAllCategories()
         {
             // TODO clear stackP
@@ -145,14 +140,14 @@ namespace WpfApp_TestingSystem
             {
                 db.Database.Log = Console.Write;
 
-                var tempCategories
+                var listOfAllCategories
                     = (
                     from category in db.Category
                     select category
                     )
                     .ToList();
 
-                for (int i = 0; i < tempCategories.Count(); i++)
+                for (int i = 0; i < listOfAllCategories.Count(); i++)
                 {
                     // TODO new line fo list category - method
 
@@ -221,23 +216,122 @@ namespace WpfApp_TestingSystem
                     ButtonLine buttonLineForCategory
                         = new ButtonLine(
                             i,
-                            tempCategories[i].Name,
-                            tempCategories[i].Test.Count()
+                            listOfAllCategories[i].Name,
+                            listOfAllCategories[i].Test.Count()
                         );
+
+                    buttonLineForCategory.Tag = listOfAllCategories[i].Id;
+
                     buttonLineForCategory.Style = (Style)(this.Resources["styleButtonForList"]); // What #1 ???
                     buttonLineForCategory.Click += ButtonLineForCategory_Click;
                     this.stackPanelSelection.Children.Add(buttonLineForCategory);
                 }
             }
         }
-
+        // TODO +
         private void ButtonLineForCategory_Click(object sender, RoutedEventArgs e)
         {
             // TODO показать в стекПанел тесты данной категории.
 
-            throw new NotImplementedException();
+            using (TestingSystemEntities db = new TestingSystemEntities())
+            {
+                db.Database.Log = Console.Write;
+
+                var testsOfTheSelectedCategory
+                    = (
+                    from test in db.Test
+                    where Convert.ToInt16((sender as ButtonLine).Tag) == test.CategoryId
+                    select test
+                    )
+                    .ToList();
+
+                for (int i = 0; i < testsOfTheSelectedCategory.Count(); i++)
+                {
+
+                    ButtonLine buttonLineForTest
+                        = new ButtonLine(
+                            i,
+                            testsOfTheSelectedCategory[i].Name,
+                            testsOfTheSelectedCategory[i].Category.Name,
+                            testsOfTheSelectedCategory[i].Question.Count()
+                        );
+                    buttonLineForTest.Style = (Style)(this.Resources["styleButtonForList"]); // What #1 ???
+                    buttonLineForTest.Click += ButtonLineForTest_Click;
+                    this.stackPanelSelection.Children.Add(buttonLineForTest);
+                }
+            }
         }
 
+        private void ButtonLineForTest_Click(object sender, RoutedEventArgs e)
+        {
+            // TODO при нажатии на тест - запуск вопросов теста
+
+            // загрузить страницу прохождения теста
+            this.gridTestSelection.Visibility = Visibility.Hidden;
+
+            this.gridPassingTheTest.Visibility = Visibility.Visible;
+
+            // Title название теста   // TODO название категории
+            //this.textBlockPassing_Title.Text
+            //    = this.listBoxAllTests.SelectedValue.ToString();
+            this.textBlockPassing_Title.Text
+                = (sender as ButtonLine).CategoryName;
+
+            this.answers = new List<Answer>();
+
+            using (TestingSystemEntities db = new TestingSystemEntities())
+            {
+                db.Database.Log = Console.Write;
+
+                //db.Configuration.LazyLoadingEnabled = false;
+
+                // TODO загрузить все вопросы и ответы
+                questions = (
+                    from question in db.Question.Include("Answer")  // HACK или безотложная (много маленьких запросов)
+                    where question.Test.Name == this.listBoxAllTests.SelectedValue.ToString()
+                    select question
+                    )
+                    .ToList();
+
+                // пробую загрузить ответы для одого текущего теста.
+
+                foreach (var item in this.questions)
+                {
+                    this.answers.AddRange(item.Answer.Where(x => x.QuestionId == item.Id).Select(x => x));
+                }
+
+
+                this.ShowQuestionWithAnswers();
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+        // ---
+        private void LoadingCategoriesFromTheDatabase()
+        {
+            using (TestingSystemEntities db = new TestingSystemEntities())
+            {
+                db.Database.Log = Console.Write;
+
+                this.categories
+                    = (
+                    from category in db.Category
+                    select category
+                    )
+                    .ToList();
+            }
+        }
+        // ---
         private Button CreateaButtonForTheRow(int i)
         {
             // Кнопка для новой строки (для контейнера)
@@ -246,52 +340,53 @@ namespace WpfApp_TestingSystem
                 Style = (Style)(this.Resources["styleButtonForList"])
                 /*Padding = new Thickness(15.0)*/
             };     // TODO в кнопку поместить все элементы
-                   // контейнер для объектов в новой строке
-            Grid gridLine = new Grid();
+            //       // контейнер для объектов в новой строке
+            //Grid gridLine = new Grid();
 
-            gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-            gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-            // объекты новой строки
-            TextBlock number = new TextBlock
-            {
-                Text = (i + 1).ToString(),
-                Background = Brushes.AliceBlue,
-                Width = 30,
-                //Height = 25,
-                Padding = new Thickness(0.0, 10.0, 0.0, 10.0),
-                TextAlignment = TextAlignment.Center,
-                Margin = new Thickness(5.0)
-            };
-            TextBlock nameCategory = new TextBlock
-            {
-                Text = this.categories[i].Name,
-                Background = Brushes.AntiqueWhite,
-                //Padding = new Thickness(0.0, 10.0, 0.0, 10.0)
-                VerticalAlignment = VerticalAlignment.Center
-            };
+            //gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+            //gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+            //// объекты новой строки
+            //TextBlock number = new TextBlock
+            //{
+            //    Text = (i + 1).ToString(),
+            //    Background = Brushes.AliceBlue,
+            //    Width = 30,
+            //    //Height = 25,
+            //    Padding = new Thickness(0.0, 10.0, 0.0, 10.0),
+            //    TextAlignment = TextAlignment.Center,
+            //    Margin = new Thickness(5.0)
+            //};
+            //TextBlock nameCategory = new TextBlock
+            //{
+            //    Text = this.categories[i].Name,
+            //    Background = Brushes.AntiqueWhite,
+            //    //Padding = new Thickness(0.0, 10.0, 0.0, 10.0)
+            //    VerticalAlignment = VerticalAlignment.Center
+            //};
 
-            // TODO кол-во тестов
+            //// TODO кол-во тестов
 
-            gridLine.Children.Add(number);
-            gridLine.Children.Add(nameCategory);
+            //gridLine.Children.Add(number);
+            //gridLine.Children.Add(nameCategory);
 
-            Grid.SetColumn(number, 0);
-            Grid.SetColumn(nameCategory, 1);
+            //Grid.SetColumn(number, 0);
+            //Grid.SetColumn(nameCategory, 1);
 
-            buttonForRowCategory.Content = gridLine;
-            buttonForRowCategory.Tag = this.categories[i].Id;
-            buttonForRowCategory.Click += ButtonForRowCategory_Click;
+            //buttonForRowCategory.Content = gridLine;
+            //buttonForRowCategory.Tag = this.categories[i].Id;
+            //buttonForRowCategory.Click += ButtonForRowCategory_Click;
 
             return buttonForRowCategory;
         }
-
+        // ---
         private void ButtonForRowCategory_Click(object sender, RoutedEventArgs e)
         {
             // при нажатии на кнопку категории
             // показать тесты внутри категории
-            this.ShowTests(Convert.ToInt32((sender as Button).Tag));
+            // ---
+            //this.ShowTests(Convert.ToInt32((sender as Button).Tag));
         }
-
+        // ---
         private Button CreateaButtonForTheRow(int i, string categoryName)
         {
             // Кнопка для новой строки (для контейнера)
@@ -301,191 +396,191 @@ namespace WpfApp_TestingSystem
                 /*Padding = new Thickness(15.0)*/
             };     // TODO в кнопку поместить все элементы
                    // контейнер для объектов в новой строке
-            Grid gridLine = new Grid();
+            //Grid gridLine = new Grid();
 
-            gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-            gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-            gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-            // объекты новой строки
-            TextBlock number = new TextBlock
-            {
-                Text = (i + 1).ToString(),
-                Background = Brushes.AliceBlue,
-                Width = 30,
-                //Height = 25,
-                Padding = new Thickness(0.0, 10.0, 0.0, 10.0),
-                TextAlignment = TextAlignment.Center,
-                Margin = new Thickness(5.0)
-            };
-            TextBlock nameTest = new TextBlock
-            {
-                Text = this.tests[i].Name,
-                Background = Brushes.AntiqueWhite,
-                //Padding = new Thickness(0.0, 10.0, 0.0, 10.0)
-                VerticalAlignment = VerticalAlignment.Center
-            };
-            TextBlock nameCategory = new TextBlock
-            {
-                Text = categoryName,
-                Background = Brushes.Azure,
-                //Padding = new Thickness(0.0, 10.0, 0.0, 10.0)
-                VerticalAlignment = VerticalAlignment.Center
-            };
+            //gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+            //gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+            //gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+            //// объекты новой строки
+            //TextBlock number = new TextBlock
+            //{
+            //    Text = (i + 1).ToString(),
+            //    Background = Brushes.AliceBlue,
+            //    Width = 30,
+            //    //Height = 25,
+            //    Padding = new Thickness(0.0, 10.0, 0.0, 10.0),
+            //    TextAlignment = TextAlignment.Center,
+            //    Margin = new Thickness(5.0)
+            //};
+            //TextBlock nameTest = new TextBlock
+            //{
+            //    Text = this.tests[i].Name,
+            //    Background = Brushes.AntiqueWhite,
+            //    //Padding = new Thickness(0.0, 10.0, 0.0, 10.0)
+            //    VerticalAlignment = VerticalAlignment.Center
+            //};
+            //TextBlock nameCategory = new TextBlock
+            //{
+            //    Text = categoryName,
+            //    Background = Brushes.Azure,
+            //    //Padding = new Thickness(0.0, 10.0, 0.0, 10.0)
+            //    VerticalAlignment = VerticalAlignment.Center
+            //};
 
-            // TODO кол-во тестов
+            //// TODO кол-во тестов
 
-            gridLine.Children.Add(number);
-            gridLine.Children.Add(nameTest);
-            gridLine.Children.Add(nameCategory);
+            //gridLine.Children.Add(number);
+            //gridLine.Children.Add(nameTest);
+            //gridLine.Children.Add(nameCategory);
 
-            Grid.SetColumn(number, 0);
-            Grid.SetColumn(nameTest, 1);
-            Grid.SetColumn(nameCategory, 2);
+            //Grid.SetColumn(number, 0);
+            //Grid.SetColumn(nameTest, 1);
+            //Grid.SetColumn(nameCategory, 2);
 
-            buttonForRowTest.Content = gridLine;
-            buttonForRowTest.Tag = this.categories[i].Id;
-            buttonForRowTest.Click += ButtonForRowTest_Click;
+            //buttonForRowTest.Content = gridLine;
+            //buttonForRowTest.Tag = this.categories[i].Id;
+            //buttonForRowTest.Click += ButtonForRowTest_Click;
 
             return buttonForRowTest;
         }
-
+        // ---
         private void ButtonForRowTest_Click(object sender, RoutedEventArgs e)
         {
             throw new NotImplementedException();
         }
-
+        // ---
         private void ShowTests()
         {
-            if (this.stackPanelSelection.Children.Count > 0)
-            {
-                this.stackPanelSelection.Children.Clear();
-            }
+            //if (this.stackPanelSelection.Children.Count > 0)
+            //{
+            //    this.stackPanelSelection.Children.Clear();
+            //}
 
-            this.LoadingTestsFromTheDatabase();   // TODO !?
+            //this.LoadingTestsFromTheDatabase();   // TODO !?
 
-            using (TestingSystemEntities db = new TestingSystemEntities())
-            {
-                db.Database.Log = Console.Write;
+            //using (TestingSystemEntities db = new TestingSystemEntities())
+            //{
+            //    db.Database.Log = Console.Write;
 
-                db.Configuration.LazyLoadingEnabled = false;
+            //    db.Configuration.LazyLoadingEnabled = false;
 
-                this.tests
-                    = (
-                    from test in db.Test
-                    select test
-                    )
-                    .ToList();
+            //    this.tests
+            //        = (
+            //        from test in db.Test
+            //        select test
+            //        )
+            //        .ToList();
 
-                db.Entry(this.tests).Collection("Category").Load();
+            //    db.Entry(this.tests).Collection("Category").Load();
 
-                for (int i = 0; i < this.tests.Count; i++)  // TODO int testCount = db.Test.Count();
-                {
+            //    for (int i = 0; i < this.tests.Count; i++)  // TODO int testCount = db.Test.Count();
+            //    {
 
-                    // Кнопка для новой строки (для контейнера)
-                    Button buttonForRowTest = new Button
-                    {
-                        Style = (Style)(this.Resources["styleButtonForList"])
-                        /*Padding = new Thickness(15.0)*/
-                    };     // TODO в кнопку поместить все элементы
-                           // контейнер для объектов в новой строке
-                    Grid gridLine = new Grid();
+            //        // Кнопка для новой строки (для контейнера)
+            //        Button buttonForRowTest = new Button
+            //        {
+            //            Style = (Style)(this.Resources["styleButtonForList"])
+            //            /*Padding = new Thickness(15.0)*/
+            //        };     // TODO в кнопку поместить все элементы
+            //               // контейнер для объектов в новой строке
+            //        Grid gridLine = new Grid();
 
-                    gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-                    gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-                    gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-                    // объекты новой строки
-                    TextBlock number = new TextBlock
-                    {
-                        Text = (i + 1).ToString(),
-                        Background = Brushes.AliceBlue,
-                        Width = 30,
-                        //Height = 25,
-                        Padding = new Thickness(0.0, 10.0, 0.0, 10.0),
-                        TextAlignment = TextAlignment.Center,
-                        Margin = new Thickness(5.0)
-                    };
-                    TextBlock nameTest = new TextBlock
-                    {
-                        Text = this.tests[i].Name,
-                        Background = Brushes.AntiqueWhite,
-                        //Padding = new Thickness(0.0, 10.0, 0.0, 10.0)
-                        VerticalAlignment = VerticalAlignment.Center
-                    };
-                    TextBlock nameCategory = new TextBlock
-                    {
-                        Text = this.tests[i].Category.Name,
-                        Background = Brushes.Azure,
-                        //Padding = new Thickness(0.0, 10.0, 0.0, 10.0)
-                        VerticalAlignment = VerticalAlignment.Center
-                    };
+            //        gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+            //        gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+            //        gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+            //        // объекты новой строки
+            //        TextBlock number = new TextBlock
+            //        {
+            //            Text = (i + 1).ToString(),
+            //            Background = Brushes.AliceBlue,
+            //            Width = 30,
+            //            //Height = 25,
+            //            Padding = new Thickness(0.0, 10.0, 0.0, 10.0),
+            //            TextAlignment = TextAlignment.Center,
+            //            Margin = new Thickness(5.0)
+            //        };
+            //        TextBlock nameTest = new TextBlock
+            //        {
+            //            Text = this.tests[i].Name,
+            //            Background = Brushes.AntiqueWhite,
+            //            //Padding = new Thickness(0.0, 10.0, 0.0, 10.0)
+            //            VerticalAlignment = VerticalAlignment.Center
+            //        };
+            //        TextBlock nameCategory = new TextBlock
+            //        {
+            //            Text = this.tests[i].Category.Name,
+            //            Background = Brushes.Azure,
+            //            //Padding = new Thickness(0.0, 10.0, 0.0, 10.0)
+            //            VerticalAlignment = VerticalAlignment.Center
+            //        };
 
-                    // TODO кол-во тестов
+            //        // TODO кол-во тестов
 
-                    gridLine.Children.Add(number);
-                    gridLine.Children.Add(nameTest);
-                    gridLine.Children.Add(nameCategory);
+            //        gridLine.Children.Add(number);
+            //        gridLine.Children.Add(nameTest);
+            //        gridLine.Children.Add(nameCategory);
 
-                    Grid.SetColumn(number, 0);
-                    Grid.SetColumn(nameTest, 1);
-                    Grid.SetColumn(nameCategory, 2);
+            //        Grid.SetColumn(number, 0);
+            //        Grid.SetColumn(nameTest, 1);
+            //        Grid.SetColumn(nameCategory, 2);
 
-                    buttonForRowTest.Content = gridLine;
-                    buttonForRowTest.Tag = this.categories[i].Id;
-                    buttonForRowTest.Click += ButtonForRowTest_Click;
+            //        buttonForRowTest.Content = gridLine;
+            //        buttonForRowTest.Tag = this.categories[i].Id;
+            //        buttonForRowTest.Click += ButtonForRowTest_Click;
 
                     
 
 
-                    this.stackPanelSelection.Children.Add(buttonForRowTest);
-                }
-            }
+            //        this.stackPanelSelection.Children.Add(buttonForRowTest);
+            //    }
+            //}
 
 
             
         }
-
+        // ---
         private void ShowTests(int idCategory)
         {
-            if (this.stackPanelSelection.Children.Count > 0)
-            {
-                this.stackPanelSelection.Children.Clear();
-            }
+            //if (this.stackPanelSelection.Children.Count > 0)
+            //{
+            //    this.stackPanelSelection.Children.Clear();
+            //}
 
-            this.LoadingTestsFromTheDatabase(idCategory);   // TODO !?
+            //this.LoadingTestsFromTheDatabase(idCategory);   // TODO !?
 
 
-            using (TestingSystemEntities db = new TestingSystemEntities())
-            {
-                db.Database.Log = Console.Write;
+            //using (TestingSystemEntities db = new TestingSystemEntities())
+            //{
+            //    db.Database.Log = Console.Write;
 
-                string categoryName
-                    = db.Category.Where(x => x.Id == idCategory)
-                    .FirstOrDefault()
-                    .Name.ToString();
+            //    string categoryName
+            //        = db.Category.Where(x => x.Id == idCategory)
+            //        .FirstOrDefault()
+            //        .Name.ToString();
 
-                for (int i = 0; i < this.tests.Count; i++)  // TODO int testCount = db.Test.Count();
-                {
-                    Button button = CreateaButtonForTheRow(i, categoryName);
-                    this.stackPanelSelection.Children.Add(button);
-                }
-            }
+            //    for (int i = 0; i < this.tests.Count; i++)  // TODO int testCount = db.Test.Count();
+            //    {
+            //        Button button = CreateaButtonForTheRow(i, categoryName);
+            //        this.stackPanelSelection.Children.Add(button);
+            //    }
+            //}
         }
-
+        // ---
         private void LoadingTestsFromTheDatabase()
         {
-            using (TestingSystemEntities db = new TestingSystemEntities())
-            {
-                db.Database.Log = Console.Write;
+            //using (TestingSystemEntities db = new TestingSystemEntities())
+            //{
+            //    db.Database.Log = Console.Write;
 
-                this.tests
-                    = (
-                    from test in db.Test
-                    select test
-                    )
-                    .ToList();
-            }
+            //    this.tests
+            //        = (
+            //        from test in db.Test
+            //        select test
+            //        )
+            //        .ToList();
+            //}
         }
-
+        // ---
         private void LoadingTestsFromTheDatabase(int idCategory)
         {
             using (TestingSystemEntities db = new TestingSystemEntities())
@@ -513,7 +608,13 @@ namespace WpfApp_TestingSystem
 
 
 
-
+        //
+        //
+        //
+        // Work code - #1
+        //
+        //
+        //
 
 
         private void ButtonTeacher_Click(object sender, RoutedEventArgs e)

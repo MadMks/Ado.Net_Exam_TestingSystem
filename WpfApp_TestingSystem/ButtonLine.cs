@@ -15,9 +15,20 @@ namespace WpfApp_TestingSystem
     {
         private Grid gridLine = null;
 
+        private TextBlock tbNameCategory;
+
+
+        public string CategoryName
+        {
+            get { return tbNameCategory.Text; }
+            set { tbNameCategory.Text = value; }    // TODO ?!?!?!? времменно написал - нужно правильно присваивать!
+        }
+
+
         public ButtonLine()
         {
-
+            // по умолчанию во все публичные свойства
+            // записать no name или 0
         }
 
         public ButtonLine(int number, string nameCategory, int quantityTests)
@@ -47,7 +58,7 @@ namespace WpfApp_TestingSystem
                 TextAlignment = TextAlignment.Center,
                 Margin = new Thickness(5.0)
             };
-            TextBlock tbNameCategory = new TextBlock
+            /*TextBlock*/ tbNameCategory = new TextBlock
             {
                 Text = nameCategory,
                 Background = Brushes.AntiqueWhite,
@@ -124,7 +135,7 @@ namespace WpfApp_TestingSystem
             {
                 Text = quantityQuestion.ToString(),
                 //HorizontalAlignment = HorizontalAlignment.Right,
-                Background = Brushes.Azure,
+                Background = Brushes.Green,
                 VerticalAlignment = VerticalAlignment.Center
             };
 
@@ -138,7 +149,6 @@ namespace WpfApp_TestingSystem
             Grid.SetColumn(textBlockNameTest, 1);
             Grid.SetColumn(textBlockNameCategory, 2);
             Grid.SetColumn(textBlockQuantityQuestion, 3);
-
 
             this.Content = this.gridLine;
         }
