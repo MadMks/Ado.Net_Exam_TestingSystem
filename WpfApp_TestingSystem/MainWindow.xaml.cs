@@ -33,8 +33,8 @@ namespace WpfApp_TestingSystem
 
         private List<Category> categories;
         private List<Test> tests;
-        private List<Question> questions;
-        private List<Answer> answers;
+        private List<Question> questionsOfTheSelectedTest;
+        private List<Answer> answersToTheCurrentQuestion;
 
         public MainWindow()
         {
@@ -92,30 +92,32 @@ namespace WpfApp_TestingSystem
             {
                 db.Database.Log = Console.Write;
 
-                var tempTests
+                var allTests
                     = (
                     from test in db.Test
                     select test
                     )
                     .ToList();
 
-                for (int i = 0; i < tempTests.Count(); i++)
+                for (int i = 0; i < allTests.Count(); i++)
                 {
                     // TODO new line fo list category - method
                     // TODO LineButtonForCategory - class
 
                     //Button button = CreateaButtonForTheRow(i);
 
-                    ButtonLine buttonLine
-                        = new ButtonLine(
+                    ButtonTestLine buttonTestLine
+                        = new ButtonTestLine(
                             i,
-                            tempTests[i].Name,
-                            tempTests[i].Category.Name,
-                            tempTests[i].Question.Count
+                            allTests[i].Name,
+                            allTests[i].Category.Name,
+                            allTests[i].Question.Count
                         );
-                    buttonLine.Style = (Style)(this.Resources["styleButtonForList"]); // What #1 ???
-                    buttonLine.Click += ButtonTestLine_Click;
-                    this.stackPanelSelection.Children.Add(buttonLine);
+                    buttonTestLine.TestID = allTests[i].Id;
+
+                    buttonTestLine.Style = (Style)(this.Resources["styleButtonForList"]); // What #1 ???
+                    buttonTestLine.Click += ButtonTestLine_Click;
+                    this.stackPanelSelection.Children.Add(buttonTestLine);
                 }
             }
         }
@@ -313,7 +315,7 @@ namespace WpfApp_TestingSystem
                 = buttonTestLine.CategoryName;
 
 
-            this.answers = new List<Answer>();
+            this.answersToTheCurrentQuestion = new List<Answer>();
 
             using (TestingSystemEntities db = new TestingSystemEntities())
             {
@@ -322,7 +324,7 @@ namespace WpfApp_TestingSystem
                 //db.Configuration.LazyLoadingEnabled = false;
 
                 // TODO загрузить все вопросы и ответы
-                questions = (
+                this.questionsOfTheSelectedTest = (
                     from question in db.Question.Include("Answer")  // HACK или безотложная (много маленьких запросов)
                     //where question.Test.Name == this.listBoxAllTests.SelectedValue.ToString()
                     where question.Test.Id == buttonTestLine.TestID
@@ -332,13 +334,14 @@ namespace WpfApp_TestingSystem
 
                 // пробую загрузить ответы для одого текущего теста.
 
-                foreach (var item in this.questions)
+                foreach (var item in this.questionsOfTheSelectedTest)
                 {
-                    this.answers.AddRange(item.Answer.Where(x => x.QuestionId == item.Id).Select(x => x));
+                    this.answersToTheCurrentQuestion
+                        .AddRange(item.Answer.Where(x => x.QuestionId == item.Id).Select(x => x));
                 }
 
 
-                //this.ShowQuestionWithAnswers();
+                this.ShowQuestionWithAnswers();
             }
         }
 
@@ -702,46 +705,46 @@ namespace WpfApp_TestingSystem
         private void ListBoxAllTests_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             // загрузить страницу прохождения теста
-            this.gridTestSelection.Visibility = Visibility.Hidden;
+            //this.gridTestSelection.Visibility = Visibility.Hidden;
 
-            this.gridPassingTheTest.Visibility = Visibility.Visible;
+            //this.gridPassingTheTest.Visibility = Visibility.Visible;
 
-            // Title название теста   // TODO название категории
-            this.textBlockPassing_Title.Text
-                = this.listBoxAllTests.SelectedValue.ToString();
+            //// Title название теста   // TODO название категории
+            //this.textBlockPassing_Title.Text
+            //    = this.listBoxAllTests.SelectedValue.ToString();
 
-            this.answers = new List<Answer>();
+            //this.answers = new List<Answer>();
 
-            using (TestingSystemEntities db = new TestingSystemEntities())
-            {
-                db.Database.Log = Console.Write;
+            //using (TestingSystemEntities db = new TestingSystemEntities())
+            //{
+            //    db.Database.Log = Console.Write;
 
-                //db.Configuration.LazyLoadingEnabled = false;
+            //    //db.Configuration.LazyLoadingEnabled = false;
 
-                // TODO загрузить все вопросы и ответы
-                questions = (
-                    from question in db.Question.Include("Answer")  // HACK или безотложная (много маленьких запросов)
-                    where question.Test.Name == this.listBoxAllTests.SelectedValue.ToString()
-                    select question
-                    )
-                    .ToList();
+            //    // TODO загрузить все вопросы и ответы
+            //    questions = (
+            //        from question in db.Question.Include("Answer")  // HACK или безотложная (много маленьких запросов)
+            //        where question.Test.Name == this.listBoxAllTests.SelectedValue.ToString()
+            //        select question
+            //        )
+            //        .ToList();
 
-                // пробую загрузить ответы для одого текущего теста.
+            //    // пробую загрузить ответы для одого текущего теста.
                 
-                foreach (var item in this.questions)
-                {
-                    this.answers.AddRange(item.Answer.Where(x => x.QuestionId == item.Id).Select(x => x));
-                }
+            //    foreach (var item in this.questions)
+            //    {
+            //        this.answers.AddRange(item.Answer.Where(x => x.QuestionId == item.Id).Select(x => x));
+            //    }
 
 
-                this.ShowQuestionWithAnswers();
-            }
+            //    this.ShowQuestionWithAnswers();
+            //}
         }
 
         private void ShowQuestionWithAnswers()
         {
-            // проверка на кол-во вопросов
-            if (this.numberOfTheCurrentQuestion < this.questions.Count)
+            // проверка на кол-во вопросов (номер вопроса)
+            if (this.numberOfTheCurrentQuestion < this.questionsOfTheSelectedTest.Count)
             {
                 // Show
                 // Вывод на экран 1го вопроса
@@ -774,7 +777,7 @@ namespace WpfApp_TestingSystem
 
         private void ComputeOfPercent()
         {
-            this.testResultInPercent = (100 / this.questions.Count) * this.numberOfCorrectAnswersStudent;
+            this.testResultInPercent = (100 / this.questionsOfTheSelectedTest.Count) * this.numberOfCorrectAnswersStudent;
         }
 
         /// <summary>
@@ -791,7 +794,7 @@ namespace WpfApp_TestingSystem
 
             Thickness margin = new Thickness(5.0);
 
-            foreach (var answer in this.questions[this.numberOfTheCurrentQuestion].Answer)
+            foreach (var answer in this.questionsOfTheSelectedTest[this.numberOfTheCurrentQuestion].Answer)
             {
                 this.stackPanelPassing_Answer.Children.Add(
                     new RadioButton {
@@ -809,7 +812,7 @@ namespace WpfApp_TestingSystem
         private void ShowCurrentQuestion()
         {
             this.textBlockPassing_Question.Text
-                = this.questions[this.numberOfTheCurrentQuestion].QuestionText;
+                = this.questionsOfTheSelectedTest[this.numberOfTheCurrentQuestion].QuestionText;
 
         }
 
