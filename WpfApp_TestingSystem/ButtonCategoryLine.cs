@@ -26,6 +26,8 @@ namespace WpfApp_TestingSystem
         // +
         public int CategoryID { get; set; }
 
+        public bool IsTeacher { get; set; }
+
 
         public ButtonCategoryLine()
         {
@@ -34,15 +36,17 @@ namespace WpfApp_TestingSystem
         }
 
 
-        public ButtonCategoryLine(int number, string nameCategory, int quantityTests)
+        public ButtonCategoryLine(int number, string nameCategory, int quantityTests, bool isAdmin)
         {
             //this.Style = (Style)(this.Resources["styleButtonForList"]);   // What #1 ???
 
             this.gridLine = new Grid { Background = Brushes.Red };
 
+            this.Name = "btnCL" + number.ToString();
+            string thisName = "btnCL" + number.ToString();
             // Растягиваем Grid в кнопке - на всю ширину Button.
             Binding binding = new Binding();
-            binding.ElementName = "stackPanelSelection";
+            binding.ElementName = thisName;
             binding.Path = new PropertyPath("ActualWidth");
             gridLine.SetBinding(Grid.WidthProperty, binding);
 
@@ -50,6 +54,13 @@ namespace WpfApp_TestingSystem
             gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
             gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(11.0, GridUnitType.Star) });
             gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1.0, GridUnitType.Star) });
+
+            if (isAdmin)
+            {
+                gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1.0, GridUnitType.Star) });
+                gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1.0, GridUnitType.Star) });
+            }
+
             // объекты новой строки
             TextBlock tbNumber = new TextBlock
             {
@@ -78,6 +89,7 @@ namespace WpfApp_TestingSystem
                 VerticalAlignment = VerticalAlignment.Center
             };
 
+
             // TODO кол-во тестов
 
             gridLine.Children.Add(tbNumber);
@@ -87,6 +99,19 @@ namespace WpfApp_TestingSystem
             Grid.SetColumn(tbNumber, 0);
             Grid.SetColumn(tbNameCategory, 1);
             Grid.SetColumn(tbQuantityTests, 2);
+
+
+            if (isAdmin)
+            {
+                Button buttonEdit = new Button { Content = "Edit" };
+                Button buttonDelete = new Button { Content = "Delete" };
+
+                gridLine.Children.Add(buttonEdit);
+                gridLine.Children.Add(buttonDelete);
+
+                Grid.SetColumn(buttonEdit, 3);
+                Grid.SetColumn(buttonDelete, 4);
+            }
 
             //buttonForRowCategory.Content = gridLine;
             //buttonForRowCategory.Tag = this.categories[i].Id;
