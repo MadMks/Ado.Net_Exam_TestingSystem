@@ -162,55 +162,55 @@ namespace WpfApp_TestingSystem
                             i,
                             listOfAllCategories[i].Name,
                             listOfAllCategories[i].Test.Count()
-                            , this.isTeacher
+                            //, this.isTeacher
                             );
                     buttonCategoryLine.CategoryID = listOfAllCategories[i].Id;
 
                     buttonCategoryLine.Style = (Style)(this.Resources["styleButtonForList"]);
                     buttonCategoryLine.Click += ButtonCategoryLine_Click;
 
-                    if (this.isTeacher)
-                    {
-                        //Binding binding = new Binding();
-                        //binding.ElementName = "buttonCategoryLine";
-                        //binding.Path = new PropertyPath("ActualWidth");
-                        //gridLine.SetBinding(Grid.WidthProperty, binding);
+                    //if (this.isTeacher)
+                    //{
+                    //    //Binding binding = new Binding();
+                    //    //binding.ElementName = "buttonCategoryLine";
+                    //    //binding.Path = new PropertyPath("ActualWidth");
+                    //    //gridLine.SetBinding(Grid.WidthProperty, binding);
 
-                        //buttonCategoryLine.IsTeacher = true;
+                    //    buttonCategoryLine.IsTeacher = true;
 
-                        //Grid gridButtons = new Grid();
-                        //gridButtons.ColumnDefinitions.Add(new ColumnDefinition
-                        //{
-                        //    Width = new GridLength(10.0, GridUnitType.Star)
-                        //});
-                        //gridButtons.ColumnDefinitions.Add(new ColumnDefinition
-                        //{
-                        //    Width = new GridLength(1.0, GridUnitType.Star)
-                        //});
-                        //gridButtons.ColumnDefinitions.Add(new ColumnDefinition
-                        //{
-                        //    Width = new GridLength(1.0, GridUnitType.Star)
-                        //});
-
-
-                        //Button buttonEdit = new Button { Content = "Edit"};
-                        //Button buttonDelete = new Button { Content = "Delete"};
-
-                        //gridButtons.Children.Add(buttonCategoryLine);
-                        //gridButtons.Children.Add(buttonEdit);
-                        //gridButtons.Children.Add(buttonDelete);
-
-                        //Grid.SetColumn(buttonCategoryLine, 0);
-                        //Grid.SetColumn(buttonEdit, 1);
-                        //Grid.SetColumn(buttonDelete, 2);
+                    //    Grid gridButtons = new Grid();
+                    //    gridButtons.ColumnDefinitions.Add(new ColumnDefinition
+                    //    {
+                    //        Width = new GridLength(10.0, GridUnitType.Star)
+                    //    });
+                    //    gridButtons.ColumnDefinitions.Add(new ColumnDefinition
+                    //    {
+                    //        Width = new GridLength(1.0, GridUnitType.Star)
+                    //    });
+                    //    gridButtons.ColumnDefinitions.Add(new ColumnDefinition
+                    //    {
+                    //        Width = new GridLength(1.0, GridUnitType.Star)
+                    //    });
 
 
-                        //this.stackPanelSelection.Children.Add(gridButtons);
-                    }
-                    else
-                    {
-                        //this.stackPanelSelection.Children.Add(buttonCategoryLine);
-                    }
+                    //    Button buttonEdit = new Button { Content = "Edit" };
+                    //    Button buttonDelete = new Button { Content = "Delete" };
+
+                    //    gridButtons.Children.Add(buttonCategoryLine);
+                    //    gridButtons.Children.Add(buttonEdit);
+                    //    gridButtons.Children.Add(buttonDelete);
+
+                    //    Grid.SetColumn(buttonCategoryLine, 0);
+                    //    Grid.SetColumn(buttonEdit, 1);
+                    //    Grid.SetColumn(buttonDelete, 2);
+
+
+                    //    this.stackPanelSelection.Children.Add(gridButtons);
+                    //}
+                    //else
+                    //{
+                    //    this.stackPanelSelection.Children.Add(buttonCategoryLine);
+                    //}
 
 
                     this.stackPanelSelection.Children.Add(buttonCategoryLine);

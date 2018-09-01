@@ -36,17 +36,15 @@ namespace WpfApp_TestingSystem
         }
 
 
-        public ButtonCategoryLine(int number, string nameCategory, int quantityTests, bool isAdmin)
+        public ButtonCategoryLine(int number, string nameCategory, int quantityTests/*, bool isAdmin*/)
         {
             //this.Style = (Style)(this.Resources["styleButtonForList"]);   // What #1 ???
 
             this.gridLine = new Grid { Background = Brushes.Red };
 
-            this.Name = "btnCL" + number.ToString();
-            string thisName = "btnCL" + number.ToString();
             // Растягиваем Grid в кнопке - на всю ширину Button.
             Binding binding = new Binding();
-            binding.ElementName = thisName;
+            binding.ElementName = "stackPanelSelection";
             binding.Path = new PropertyPath("ActualWidth");
             gridLine.SetBinding(Grid.WidthProperty, binding);
 
@@ -55,11 +53,11 @@ namespace WpfApp_TestingSystem
             gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(11.0, GridUnitType.Star) });
             gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1.0, GridUnitType.Star) });
 
-            if (isAdmin)
-            {
-                gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1.0, GridUnitType.Star) });
-                gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1.0, GridUnitType.Star) });
-            }
+            //if (isAdmin)
+            //{
+            //    gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1.0, GridUnitType.Star) });
+            //    gridLine.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1.0, GridUnitType.Star) });
+            //}
 
             // объекты новой строки
             TextBlock tbNumber = new TextBlock
@@ -101,17 +99,17 @@ namespace WpfApp_TestingSystem
             Grid.SetColumn(tbQuantityTests, 2);
 
 
-            if (isAdmin)
-            {
-                Button buttonEdit = new Button { Content = "Edit" };
-                Button buttonDelete = new Button { Content = "Delete" };
+            //if (isAdmin)
+            //{
+            //    Button buttonEdit = new Button { Content = "Edit" };
+            //    Button buttonDelete = new Button { Content = "Delete" };
 
-                gridLine.Children.Add(buttonEdit);
-                gridLine.Children.Add(buttonDelete);
+            //    gridLine.Children.Add(buttonEdit);
+            //    gridLine.Children.Add(buttonDelete);
 
-                Grid.SetColumn(buttonEdit, 3);
-                Grid.SetColumn(buttonDelete, 4);
-            }
+            //    Grid.SetColumn(buttonEdit, 3);
+            //    Grid.SetColumn(buttonDelete, 4);
+            //}
 
             //buttonForRowCategory.Content = gridLine;
             //buttonForRowCategory.Tag = this.categories[i].Id;
