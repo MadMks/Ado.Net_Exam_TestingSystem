@@ -75,15 +75,9 @@ namespace WpfApp_TestingSystem
             Grid.SetColumn(tbNameCategory, 1);
             Grid.SetColumn(tbQuantityTests, 2);
 
-            //if (!isTeacher)
-            //{
-                // Если студент, растянем кнопку на три колонки
-                // (скроем место для кнопок админа/учителя).
-                //Grid.SetColumnSpan(textBlockHiddenForSizeButtonLine, 3);
-
             // Скрываем зарезервированное место для кнопок админа.
-                Grid.SetColumnSpan(button, 3);
-            //}
+            Grid.SetColumnSpan(button, 3);
+
 
             // Добавим в кнопку grid с текстБлоками (в которых данные).
             button.Content = gridLineButton;
@@ -102,7 +96,7 @@ namespace WpfApp_TestingSystem
             this.Children.Add(button);
         }
 
-        public void ShowButtonsForEditing()
+        public void OpenAReservedPlaceForEditingButtons()
         {
             Grid.SetColumnSpan(button, 1);
         }

@@ -190,16 +190,35 @@ namespace WpfApp_TestingSystem
 
                     if (this.isTeacher)
                     {
-                        // открытие зарезервированного места для кнопок редактирования
-                        Grid.SetColumnSpan(this.textBlockHiddenForSizeButtonLine, 1);
-
-                        gridLineCategory.ShowButtonsForEditing();
+                        this.AddingEditingButtons(gridLineCategory, listOfAllCategories[i].Id);
                     }
 
                     this.stackPanelSelection.Children.Add(gridLineCategory);
                 }
             }
         }
+
+        private void AddingEditingButtons(GridLineCategory gridLineCategory, int idCategory)
+        {
+            // открытие зарезервированного места для кнопок редактирования
+            Grid.SetColumnSpan(this.textBlockHiddenForSizeButtonLine, 1);
+
+            gridLineCategory.OpenAReservedPlaceForEditingButtons();
+
+            // Добавление кнопок редактирования.
+            Button buttonEditCategory = new Button { Content = "Edit", Tag = idCategory };
+            gridLineCategory.Children.Add(buttonEditCategory);
+            Grid.SetColumn(buttonEditCategory, 1);
+            // TODO 2я кнопка - удаление
+
+            buttonEditCategory.Click += ButtonEditCategory_Click;
+        }
+
+        private void ButtonEditCategory_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Edit id = " + (sender as Button).Tag);
+        }
+
         // TODO +
         private void ButtonCategoryLine_Click(object sender, RoutedEventArgs e)
         {
