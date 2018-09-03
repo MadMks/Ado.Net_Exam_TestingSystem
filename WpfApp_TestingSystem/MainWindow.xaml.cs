@@ -38,6 +38,15 @@ namespace WpfApp_TestingSystem
         private List<Question> questionsOfTheSelectedTest;
         private List<Answer> answersToTheCurrentQuestion;
 
+
+
+        //public TextBlock TextBlockHiddenForSizeButtonLine
+        //{
+        //    get { return textBlockHiddenForSizeButtonLine; }
+        //}
+
+
+
         public MainWindow()
         {
             InitializeComponent();
@@ -157,63 +166,37 @@ namespace WpfApp_TestingSystem
                 {
                     // TODO new line fo list category - method
 
-                    ButtonCategoryLine buttonCategoryLine
-                        = new ButtonCategoryLine(
+                    //ButtonCategoryLine buttonCategoryLine
+                    //    = new ButtonCategoryLine(
+                    //        i,
+                    //        listOfAllCategories[i].Name,
+                    //        listOfAllCategories[i].Test.Count()
+                    //        //, this.isTeacher
+                    //        );
+                    //buttonCategoryLine.CategoryID = listOfAllCategories[i].Id;
+
+                    //buttonCategoryLine.Style = (Style)(this.Resources["styleButtonForList"]);
+                    //buttonCategoryLine.Click += ButtonCategoryLine_Click;
+
+                    GridLineCategory gridLineCategory 
+                        = new GridLineCategory(
                             i,
                             listOfAllCategories[i].Name,
                             listOfAllCategories[i].Test.Count()
-                            //, this.isTeacher
-                            );
-                    buttonCategoryLine.CategoryID = listOfAllCategories[i].Id;
+                            , this.isTeacher
+                        );
+                    // Установить стиль кнопки внутри grid
+                    (gridLineCategory.Children[0] as Button).Style = (Style)(this.Resources["styleButtonForList"]);
 
-                    buttonCategoryLine.Style = (Style)(this.Resources["styleButtonForList"]);
-                    buttonCategoryLine.Click += ButtonCategoryLine_Click;
+                    if (this.isTeacher)
+                    {
+                        // открытие зарезервированного места для кнопок редактирования
+                        Grid.SetColumnSpan(this.textBlockHiddenForSizeButtonLine, 1);
 
-                    //if (this.isTeacher)
-                    //{
-                    //    //Binding binding = new Binding();
-                    //    //binding.ElementName = "buttonCategoryLine";
-                    //    //binding.Path = new PropertyPath("ActualWidth");
-                    //    //gridLine.SetBinding(Grid.WidthProperty, binding);
+                        gridLineCategory.ShowButtonsForEditing();
+                    }
 
-                    //    buttonCategoryLine.IsTeacher = true;
-
-                    //    Grid gridButtons = new Grid();
-                    //    gridButtons.ColumnDefinitions.Add(new ColumnDefinition
-                    //    {
-                    //        Width = new GridLength(10.0, GridUnitType.Star)
-                    //    });
-                    //    gridButtons.ColumnDefinitions.Add(new ColumnDefinition
-                    //    {
-                    //        Width = new GridLength(1.0, GridUnitType.Star)
-                    //    });
-                    //    gridButtons.ColumnDefinitions.Add(new ColumnDefinition
-                    //    {
-                    //        Width = new GridLength(1.0, GridUnitType.Star)
-                    //    });
-
-
-                    //    Button buttonEdit = new Button { Content = "Edit" };
-                    //    Button buttonDelete = new Button { Content = "Delete" };
-
-                    //    gridButtons.Children.Add(buttonCategoryLine);
-                    //    gridButtons.Children.Add(buttonEdit);
-                    //    gridButtons.Children.Add(buttonDelete);
-
-                    //    Grid.SetColumn(buttonCategoryLine, 0);
-                    //    Grid.SetColumn(buttonEdit, 1);
-                    //    Grid.SetColumn(buttonDelete, 2);
-
-
-                    //    this.stackPanelSelection.Children.Add(gridButtons);
-                    //}
-                    //else
-                    //{
-                    //    this.stackPanelSelection.Children.Add(buttonCategoryLine);
-                    //}
-
-
-                    this.stackPanelSelection.Children.Add(buttonCategoryLine);
+                    this.stackPanelSelection.Children.Add(gridLineCategory);
                 }
             }
         }

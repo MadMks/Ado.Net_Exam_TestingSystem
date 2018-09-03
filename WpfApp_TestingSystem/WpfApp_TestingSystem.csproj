@@ -75,6 +75,7 @@
     <Compile Include="Category.cs">
       <DependentUpon>TestingSystemModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="GridLineCategory.cs" />
     <Compile Include="Question.cs">
       <DependentUpon>TestingSystemModel.tt</DependentUpon>
     </Compile>
