@@ -153,8 +153,6 @@ namespace WpfApp_TestingSystem
             if (this.stackPanelSelection.Children.Count > 0)
             {
                 this.stackPanelSelection.Children.Clear();
-
-                //this.AddAnAdditionalRowForABinding();
             }
 
             //this.LoadingCategoriesFromTheDatabase();
@@ -214,26 +212,6 @@ namespace WpfApp_TestingSystem
             }
         }
 
-        private void AddAnAdditionalRowForABinding()
-        {
-            //Grid grid = new Grid();
-            //grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(10.0, GridUnitType.Star) });
-            //grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1.0, GridUnitType.Star) });
-            //grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1.0, GridUnitType.Star) });
-
-            //textBlockHiddenForSizeButtonLine = new TextBlock
-            //{
-            //    Name = "textBlockHiddenForSizeButtonLine",
-            //    Background = Brushes.BlueViolet,
-            //    Height = 10
-            //};
-
-            //grid.Children.Add(textBlockHiddenForSizeButtonLine);
-            //Grid.SetColumn(textBlockHiddenForSizeButtonLine, 0);
-
-            //this.stackPanelSelection.Children.Add(grid);
-        }
-
         private void AddingEditingButtons(GridLineCategory gridLineCategory, int idCategory)
         {
             // открытие зарезервированного места для кнопок редактирования
@@ -279,12 +257,28 @@ namespace WpfApp_TestingSystem
                     if (testsCount > 0)
                     {
                         var deleteTests
-                        = (
-                        from test in db.Test
-                        where test.CategoryId == deleteCategory.Id
-                        select test
-                        )
-                        .ToList();
+                            = (
+                            from test in db.Test
+                            where test.CategoryId == deleteCategory.Id
+                            select test
+                            )
+                            .ToList();
+
+                        Int16[] delTestsId = (from test in deleteTests select test.Id).ToArray();
+
+                        var deleteQuestions
+                            = (
+                            from question in db.Question
+                                //where (from test in deleteTests select test.Id).Contains(question.TestId)
+                            where (delTestsId).Contains(question.TestId)
+                            select question
+                            )
+                            .ToList();
+
+                        if (deleteQuestions.Count > 0)
+                        {
+                            db.Question.RemoveRange(deleteQuestions);
+                        }
 
                         db.Test.RemoveRange(deleteTests);
                     }
