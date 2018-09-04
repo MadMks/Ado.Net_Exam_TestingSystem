@@ -242,11 +242,40 @@ namespace WpfApp_TestingSystem
                 int idCategory = Convert.ToInt32((sender as Button).Tag);
 
                 var deleteCategory = db.Category.Where(x => x.Id == idCategory).FirstOrDefault();
-                db.Category.Remove(deleteCategory);
-                db.SaveChanges();
+
+                int testsCount = deleteCategory.Test.Count();
+
+                MessageBoxResult result = MessageBox.Show(
+                    $"Категория {deleteCategory.Name} содержит {testsCount} тестов."
+                    + " \nУдалить?",
+                    $"Удаление категории {deleteCategory.Name}",
+                    MessageBoxButton.YesNo);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    if (testsCount > 0)
+                    {
+                        var deleteTests
+                        = (
+                        from test in db.Test
+                        where test.CategoryId == deleteCategory.Id
+                        select test
+                        )
+                        .ToList();
+
+                        db.Test.RemoveRange(deleteTests);
+                    }
+
+                    db.Category.Remove(deleteCategory);
+                    db.SaveChanges();
+
+                    this.ShowAllCategories();
+                }
+
+                
             }
 
-            this.ShowAllCategories();
+            
         }
 
         private void ButtonEditCategory_Click(object sender, RoutedEventArgs e)
