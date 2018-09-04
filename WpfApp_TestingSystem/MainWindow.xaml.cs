@@ -148,19 +148,26 @@ namespace WpfApp_TestingSystem
         private void ShowAllCategories()
         {
             // TODO clear stackP
+            if (this.stackPanelSelection.Children.Count > 0)
+            {
+                this.stackPanelSelection.Children.Clear();
+            }
 
             //this.LoadingCategoriesFromTheDatabase();
 
             using (TestingSystemEntities db = new TestingSystemEntities())
             {
                 db.Database.Log = Console.Write;
+                //db.Configuration.LazyLoadingEnabled = false;
 
                 var listOfAllCategories
                     = (
-                    from category in db.Category
+                    from category in db.Category.Include("Test")
                     select category
                     )
                     .ToList();
+
+                //MessageBox.Show("1");
 
                 for (int i = 0; i < listOfAllCategories.Count(); i++)
                 {
@@ -177,6 +184,7 @@ namespace WpfApp_TestingSystem
 
                     //buttonCategoryLine.Style = (Style)(this.Resources["styleButtonForList"]);
                     //buttonCategoryLine.Click += ButtonCategoryLine_Click;
+                    //MessageBox.Show("2");
 
                     GridLineCategory gridLineCategory 
                         = new GridLineCategory(
@@ -185,8 +193,13 @@ namespace WpfApp_TestingSystem
                             listOfAllCategories[i].Test.Count()
                             , this.isTeacher
                         );
+
+                    //MessageBox.Show("3");
+
                     // Установить стиль кнопки внутри grid
                     (gridLineCategory.Children[0] as Button).Style = (Style)(this.Resources["styleButtonForList"]);
+
+                    
 
                     if (this.isTeacher)
                     {
@@ -206,12 +219,34 @@ namespace WpfApp_TestingSystem
             gridLineCategory.OpenAReservedPlaceForEditingButtons();
 
             // Добавление кнопок редактирования.
+
+            // Кнопка "Редактирровать".
             Button buttonEditCategory = new Button { Content = "Edit", Tag = idCategory };
             gridLineCategory.Children.Add(buttonEditCategory);
             Grid.SetColumn(buttonEditCategory, 1);
-            // TODO 2я кнопка - удаление
+            // Кнопка "Удалить".
+            Button buttonDelCategory = new Button { Content = "Del", Tag = idCategory };
+            gridLineCategory.Children.Add(buttonDelCategory);
+            Grid.SetColumn(buttonDelCategory, 2);
 
             buttonEditCategory.Click += ButtonEditCategory_Click;
+            buttonDelCategory.Click += ButtonDelCategory_Click;
+        }
+
+        private void ButtonDelCategory_Click(object sender, RoutedEventArgs e)
+        {
+            using (TestingSystemEntities db = new TestingSystemEntities())
+            {
+                db.Database.Log = Console.Write;
+
+                int idCategory = Convert.ToInt32((sender as Button).Tag);
+
+                var deleteCategory = db.Category.Where(x => x.Id == idCategory).FirstOrDefault();
+                db.Category.Remove(deleteCategory);
+                db.SaveChanges();
+            }
+
+            this.ShowAllCategories();
         }
 
         private void ButtonEditCategory_Click(object sender, RoutedEventArgs e)
