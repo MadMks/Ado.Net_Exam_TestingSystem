@@ -38,7 +38,7 @@ namespace WpfApp_TestingSystem
         private List<Question> questionsOfTheSelectedTest;
         private List<Answer> answersToTheCurrentQuestion;
 
-
+        //private TextBlock textBlockHiddenForSizeButtonLine = null;
 
         //public TextBlock TextBlockHiddenForSizeButtonLine
         //{
@@ -90,7 +90,8 @@ namespace WpfApp_TestingSystem
         {
             this.gridCategoryOrAllTest.Visibility = Visibility.Hidden;
 
-            this.stackPanelSelection.Visibility = Visibility.Visible;
+            //this.stackPanelSelection.Visibility = Visibility.Visible;
+            this.gridSelection.Visibility = Visibility.Visible;
 
             this.ShowAllTests();
         }
@@ -140,7 +141,8 @@ namespace WpfApp_TestingSystem
         {
             this.gridCategoryOrAllTest.Visibility = Visibility.Hidden;
 
-            this.stackPanelSelection.Visibility = Visibility.Visible;
+            //this.stackPanelSelection.Visibility = Visibility.Visible;
+            this.gridSelection.Visibility = Visibility.Visible;
 
             this.ShowAllCategories();
         }
@@ -151,6 +153,8 @@ namespace WpfApp_TestingSystem
             if (this.stackPanelSelection.Children.Count > 0)
             {
                 this.stackPanelSelection.Children.Clear();
+
+                //this.AddAnAdditionalRowForABinding();
             }
 
             //this.LoadingCategoriesFromTheDatabase();
@@ -191,7 +195,7 @@ namespace WpfApp_TestingSystem
                             i,
                             listOfAllCategories[i].Name,
                             listOfAllCategories[i].Test.Count()
-                            , this.isTeacher
+                            //, this.textBlockHiddenForSizeButtonLine
                         );
 
                     //MessageBox.Show("3");
@@ -199,7 +203,6 @@ namespace WpfApp_TestingSystem
                     // Установить стиль кнопки внутри grid
                     (gridLineCategory.Children[0] as Button).Style = (Style)(this.Resources["styleButtonForList"]);
 
-                    
 
                     if (this.isTeacher)
                     {
@@ -209,6 +212,26 @@ namespace WpfApp_TestingSystem
                     this.stackPanelSelection.Children.Add(gridLineCategory);
                 }
             }
+        }
+
+        private void AddAnAdditionalRowForABinding()
+        {
+            //Grid grid = new Grid();
+            //grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(10.0, GridUnitType.Star) });
+            //grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1.0, GridUnitType.Star) });
+            //grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1.0, GridUnitType.Star) });
+
+            //textBlockHiddenForSizeButtonLine = new TextBlock
+            //{
+            //    Name = "textBlockHiddenForSizeButtonLine",
+            //    Background = Brushes.BlueViolet,
+            //    Height = 10
+            //};
+
+            //grid.Children.Add(textBlockHiddenForSizeButtonLine);
+            //Grid.SetColumn(textBlockHiddenForSizeButtonLine, 0);
+
+            //this.stackPanelSelection.Children.Add(grid);
         }
 
         private void AddingEditingButtons(GridLineCategory gridLineCategory, int idCategory)

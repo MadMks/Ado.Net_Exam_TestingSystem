@@ -81,25 +81,41 @@
             </Grid.ColumnDefinitions>
         </Grid>-->
 
-        <StackPanel Grid.Row="0" Name="stackPanelSelection"
-              Background="DodgerBlue"
+        <Grid Grid.Row="0" Name="gridSelection"
               Visibility="Hidden">
 
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="10*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                </Grid.ColumnDefinitions>
-                <!--Первая невидимая строка для привязки к ней размера grid в Кнопке-->
-                <TextBlock Grid.Column="0" Name="textBlockHiddenForSizeButtonLine" Background="BlueViolet"
-                           Grid.ColumnSpan="3"
-						Height="0">
-						0
-                </TextBlock>
-            </Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
 
-        </StackPanel>
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    
+                    <!--Первая невидимая строка для привязки к ней размера grid в Кнопке-->
+                    <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
+                               Name="textBlockHiddenForSizeButtonLine" Background="BlueViolet"
+                               Height="0"/>
+
+                    <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" 
+                                Name="stackPanelSelection"
+                                Background="DodgerBlue"/>
+
+                </Grid>
+            </ScrollViewer>
+
+        </Grid>
 
         <Grid Grid.Row="0" Name="gridTestSelection"
               Background="Beige"

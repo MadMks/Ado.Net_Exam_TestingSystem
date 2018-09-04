@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
@@ -9,13 +10,14 @@ namespace WpfApp_TestingSystem
     public class GridLineCategory : Grid
     {
         private Button button = null;
+        private Grid gridLineButton = null;
 
         public GridLineCategory()
         {
 
         }
 
-        public GridLineCategory(int number, string nameCategory, int quantityTests, bool isTeacher)
+        public GridLineCategory(int number, string nameCategory, int quantityTests)
         {
             this.ColumnDefinitions.Add(new ColumnDefinition
             {
@@ -33,7 +35,7 @@ namespace WpfApp_TestingSystem
             // "Главная " кнопка
             /*Button*/ button = new Button { Style = (Style)(this.Resources["styleButtonForList"]) };
             // grid внутри главной кнопки
-            Grid gridLineButton = new Grid { Background = Brushes.MediumBlue };
+            /*Grid*/ gridLineButton = new Grid { Background = Brushes.MediumBlue };
             // Колонки главной кнопки.
             gridLineButton.ColumnDefinitions.Add(new ColumnDefinition
             {
@@ -89,6 +91,7 @@ namespace WpfApp_TestingSystem
             // к доп. невидимому полю в stackPanel
             Binding binding = new Binding();
             binding.ElementName = "textBlockHiddenForSizeButtonLine";
+            //binding.ElementName = textBlockHiddenForSizeButtonLine.Name;
             binding.Path = new PropertyPath("ActualWidth");
             gridLineButton.SetBinding(Grid.WidthProperty, binding);
 
@@ -101,5 +104,15 @@ namespace WpfApp_TestingSystem
             Grid.SetColumnSpan(button, 1);
         }
 
+        //public void SetTheMainButtonGridBinding(TextBlock textBlockHiddenForSizeButtonLine)
+        //{
+        //    MessageBox.Show(textBlockHiddenForSizeButtonLine.Name);
+        //    // Привяжем grid в кнопке (чтоб растянуть на всю ширину кнопки)
+        //    // к доп. невидимому полю в stackPanel
+        //    Binding binding = new Binding();
+        //    binding.ElementName = textBlockHiddenForSizeButtonLine.Name;
+        //    binding.Path = new PropertyPath("ActualWidth");
+        //    gridLineButton.SetBinding(Grid.WidthProperty, binding);
+        //}
     }
 }
