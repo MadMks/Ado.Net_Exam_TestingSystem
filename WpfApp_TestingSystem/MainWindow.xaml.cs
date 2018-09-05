@@ -329,7 +329,14 @@ namespace WpfApp_TestingSystem
 
         private void ButtonEditCategory_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Edit id = " + (sender as Button).Tag);
+            // TODO new form
+            WindowEdit windowEdit = new WindowEdit();
+            bool? result = windowEdit.ShowDialog();
+
+            if (result == true)
+            {
+                // запишем в базу
+            }
         }
 
         // TODO +
