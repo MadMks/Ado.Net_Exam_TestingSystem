@@ -19,9 +19,22 @@ namespace WpfApp_TestingSystem
     /// </summary>
     public partial class WindowEdit : Window
     {
+        public string CategoryName
+        {
+            get { return this.textBoxCategoryName.Text; }
+            set { this.textBoxCategoryName.Text = value; }
+        }
+
         public WindowEdit()
         {
             InitializeComponent();
+
+            this.Loaded += WindowEdit_Loaded;
+        }
+
+        private void WindowEdit_Loaded(object sender, RoutedEventArgs e)
+        {
+            // TODO ? delete
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

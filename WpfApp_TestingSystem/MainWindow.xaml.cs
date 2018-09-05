@@ -330,12 +330,33 @@ namespace WpfApp_TestingSystem
         private void ButtonEditCategory_Click(object sender, RoutedEventArgs e)
         {
             // TODO new form
-            WindowEdit windowEdit = new WindowEdit();
-            bool? result = windowEdit.ShowDialog();
 
-            if (result == true)
+            int idCategory = Convert.ToInt32((sender as Button).Tag);
+
+            using (TestingSystemEntities db = new TestingSystemEntities())
             {
-                // запишем в базу
+                db.Database.Log = Console.Write;
+
+                WindowEdit windowEdit = new WindowEdit();
+                windowEdit.gridEditCategory.Visibility = Visibility.Visible;
+
+                var editCategory = db.Category
+                                    .Where(x => x.Id == idCategory)
+                                    //.Select(x => x.Name)
+                                    .FirstOrDefault();
+
+                windowEdit.CategoryName = editCategory.Name;
+
+                bool? result = windowEdit.ShowDialog();
+
+                if (result == true)
+                {
+                    // запишем в базу
+                    editCategory.Name = windowEdit.CategoryName;
+                    db.SaveChanges();
+
+                    this.ShowAllCategories();
+                }
             }
         }
 

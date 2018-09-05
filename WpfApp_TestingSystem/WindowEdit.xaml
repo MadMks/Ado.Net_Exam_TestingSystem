@@ -5,13 +5,34 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp_TestingSystem"
         mc:Ignorable="d"
-        Title="WindowEdit" Height="300" Width="500">
+        Title="Редактирование" Height="300" Width="500">
     <Grid>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="10*"/>
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Name="gridEditCategory" 
+              >
+
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="1" VerticalAlignment="Bottom"  FontSize="20" Margin="10, 10, 10, 5">
+                Название категории:
+            </TextBlock>
+
+            <TextBox Grid.Row="2" VerticalAlignment="Top" FontSize="20" Margin="10, 5, 10, 10"
+                     Name="textBoxCategoryName">
+                
+            </TextBox>
+
+        </Grid>
 
         <Grid Grid.Row="1">
 
