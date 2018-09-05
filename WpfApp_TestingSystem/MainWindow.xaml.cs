@@ -277,6 +277,22 @@ namespace WpfApp_TestingSystem
 
                         if (deleteQuestions.Count > 0)
                         {
+                            int[] delQuestionId = (from question in deleteQuestions select question.Id).ToArray();
+
+                            // answer
+                            var deleteAnswer
+                                = (
+                                from answer in db.Answer
+                                where (delQuestionId).Contains(answer.QuestionId)
+                                select answer
+                                )
+                                .ToList();
+
+                            if (deleteAnswer.Count > 0)
+                            {
+                                db.Answer.RemoveRange(deleteAnswer);
+                            }
+
                             db.Question.RemoveRange(deleteQuestions);
                         }
 
