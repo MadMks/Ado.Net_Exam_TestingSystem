@@ -144,8 +144,21 @@ namespace WpfApp_TestingSystem
             //this.stackPanelSelection.Visibility = Visibility.Visible;
             this.gridSelection.Visibility = Visibility.Visible;
 
+            this.ShowHeaderCategory();
+
             this.ShowAllCategories();
         }
+
+        private void ShowHeaderCategory()
+        {
+            this.gridHeaderCategory.Visibility = Visibility.Visible;
+
+            if (this.isTeacher)
+            {
+                Grid.SetColumnSpan(this.gridHeaderCategory, 1);
+            }
+        }
+
         // +
         private void ShowAllCategories()
         {
@@ -236,6 +249,9 @@ namespace WpfApp_TestingSystem
 
         private void ButtonDelCategory_Click(object sender, RoutedEventArgs e)
         {
+
+            // Полное удаление категории, и всех зависимостей.
+
             using (TestingSystemEntities db = new TestingSystemEntities())
             {
                 db.Database.Log = Console.Write;
