@@ -222,6 +222,20 @@ namespace WpfApp_TestingSystem
 
                     this.stackPanelSelection.Children.Add(gridLineCategory);
                 }
+
+                // Если Учитель, то добавим кнопку "Добавить" категорию.
+                if (this.isTeacher)
+                {
+                    Button buttonAdd = new Button
+                    {
+                        Content = "Добавить категорию",
+                        Margin = new Thickness(10.0),
+                        Padding = new Thickness(10.0, 5.0, 10.0, 5.0),
+                        HorizontalAlignment = HorizontalAlignment.Center
+                    };
+
+                    this.stackPanelSelection.Children.Add(buttonAdd);
+                }
             }
         }
 
