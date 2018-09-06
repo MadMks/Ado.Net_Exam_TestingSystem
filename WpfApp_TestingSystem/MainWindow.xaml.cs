@@ -226,7 +226,7 @@ namespace WpfApp_TestingSystem
                 // Если Учитель, то добавим кнопку "Добавить" категорию.
                 if (this.isTeacher)
                 {
-                    Button buttonAdd = new Button
+                    Button buttonAddCategory = new Button
                     {
                         Content = "Добавить категорию",
                         Margin = new Thickness(10.0),
@@ -234,7 +234,37 @@ namespace WpfApp_TestingSystem
                         HorizontalAlignment = HorizontalAlignment.Center
                     };
 
-                    this.stackPanelSelection.Children.Add(buttonAdd);
+                    buttonAddCategory.Click += ButtonAddCategory_Click;
+
+                    this.stackPanelSelection.Children.Add(buttonAddCategory);
+                }
+            }
+        }
+
+        private void ButtonAddCategory_Click(object sender, RoutedEventArgs e)
+        {
+            using (TestingSystemEntities db = new TestingSystemEntities())
+            {
+                db.Database.Log = Console.Write;
+
+                WindowEdit windowAdd = new WindowEdit();
+                windowAdd.gridEditCategory.Visibility = Visibility.Visible;
+                windowAdd.buttonOk.Content = "Добавить";
+
+
+                bool? result = windowAdd.ShowDialog();
+
+                if (result == true)
+                {
+                    // запишем в базу
+
+                    Category category = new Category();
+                    category.Name = windowAdd.CategoryName;
+
+                    db.Category.Add(category);
+                    db.SaveChanges();
+
+                    this.ShowAllCategories();
                 }
             }
         }
