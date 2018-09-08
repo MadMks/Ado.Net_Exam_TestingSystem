@@ -131,7 +131,10 @@ namespace WpfApp_TestingSystem
                         .ToList();
                 }
 
-                
+
+                //
+                //
+                // TODO переделать вывод тестов через новую структуру вывода.
 
                 for (int i = 0; i < testsOfSelectedCategories.Count(); i++)
                 {
@@ -221,19 +224,30 @@ namespace WpfApp_TestingSystem
                     //buttonCategoryLine.Click += ButtonCategoryLine_Click;
                     //MessageBox.Show("2");
 
-                    GridLineCategory gridLineCategory 
+                    //GridLineCategory gridLineCategory 
+                    //    = new GridLineCategory(
+                    //        i,
+                    //        listOfAllCategories[i].Name,
+                    //        listOfAllCategories[i].Test.Count()
+                    //        //, this.textBlockHiddenForSizeButtonLine
+                    //    );
+
+
+                    // TEST создаю gridLine и передаю в него сущность
+                    GridLineCategory gridLineCategory
                         = new GridLineCategory(
                             i,
-                            listOfAllCategories[i].Name,
-                            listOfAllCategories[i].Test.Count()
-                            //, this.textBlockHiddenForSizeButtonLine
+                            listOfAllCategories[i]
                         );
 
-                    //MessageBox.Show("3");
+                    // HACK ?! - добавляю id категории - чтоб при нажатии на кнопку (грид)
+                    // вывести тесты данной категории - по добавленному id (в свойство gridLineButton).
+                    //gridLineCategory.CategoryID = listOfAllCategories[i].Id;
 
                     // Установить стиль кнопки внутри grid
                     (gridLineCategory.Children[0] as Button).Style = (Style)(this.Resources["styleButtonForList"]);
 
+                    (gridLineCategory.Children[0] as Button).Click += ButtonCategoryLine_Click;
 
                     if (this.isTeacher)
                     {
@@ -429,7 +443,9 @@ namespace WpfApp_TestingSystem
         {
             // TODO показать в стекПанел тесты данной категории.
 
-            this.ShowTestsOfCurrentCategory(sender as ButtonCategoryLine);
+            //this.ShowTestsOfCurrentCategory(sender as ButtonCategoryLine);
+
+            this.ShowTestsOfSelectedCategories(Convert.ToInt32((sender as Button).Tag));
         }
 
         private void ShowTestsOfCurrentCategory(ButtonCategoryLine buttonCategoryLine)
