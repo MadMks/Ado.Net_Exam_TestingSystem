@@ -7,7 +7,7 @@ using System.Windows;
 
 namespace WpfApp_TestingSystem.EntityDeleteButton
 {
-    public class ButtonDeleteCategory : ButtonDeleteEntity, IDelete
+    public class ButtonDeleteCategory : ButtonDeleteEntity
     {
         /// <summary>
         /// Недопустимый конструктор (параметры обязательны).
@@ -16,7 +16,7 @@ namespace WpfApp_TestingSystem.EntityDeleteButton
 
         public ButtonDeleteCategory(int idCategory) : base(idCategory) { }
 
-        public bool DeletingEntity(TestingSystemEntities db)
+        public override bool DeletingEntity(TestingSystemEntities db)
         {
             //int idCategory = Convert.ToInt32((sender as Button).Tag);
             int idCategory = Convert.ToInt32((this).Tag);
@@ -48,8 +48,8 @@ namespace WpfApp_TestingSystem.EntityDeleteButton
                     var deleteQuestions
                         = (
                         from question in db.Question
-                                    //where (from test in deleteTests select test.Id).Contains(question.TestId)
-                                where (delTestsId).Contains(question.TestId)
+                            //where (from test in deleteTests select test.Id).Contains(question.TestId)
+                        where (delTestsId).Contains(question.TestId)
                         select question
                         )
                         .ToList();

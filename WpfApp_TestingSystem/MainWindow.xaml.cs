@@ -445,9 +445,9 @@ namespace WpfApp_TestingSystem
                 //    }
                 //}
 
-                if(sender is ButtonDeleteCategory)
+                if(sender is ButtonDeleteEntity)
                 {
-                    bool isRemoved = (sender as ButtonDeleteCategory).DeletingEntity(db);
+                    bool isRemoved = (sender as ButtonDeleteEntity).DeletingEntity(db);
 
                     if (isRemoved)
                     {

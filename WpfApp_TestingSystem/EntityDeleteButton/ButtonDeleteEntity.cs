@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace WpfApp_TestingSystem.EntityDeleteButton
 {
-    abstract public class ButtonDeleteEntity : Button
+    abstract public class ButtonDeleteEntity : Button, IDelete
     {
         public ButtonDeleteEntity()
         {
@@ -20,5 +21,7 @@ namespace WpfApp_TestingSystem.EntityDeleteButton
         {
             this.Tag = idEntity;
         }
+
+        public abstract bool DeletingEntity(TestingSystemEntities db);
     }
 }
