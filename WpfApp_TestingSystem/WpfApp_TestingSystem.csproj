@@ -75,9 +75,11 @@
     <Compile Include="Category.cs">
       <DependentUpon>TestingSystemModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="GridLineCategory.cs" />
-    <Compile Include="GridLineEntity.cs" />
-    <Compile Include="GridLineTest.cs" />
+    <Compile Include="EntityEditButton\ButtonEditCategory.cs" />
+    <Compile Include="EntityEditButton\ButtonEditEntity.cs" />
+    <Compile Include="EntityGridLine\GridLineCategory.cs" />
+    <Compile Include="EntityGridLine\GridLineEntity.cs" />
+    <Compile Include="EntityGridLine\GridLineTest.cs" />
     <Compile Include="Question.cs">
       <DependentUpon>TestingSystemModel.tt</DependentUpon>
     </Compile>
@@ -172,5 +174,6 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using WpfApp_TestingSystem.EntityEditButton;
 
 namespace WpfApp_TestingSystem
 {
@@ -132,19 +132,8 @@ namespace WpfApp_TestingSystem
                 }
 
 
-                //
-                //
-                // TODO переделать вывод тестов через новую структуру вывода.
-                //
-                //
-                //
-                //
-
                 for (int i = 0; i < listTestsOfSelectedCategories.Count(); i++)
                 {
-                    // TODO new line fo list category - method
-                    // TODO LineButtonForCategory - class
-
                     GridLineTest gridLineTest
                         = new GridLineTest(
                             i,
@@ -154,6 +143,7 @@ namespace WpfApp_TestingSystem
                     // Установить стиль кнопки внутри grid
                     (gridLineTest.Children[0] as Button).Style = (Style)(this.Resources["styleButtonForList"]);
 
+                    // TODO написать обработчик нажатия на название теста (Test).
                     //(gridLineTest.Children[0] as Button).Click += ButtonCategoryLine_Click;   //TODO !!! обработчик
 
                     if (this.isTeacher)
@@ -163,18 +153,8 @@ namespace WpfApp_TestingSystem
 
                     this.stackPanelSelection.Children.Add(gridLineTest);
 
-                    //ButtonTestLine buttonTestLine
-                    //    = new ButtonTestLine(
-                    //        i,
-                    //        listTestsOfSelectedCategories[i].Name,
-                    //        listTestsOfSelectedCategories[i].Category.Name,
-                    //        listTestsOfSelectedCategories[i].Question.Count
-                    //    );
-                    //buttonTestLine.TestID = listTestsOfSelectedCategories[i].Id;
 
-                    //buttonTestLine.Style = (Style)(this.Resources["styleButtonForList"]); // What #1 ???
                     //buttonTestLine.Click += ButtonTestLine_Click;
-                    //this.stackPanelSelection.Children.Add(buttonTestLine);
                 }
             }
         }
@@ -330,42 +310,63 @@ namespace WpfApp_TestingSystem
 
             gridLineEntity.OpenAReservedPlaceForEditingButtons();
 
-            // Добавление кнопок редактирования.
-
-            // Кнопка "Редактирровать".
-            Button buttonEditCategory = new Button { Content = "Edit", Tag = idEntity };
-            gridLineEntity.Children.Add(buttonEditCategory);
-            Grid.SetColumn(buttonEditCategory, 1);
-            // Кнопка "Удалить".
-            Button buttonDelCategory = new Button { Content = "Del", Tag = idEntity };
-            gridLineEntity.Children.Add(buttonDelCategory);
-            Grid.SetColumn(buttonDelCategory, 2);
-
-            buttonEditCategory.Click += ButtonEditCategory_Click;
-            buttonDelCategory.Click += ButtonDelCategory_Click;
-        }
-
-        private void AddingEditingButtons(GridLineCategory gridLineCategory, int idCategory)
-        {
-            // открытие зарезервированного места для кнопок редактирования
-            Grid.SetColumnSpan(this.textBlockHiddenForSizeButtonLine, 1);
-
-            gridLineCategory.OpenAReservedPlaceForEditingButtons();
 
             // Добавление кнопок редактирования.
 
-            // Кнопка "Редактирровать".
-            Button buttonEditCategory = new Button { Content = "Edit", Tag = idCategory };
-            gridLineCategory.Children.Add(buttonEditCategory);
-            Grid.SetColumn(buttonEditCategory, 1);
-            // Кнопка "Удалить".
-            Button buttonDelCategory = new Button { Content = "Del", Tag = idCategory };
-            gridLineCategory.Children.Add(buttonDelCategory);
-            Grid.SetColumn(buttonDelCategory, 2);
+            if (gridLineEntity is GridLineCategory)
+            {
+                //// Кнопка "Редактирровать".
+                //Button buttonEditCategory = new Button { Content = "Edit", Tag = idEntity };
+                //gridLineEntity.Children.Add(buttonEditCategory);
+                //Grid.SetColumn(buttonEditCategory, 1);
+                //// Кнопка "Удалить".
+                //Button buttonDelCategory = new Button { Content = "Del", Tag = idEntity };
+                //gridLineEntity.Children.Add(buttonDelCategory);
+                //Grid.SetColumn(buttonDelCategory, 2);
 
-            buttonEditCategory.Click += ButtonEditCategory_Click;
-            buttonDelCategory.Click += ButtonDelCategory_Click;
+                //buttonEditCategory.Click += ButtonEditCategory_Click;
+                //buttonDelCategory.Click += ButtonDelCategory_Click;
+
+
+
+                // Кнопка "Редактировать".
+                ButtonEditCategory buttonEditCategory = new ButtonEditCategory(idEntity);
+                gridLineEntity.Children.Add(buttonEditCategory);
+                // Кнопка "Удалить".
+                Button buttonDelCategory = new Button { Content = "Del", Tag = idEntity };
+                gridLineEntity.Children.Add(buttonDelCategory);
+                Grid.SetColumn(buttonDelCategory, 2);
+
+                buttonEditCategory.Click += ButtonEditCategory_Click;
+                buttonDelCategory.Click += ButtonDelCategory_Click;
+            }
+            else if (gridLineEntity is GridLineTest)
+            {
+                // TODO добавить в каждый gridLineTest кнопки редактирования тестов.
+            }
         }
+
+        //private void AddingEditingButtons(GridLineCategory gridLineCategory, int idCategory)
+        //{
+        //    // открытие зарезервированного места для кнопок редактирования
+        //    Grid.SetColumnSpan(this.textBlockHiddenForSizeButtonLine, 1);
+
+        //    gridLineCategory.OpenAReservedPlaceForEditingButtons();
+
+        //    // Добавление кнопок редактирования.
+
+        //    // Кнопка "Редактирровать".
+        //    Button buttonEditCategory = new Button { Content = "Edit", Tag = idCategory };
+        //    gridLineCategory.Children.Add(buttonEditCategory);
+        //    Grid.SetColumn(buttonEditCategory, 1);
+        //    // Кнопка "Удалить".
+        //    Button buttonDelCategory = new Button { Content = "Del", Tag = idCategory };
+        //    gridLineCategory.Children.Add(buttonDelCategory);
+        //    Grid.SetColumn(buttonDelCategory, 2);
+
+        //    buttonEditCategory.Click += ButtonEditCategory_Click;
+        //    buttonDelCategory.Click += ButtonDelCategory_Click;
+        //}
 
         private void ButtonDelCategory_Click(object sender, RoutedEventArgs e)
         {
