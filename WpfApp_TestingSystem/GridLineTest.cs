@@ -10,9 +10,9 @@ using System.Windows.Media;
 
 namespace WpfApp_TestingSystem
 {
-    public class GridLineTest : Grid
+    public class GridLineTest : /*Grid*/GridLineEntity
     {
-        private Button button = null;
+        //private Button button = null;
         private Grid gridLineButton = null;
 
         public GridLineTest() {}
@@ -69,7 +69,7 @@ namespace WpfApp_TestingSystem
             TextBlock textBlockCategory = new TextBlock
             {
                 Text = currentTests.Category.Name,
-                Background = Brushes.Aqua
+                Background = Brushes.Bisque
             };
             TextBlock textBlockQuantityQuestions = new TextBlock
             {
@@ -87,7 +87,7 @@ namespace WpfApp_TestingSystem
             Grid.SetColumn(textBlockNumber, 0);
             Grid.SetColumn(textBlockTestName, 1);
             Grid.SetColumn(textBlockCategory, 2);
-            Grid.SetColumn(textBlockQuantityQuestions, 2);
+            Grid.SetColumn(textBlockQuantityQuestions, 3);
 
             // Скрываем зарезервированное место для кнопок админа.
             Grid.SetColumnSpan(button, 3);
@@ -110,5 +110,7 @@ namespace WpfApp_TestingSystem
 
             this.Children.Add(button);
         }
+
+
     }
 }

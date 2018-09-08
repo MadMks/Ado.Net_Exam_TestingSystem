@@ -9,9 +9,9 @@ using System.Windows.Media;
 
 namespace WpfApp_TestingSystem
 {
-    public class GridLineCategory : Grid
+    public class GridLineCategory : /*Grid*/GridLineEntity
     {
-        private Button button = null;
+        //private Button button = null;
         private Grid gridLineButton = null;
 
         //private TextBlock tbNumber = null;
@@ -200,10 +200,10 @@ namespace WpfApp_TestingSystem
             this.Children.Add(button);
         }
 
-        public void OpenAReservedPlaceForEditingButtons()
-        {
-            Grid.SetColumnSpan(button, 1);
-        }
+        //public void OpenAReservedPlaceForEditingButtons()
+        //{
+        //    Grid.SetColumnSpan(button, 1);
+        //}
 
         //public void SetTheMainButtonGridBinding(TextBlock textBlockHiddenForSizeButtonLine)
         //{

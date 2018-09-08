@@ -158,7 +158,7 @@ namespace WpfApp_TestingSystem
 
                     if (this.isTeacher)
                     {
-                        this.AddingEditingButtons(gridLineCategory, listOfAllCategories[i].Id);
+                        this.AddingEditingButtons(gridLineTest, listTestsOfSelectedCategories[i].Id);
                     }
 
                     this.stackPanelSelection.Children.Add(gridLineTest);
@@ -323,7 +323,7 @@ namespace WpfApp_TestingSystem
             }
         }
 
-        private void AddingEditingButtons(Grid gridLineEntity, int idEntity)
+        private void AddingEditingButtons(GridLineEntity gridLineEntity, int idEntity)
         {
             // открытие зарезервированного места для кнопок редактирования
             Grid.SetColumnSpan(this.textBlockHiddenForSizeButtonLine, 1);
