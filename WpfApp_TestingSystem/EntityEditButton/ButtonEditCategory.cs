@@ -8,10 +8,10 @@ namespace WpfApp_TestingSystem.EntityEditButton
 {
     public class ButtonEditCategory : ButtonEditEntity
     {
-        public ButtonEditCategory()
-        {
-
-        }
+        /// <summary>
+        /// Недопустимый конструктор (параметры обязательны).
+        /// </summary>
+        public ButtonEditCategory() {}
 
         public ButtonEditCategory(int idCategory) : base(idCategory) {}
     }

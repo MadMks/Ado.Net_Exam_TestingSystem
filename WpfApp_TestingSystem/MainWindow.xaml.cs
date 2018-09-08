@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfApp_TestingSystem.EntityDeleteButton;
 using WpfApp_TestingSystem.EntityEditButton;
 
 namespace WpfApp_TestingSystem
@@ -333,12 +334,11 @@ namespace WpfApp_TestingSystem
                 ButtonEditCategory buttonEditCategory = new ButtonEditCategory(idEntity);
                 gridLineEntity.Children.Add(buttonEditCategory);
                 // Кнопка "Удалить".
-                Button buttonDelCategory = new Button { Content = "Del", Tag = idEntity };
-                gridLineEntity.Children.Add(buttonDelCategory);
-                Grid.SetColumn(buttonDelCategory, 2);
+                ButtonDeleteCategory buttonDeleteCategory = new ButtonDeleteCategory(idEntity);
+                gridLineEntity.Children.Add(buttonDeleteCategory);
 
                 buttonEditCategory.Click += ButtonEditCategory_Click;
-                buttonDelCategory.Click += ButtonDelCategory_Click;
+                buttonDeleteCategory.Click += ButtonDeleteCategory_Click;
             }
             else if (gridLineEntity is GridLineTest)
             {
@@ -368,7 +368,7 @@ namespace WpfApp_TestingSystem
         //    buttonDelCategory.Click += ButtonDelCategory_Click;
         //}
 
-        private void ButtonDelCategory_Click(object sender, RoutedEventArgs e)
+        private void ButtonDeleteCategory_Click(object sender, RoutedEventArgs e)
         {
 
             // Полное удаление категории, и всех зависимостей.
@@ -377,72 +377,84 @@ namespace WpfApp_TestingSystem
             {
                 db.Database.Log = Console.Write;
 
-                int idCategory = Convert.ToInt32((sender as Button).Tag);
+                //if (sender is ButtonDeleteCategory)
+                //{
+                //    int idCategory = Convert.ToInt32((sender as Button).Tag);
 
-                var deleteCategory = db.Category.Where(x => x.Id == idCategory).FirstOrDefault();
+                //    var deleteCategory = db.Category.Where(x => x.Id == idCategory).FirstOrDefault();
 
-                int testsCount = deleteCategory.Test.Count();
+                //    int testsCount = deleteCategory.Test.Count();
 
-                MessageBoxResult result = MessageBox.Show(
-                    $"Категория {deleteCategory.Name} содержит {testsCount} тестов."
-                    + " \nУдалить?",
-                    $"Удаление категории {deleteCategory.Name}",
-                    MessageBoxButton.YesNo);
+                //    MessageBoxResult result = MessageBox.Show(
+                //        $"Категория {deleteCategory.Name} содержит {testsCount} тестов."
+                //        + " \nУдалить?",
+                //        $"Удаление категории {deleteCategory.Name}",
+                //        MessageBoxButton.YesNo);
 
-                if (result == MessageBoxResult.Yes)
+                //    if (result == MessageBoxResult.Yes)
+                //    {
+                //        if (testsCount > 0)
+                //        {
+                //            var deleteTests
+                //                = (
+                //                from test in db.Test
+                //                where test.CategoryId == deleteCategory.Id
+                //                select test
+                //                )
+                //                .ToList();
+
+                //            Int16[] delTestsId = (from test in deleteTests select test.Id).ToArray();
+
+                //            var deleteQuestions
+                //                = (
+                //                from question in db.Question
+                //                    //where (from test in deleteTests select test.Id).Contains(question.TestId)
+                //            where (delTestsId).Contains(question.TestId)
+                //                select question
+                //                )
+                //                .ToList();
+
+                //            if (deleteQuestions.Count > 0)
+                //            {
+                //                int[] delQuestionId = (from question in deleteQuestions select question.Id).ToArray();
+
+                //                // answer
+                //                var deleteAnswer
+                //                    = (
+                //                    from answer in db.Answer
+                //                    where (delQuestionId).Contains(answer.QuestionId)
+                //                    select answer
+                //                    )
+                //                    .ToList();
+
+                //                if (deleteAnswer.Count > 0)
+                //                {
+                //                    db.Answer.RemoveRange(deleteAnswer);
+                //                }
+
+                //                db.Question.RemoveRange(deleteQuestions);
+                //            }
+
+                //            db.Test.RemoveRange(deleteTests);
+                //        }
+
+                //        db.Category.Remove(deleteCategory);
+                //        db.SaveChanges();
+
+                //        this.ShowAllCategories();
+                //    }
+                //}
+
+                if(sender is ButtonDeleteCategory)
                 {
-                    if (testsCount > 0)
+                    bool isRemoved = (sender as ButtonDeleteCategory).DeletingEntity(db);
+
+                    if (isRemoved)
                     {
-                        var deleteTests
-                            = (
-                            from test in db.Test
-                            where test.CategoryId == deleteCategory.Id
-                            select test
-                            )
-                            .ToList();
-
-                        Int16[] delTestsId = (from test in deleteTests select test.Id).ToArray();
-
-                        var deleteQuestions
-                            = (
-                            from question in db.Question
-                                //where (from test in deleteTests select test.Id).Contains(question.TestId)
-                            where (delTestsId).Contains(question.TestId)
-                            select question
-                            )
-                            .ToList();
-
-                        if (deleteQuestions.Count > 0)
-                        {
-                            int[] delQuestionId = (from question in deleteQuestions select question.Id).ToArray();
-
-                            // answer
-                            var deleteAnswer
-                                = (
-                                from answer in db.Answer
-                                where (delQuestionId).Contains(answer.QuestionId)
-                                select answer
-                                )
-                                .ToList();
-
-                            if (deleteAnswer.Count > 0)
-                            {
-                                db.Answer.RemoveRange(deleteAnswer);
-                            }
-
-                            db.Question.RemoveRange(deleteQuestions);
-                        }
-
-                        db.Test.RemoveRange(deleteTests);
+                        this.ShowAllCategories();
                     }
-
-                    db.Category.Remove(deleteCategory);
-                    db.SaveChanges();
-
-                    this.ShowAllCategories();
                 }
 
-                
             }
 
             
