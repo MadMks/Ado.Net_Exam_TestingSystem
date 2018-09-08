@@ -82,12 +82,12 @@ namespace WpfApp_TestingSystem
                 Background = Brushes.BurlyWood
             };
 
-            // Добавление textBox с данными в кнопку.
+            // Добавление textBlock с данными в кнопку.
             gridLineButton.Children.Add(tbNumber);
             gridLineButton.Children.Add(tbNameCategory);
             gridLineButton.Children.Add(tbQuantityTests);
 
-            // Расстановка текстБоксов по колонкам
+            // Расстановка textBlock по колонкам
             Grid.SetColumn(tbNumber, 0);
             Grid.SetColumn(tbNameCategory, 1);
             Grid.SetColumn(tbQuantityTests, 2);

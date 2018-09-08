@@ -109,11 +109,11 @@ namespace WpfApp_TestingSystem
             {
                 db.Database.Log = Console.Write;
 
-                List<Test> testsOfSelectedCategories = null;
+                List<Test> listTestsOfSelectedCategories = null;
 
                 if (idCategory == null)
                 {
-                    testsOfSelectedCategories
+                    listTestsOfSelectedCategories
                         = (
                         from test in db.Test
                         select test
@@ -122,7 +122,7 @@ namespace WpfApp_TestingSystem
                 }
                 else
                 {
-                    testsOfSelectedCategories
+                    listTestsOfSelectedCategories
                         = (
                         from test in db.Test
                         where test.CategoryId == idCategory
@@ -135,26 +135,46 @@ namespace WpfApp_TestingSystem
                 //
                 //
                 // TODO переделать вывод тестов через новую структуру вывода.
+                //
+                //
+                //
+                //
 
-                for (int i = 0; i < testsOfSelectedCategories.Count(); i++)
+                for (int i = 0; i < listTestsOfSelectedCategories.Count(); i++)
                 {
                     // TODO new line fo list category - method
                     // TODO LineButtonForCategory - class
 
-                    //Button button = CreateaButtonForTheRow(i);
-
-                    ButtonTestLine buttonTestLine
-                        = new ButtonTestLine(
+                    GridLineTest gridLineTest
+                        = new GridLineTest(
                             i,
-                            testsOfSelectedCategories[i].Name,
-                            testsOfSelectedCategories[i].Category.Name,
-                            testsOfSelectedCategories[i].Question.Count
+                            listTestsOfSelectedCategories[i]
                         );
-                    buttonTestLine.TestID = testsOfSelectedCategories[i].Id;
 
-                    buttonTestLine.Style = (Style)(this.Resources["styleButtonForList"]); // What #1 ???
-                    buttonTestLine.Click += ButtonTestLine_Click;
-                    this.stackPanelSelection.Children.Add(buttonTestLine);
+                    // Установить стиль кнопки внутри grid
+                    (gridLineTest.Children[0] as Button).Style = (Style)(this.Resources["styleButtonForList"]);
+
+                    //(gridLineTest.Children[0] as Button).Click += ButtonCategoryLine_Click;   //TODO !!! обработчик
+
+                    if (this.isTeacher)
+                    {
+                        this.AddingEditingButtons(gridLineCategory, listOfAllCategories[i].Id);
+                    }
+
+                    this.stackPanelSelection.Children.Add(gridLineTest);
+
+                    //ButtonTestLine buttonTestLine
+                    //    = new ButtonTestLine(
+                    //        i,
+                    //        listTestsOfSelectedCategories[i].Name,
+                    //        listTestsOfSelectedCategories[i].Category.Name,
+                    //        listTestsOfSelectedCategories[i].Question.Count
+                    //    );
+                    //buttonTestLine.TestID = listTestsOfSelectedCategories[i].Id;
+
+                    //buttonTestLine.Style = (Style)(this.Resources["styleButtonForList"]); // What #1 ???
+                    //buttonTestLine.Click += ButtonTestLine_Click;
+                    //this.stackPanelSelection.Children.Add(buttonTestLine);
                 }
             }
         }
@@ -301,6 +321,28 @@ namespace WpfApp_TestingSystem
                     this.ShowAllCategories();
                 }
             }
+        }
+
+        private void AddingEditingButtons(Grid gridLineEntity, int idEntity)
+        {
+            // открытие зарезервированного места для кнопок редактирования
+            Grid.SetColumnSpan(this.textBlockHiddenForSizeButtonLine, 1);
+
+            gridLineEntity.OpenAReservedPlaceForEditingButtons();
+
+            // Добавление кнопок редактирования.
+
+            // Кнопка "Редактирровать".
+            Button buttonEditCategory = new Button { Content = "Edit", Tag = idEntity };
+            gridLineEntity.Children.Add(buttonEditCategory);
+            Grid.SetColumn(buttonEditCategory, 1);
+            // Кнопка "Удалить".
+            Button buttonDelCategory = new Button { Content = "Del", Tag = idEntity };
+            gridLineEntity.Children.Add(buttonDelCategory);
+            Grid.SetColumn(buttonDelCategory, 2);
+
+            buttonEditCategory.Click += ButtonEditCategory_Click;
+            buttonDelCategory.Click += ButtonDelCategory_Click;
         }
 
         private void AddingEditingButtons(GridLineCategory gridLineCategory, int idCategory)
