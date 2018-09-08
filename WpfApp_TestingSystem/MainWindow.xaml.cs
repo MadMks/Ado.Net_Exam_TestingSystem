@@ -93,12 +93,15 @@ namespace WpfApp_TestingSystem
             //this.stackPanelSelection.Visibility = Visibility.Visible;
             this.gridSelection.Visibility = Visibility.Visible;
 
-            this.ShowAllTests();
+            this.ShowTestsOfSelectedCategories(null);
         }
         // +
-        private void ShowAllTests()
+        private void ShowTestsOfSelectedCategories(int? idCategory)
         {
-            // TODO clear stackP
+            if (this.stackPanelSelection.Children.Count > 0)
+            {
+                this.stackPanelSelection.Children.Clear();
+            }
 
             //this.LoadingCategoriesFromTheDatabase();
 
@@ -106,14 +109,31 @@ namespace WpfApp_TestingSystem
             {
                 db.Database.Log = Console.Write;
 
-                var allTests
-                    = (
-                    from test in db.Test
-                    select test
-                    )
-                    .ToList();
+                List<Test> testsOfSelectedCategories = null;
 
-                for (int i = 0; i < allTests.Count(); i++)
+                if (idCategory == null)
+                {
+                    testsOfSelectedCategories
+                        = (
+                        from test in db.Test
+                        select test
+                        )
+                        .ToList();
+                }
+                else
+                {
+                    testsOfSelectedCategories
+                        = (
+                        from test in db.Test
+                        where test.CategoryId == idCategory
+                        select test
+                        )
+                        .ToList();
+                }
+
+                
+
+                for (int i = 0; i < testsOfSelectedCategories.Count(); i++)
                 {
                     // TODO new line fo list category - method
                     // TODO LineButtonForCategory - class
@@ -123,11 +143,11 @@ namespace WpfApp_TestingSystem
                     ButtonTestLine buttonTestLine
                         = new ButtonTestLine(
                             i,
-                            allTests[i].Name,
-                            allTests[i].Category.Name,
-                            allTests[i].Question.Count
+                            testsOfSelectedCategories[i].Name,
+                            testsOfSelectedCategories[i].Category.Name,
+                            testsOfSelectedCategories[i].Question.Count
                         );
-                    buttonTestLine.TestID = allTests[i].Id;
+                    buttonTestLine.TestID = testsOfSelectedCategories[i].Id;
 
                     buttonTestLine.Style = (Style)(this.Resources["styleButtonForList"]); // What #1 ???
                     buttonTestLine.Click += ButtonTestLine_Click;
