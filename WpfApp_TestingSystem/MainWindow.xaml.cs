@@ -338,7 +338,7 @@ namespace WpfApp_TestingSystem
                 gridLineEntity.Children.Add(buttonDeleteCategory);
 
                 buttonEditCategory.Click += ButtonEditCategory_Click;
-                buttonDeleteCategory.Click += ButtonDeleteCategory_Click;
+                buttonDeleteCategory.Click += ButtonDeleteEntity_Click;
             }
             else if (gridLineEntity is GridLineTest)
             {
@@ -368,7 +368,7 @@ namespace WpfApp_TestingSystem
         //    buttonDelCategory.Click += ButtonDelCategory_Click;
         //}
 
-        private void ButtonDeleteCategory_Click(object sender, RoutedEventArgs e)
+        private void ButtonDeleteEntity_Click(object sender, RoutedEventArgs e)
         {
 
             // Полное удаление категории, и всех зависимостей.
@@ -376,6 +376,8 @@ namespace WpfApp_TestingSystem
             using (TestingSystemEntities db = new TestingSystemEntities())
             {
                 db.Database.Log = Console.Write;
+
+                #region ForDelete_DeletingFullCategory
 
                 //if (sender is ButtonDeleteCategory)
                 //{
@@ -444,8 +446,9 @@ namespace WpfApp_TestingSystem
                 //        this.ShowAllCategories();
                 //    }
                 //}
+                #endregion
 
-                if(sender is ButtonDeleteEntity)
+                if (sender is ButtonDeleteEntity)
                 {
                     bool isRemoved = (sender as ButtonDeleteEntity).DeletingEntity(db);
 
