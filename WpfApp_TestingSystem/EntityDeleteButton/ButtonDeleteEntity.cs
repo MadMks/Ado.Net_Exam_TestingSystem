@@ -23,5 +23,7 @@ namespace WpfApp_TestingSystem.EntityDeleteButton
         }
 
         public abstract bool DeletingEntity(TestingSystemEntities db);
+
+
     }
 }

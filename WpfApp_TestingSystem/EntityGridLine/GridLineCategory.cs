@@ -5,7 +5,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
-
+using WpfApp_TestingSystem.EntityDeleteButton;
+using WpfApp_TestingSystem.EntityEditButton;
 
 namespace WpfApp_TestingSystem
 {
@@ -26,10 +27,7 @@ namespace WpfApp_TestingSystem
         //public int CategoryID { get; set; } // TODO присваивать в Main или получать в конструкторе (если передавать в него сущность)
 
 
-        public GridLineCategory()
-        {
-
-        }
+        public GridLineCategory() {}
         public GridLineCategory(int number, Category currentCategories)
         {
             this.ColumnDefinitions.Add(new ColumnDefinition
@@ -117,88 +115,102 @@ namespace WpfApp_TestingSystem
             this.Children.Add(button);
         }
 
-
-        public GridLineCategory(int number, string nameCategory, int quantityTests)
+        public override void AddingAdminButtons(int idEntity)
         {
-            this.ColumnDefinitions.Add(new ColumnDefinition
-            {
-                Width = new GridLength(10.0, GridUnitType.Star)
-            });
-            this.ColumnDefinitions.Add(new ColumnDefinition
-            {
-                Width = new GridLength(1.0, GridUnitType.Star)
-            });
-            this.ColumnDefinitions.Add(new ColumnDefinition
-            {
-                Width = new GridLength(1.0, GridUnitType.Star)
-            });
-
-            // "Главная " кнопка
-            /*Button*/ button = new Button { Style = (Style)(this.Resources["styleButtonForList"]) };
-            // grid внутри главной кнопки
-            /*Grid*/ gridLineButton = new Grid { Background = Brushes.MediumBlue };
-            // Колонки главной кнопки.
-            gridLineButton.ColumnDefinitions.Add(new ColumnDefinition
-            {
-                Width = new GridLength(1.0, GridUnitType.Star)
-            });
-            gridLineButton.ColumnDefinitions.Add(new ColumnDefinition
-            {
-                Width = new GridLength(10.0, GridUnitType.Star)
-            });
-            gridLineButton.ColumnDefinitions.Add(new ColumnDefinition
-            {
-                Width = new GridLength(1.0, GridUnitType.Star)
-            });
-
-            // Данные главной кнопки
-            TextBlock tbNumber = new TextBlock
-            {
-                Text = (number + 1).ToString(),
-                Background = Brushes.AliceBlue
-            };
-            TextBlock tbNameCategory = new TextBlock
-            {
-                Text = nameCategory,
-                Background = Brushes.Aqua
-            };
-            TextBlock tbQuantityTests = new TextBlock
-            {
-                Text = quantityTests.ToString(),
-                Background = Brushes.BurlyWood
-            };
-
-            // Добавление textBox с данными в кнопку.
-            gridLineButton.Children.Add(tbNumber);
-            gridLineButton.Children.Add(tbNameCategory);
-            gridLineButton.Children.Add(tbQuantityTests);
-
-            // Расстановка текстБоксов по колонкам
-            Grid.SetColumn(tbNumber, 0);
-            Grid.SetColumn(tbNameCategory, 1);
-            Grid.SetColumn(tbQuantityTests, 2);
-
-            // Скрываем зарезервированное место для кнопок админа.
-            Grid.SetColumnSpan(button, 3);
-
-
-            // Добавим в кнопку grid с текстБлоками (в которых данные).
-            button.Content = gridLineButton;
-
-            // Установка кнопки в первую колонку
-            Grid.SetColumn(button, 0);
-
-            // Привяжем grid в кнопке (чтоб растянуть на всю ширину кнопки)
-            // к доп. невидимому полю в stackPanel
-            Binding binding = new Binding();
-            binding.ElementName = "textBlockHiddenForSizeButtonLine";
-            //binding.ElementName = textBlockHiddenForSizeButtonLine.Name;
-            binding.Path = new PropertyPath("ActualWidth");
-            gridLineButton.SetBinding(Grid.WidthProperty, binding);
-
-
-            this.Children.Add(button);
+            // Кнопка "Редактировать".
+            //ButtonEditCategory buttonEditCategory = new ButtonEditCategory(idEntity);
+            this.ButtonEdit = new ButtonEditCategory(idEntity);
+            //this.Children.Add(buttonEditCategory);
+            this.Children.Add(this.ButtonEdit);
+            // Кнопка "Удалить".
+            //ButtonDeleteCategory buttonDeleteCategory = new ButtonDeleteCategory(idEntity);
+            this.ButtonDelete = new ButtonDeleteCategory(idEntity);
+            //this.Children.Add(buttonDeleteCategory);
+            this.Children.Add(this.ButtonDelete);
         }
+
+
+        //public GridLineCategory(int number, string nameCategory, int quantityTests)
+        //{
+        //    this.ColumnDefinitions.Add(new ColumnDefinition
+        //    {
+        //        Width = new GridLength(10.0, GridUnitType.Star)
+        //    });
+        //    this.ColumnDefinitions.Add(new ColumnDefinition
+        //    {
+        //        Width = new GridLength(1.0, GridUnitType.Star)
+        //    });
+        //    this.ColumnDefinitions.Add(new ColumnDefinition
+        //    {
+        //        Width = new GridLength(1.0, GridUnitType.Star)
+        //    });
+
+        //    // "Главная " кнопка
+        //    /*Button*/ button = new Button { Style = (Style)(this.Resources["styleButtonForList"]) };
+        //    // grid внутри главной кнопки
+        //    /*Grid*/ gridLineButton = new Grid { Background = Brushes.MediumBlue };
+        //    // Колонки главной кнопки.
+        //    gridLineButton.ColumnDefinitions.Add(new ColumnDefinition
+        //    {
+        //        Width = new GridLength(1.0, GridUnitType.Star)
+        //    });
+        //    gridLineButton.ColumnDefinitions.Add(new ColumnDefinition
+        //    {
+        //        Width = new GridLength(10.0, GridUnitType.Star)
+        //    });
+        //    gridLineButton.ColumnDefinitions.Add(new ColumnDefinition
+        //    {
+        //        Width = new GridLength(1.0, GridUnitType.Star)
+        //    });
+
+        //    // Данные главной кнопки
+        //    TextBlock tbNumber = new TextBlock
+        //    {
+        //        Text = (number + 1).ToString(),
+        //        Background = Brushes.AliceBlue
+        //    };
+        //    TextBlock tbNameCategory = new TextBlock
+        //    {
+        //        Text = nameCategory,
+        //        Background = Brushes.Aqua
+        //    };
+        //    TextBlock tbQuantityTests = new TextBlock
+        //    {
+        //        Text = quantityTests.ToString(),
+        //        Background = Brushes.BurlyWood
+        //    };
+
+        //    // Добавление textBox с данными в кнопку.
+        //    gridLineButton.Children.Add(tbNumber);
+        //    gridLineButton.Children.Add(tbNameCategory);
+        //    gridLineButton.Children.Add(tbQuantityTests);
+
+        //    // Расстановка текстБоксов по колонкам
+        //    Grid.SetColumn(tbNumber, 0);
+        //    Grid.SetColumn(tbNameCategory, 1);
+        //    Grid.SetColumn(tbQuantityTests, 2);
+
+        //    // Скрываем зарезервированное место для кнопок админа.
+        //    Grid.SetColumnSpan(button, 3);
+
+
+        //    // Добавим в кнопку grid с текстБлоками (в которых данные).
+        //    button.Content = gridLineButton;
+
+        //    // Установка кнопки в первую колонку
+        //    Grid.SetColumn(button, 0);
+
+        //    // Привяжем grid в кнопке (чтоб растянуть на всю ширину кнопки)
+        //    // к доп. невидимому полю в stackPanel
+        //    Binding binding = new Binding();
+        //    binding.ElementName = "textBlockHiddenForSizeButtonLine";
+        //    //binding.ElementName = textBlockHiddenForSizeButtonLine.Name;
+        //    binding.Path = new PropertyPath("ActualWidth");
+        //    gridLineButton.SetBinding(Grid.WidthProperty, binding);
+
+
+        //    this.Children.Add(button);
+        //}
 
         //public void OpenAReservedPlaceForEditingButtons()
         //{

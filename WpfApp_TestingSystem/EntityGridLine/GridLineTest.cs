@@ -111,6 +111,9 @@ namespace WpfApp_TestingSystem
             this.Children.Add(button);
         }
 
-
+        public override void AddingAdminButtons(int idEntity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
