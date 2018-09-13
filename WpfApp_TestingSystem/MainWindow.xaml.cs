@@ -337,7 +337,7 @@ namespace WpfApp_TestingSystem
                 ButtonDeleteCategory buttonDeleteCategory = new ButtonDeleteCategory(idEntity);
                 gridLineEntity.Children.Add(buttonDeleteCategory);
 
-                buttonEditCategory.Click += ButtonEditCategory_Click;
+                buttonEditCategory.Click += ButtonEditEntity_Click;
                 buttonDeleteCategory.Click += ButtonDeleteEntity_Click;
             }
             else if (gridLineEntity is GridLineTest)
@@ -463,35 +463,54 @@ namespace WpfApp_TestingSystem
             
         }
 
-        private void ButtonEditCategory_Click(object sender, RoutedEventArgs e)
+        private void ButtonEditEntity_Click(object sender, RoutedEventArgs e)
         {
+            #region ForrDelete_EditingCategory
+
+            
             // TODO new form
 
-            int idCategory = Convert.ToInt32((sender as Button).Tag);
+            //int idCategory = Convert.ToInt32((sender as Button).Tag);
+
+            //using (TestingSystemEntities db = new TestingSystemEntities())
+            //{
+            //    db.Database.Log = Console.Write;
+
+            //    WindowEdit windowEdit = new WindowEdit();
+            //    windowEdit.gridEditCategory.Visibility = Visibility.Visible;
+
+            //    var editCategory = db.Category
+            //                        .Where(x => x.Id == idCategory)
+            //                        //.Select(x => x.Name)
+            //                        .FirstOrDefault();
+
+            //    windowEdit.CategoryName = editCategory.Name;
+
+            //    bool? result = windowEdit.ShowDialog();
+
+            //    if (result == true)
+            //    {
+            //        // запишем в базу
+            //        editCategory.Name = windowEdit.CategoryName;
+            //        db.SaveChanges();
+
+            //        this.ShowAllCategories();
+            //    }
+            //}
+            #endregion
 
             using (TestingSystemEntities db = new TestingSystemEntities())
             {
                 db.Database.Log = Console.Write;
 
-                WindowEdit windowEdit = new WindowEdit();
-                windowEdit.gridEditCategory.Visibility = Visibility.Visible;
-
-                var editCategory = db.Category
-                                    .Where(x => x.Id == idCategory)
-                                    //.Select(x => x.Name)
-                                    .FirstOrDefault();
-
-                windowEdit.CategoryName = editCategory.Name;
-
-                bool? result = windowEdit.ShowDialog();
-
-                if (result == true)
+                if (sender is ButtonEditEntity)
                 {
-                    // запишем в базу
-                    editCategory.Name = windowEdit.CategoryName;
-                    db.SaveChanges();
+                    bool isEdited = (sender as ButtonEditEntity).EditingEntity(db);
 
-                    this.ShowAllCategories();
+                    if (isEdited)
+                    {
+                        this.ShowAllCategories();
+                    }
                 }
             }
         }

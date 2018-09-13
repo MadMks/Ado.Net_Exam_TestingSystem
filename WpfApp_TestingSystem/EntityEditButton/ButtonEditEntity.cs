@@ -20,5 +20,7 @@ namespace WpfApp_TestingSystem.EntityEditButton
         {
             this.Tag = idEntity;
         }
+
+        public abstract bool EditingEntity(TestingSystemEntities db);
     }
 }
