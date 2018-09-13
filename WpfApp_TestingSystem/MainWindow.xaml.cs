@@ -149,7 +149,7 @@ namespace WpfApp_TestingSystem
 
                     if (this.isTeacher)
                     {
-                        this.AddingEditingButtons(gridLineTest, listTestsOfSelectedCategories[i].Id);
+                        this.CreateEditingButtons(gridLineTest, listTestsOfSelectedCategories[i].Id);
                     }
 
                     this.stackPanelSelection.Children.Add(gridLineTest);
@@ -252,7 +252,7 @@ namespace WpfApp_TestingSystem
 
                     if (this.isTeacher)
                     {
-                        this.AddingEditingButtons(gridLineCategory, listOfAllCategories[i].Id);
+                        this.CreateEditingButtons(gridLineCategory, listOfAllCategories[i].Id);
                     }
 
                     this.stackPanelSelection.Children.Add(gridLineCategory);
@@ -261,6 +261,8 @@ namespace WpfApp_TestingSystem
                 // Если Учитель, то добавим кнопку "Добавить" категорию.
                 if (this.isTeacher)
                 {
+                    // this.CreateAnAddButton();
+
                     Button buttonAddCategory = new Button
                     {
                         Content = "Добавить категорию",
@@ -304,7 +306,7 @@ namespace WpfApp_TestingSystem
             }
         }
 
-        private void AddingEditingButtons(GridLineEntity gridLineEntity, int idEntity)
+        private void CreateEditingButtons(GridLineEntity gridLineEntity, int idEntity)
         {
             // открытие зарезервированного места для кнопок редактирования
             Grid.SetColumnSpan(this.textBlockHiddenForSizeButtonLine, 1);

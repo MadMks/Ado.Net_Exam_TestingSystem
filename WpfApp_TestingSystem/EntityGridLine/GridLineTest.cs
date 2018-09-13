@@ -113,6 +113,8 @@ namespace WpfApp_TestingSystem
 
         public override void AddingAdminButtons(int idEntity)
         {
+            // TODO добавить кнопку ButtonEditTest
+            // TODO добавить кнопку ButtonDeleteTest
             throw new NotImplementedException();
         }
     }
