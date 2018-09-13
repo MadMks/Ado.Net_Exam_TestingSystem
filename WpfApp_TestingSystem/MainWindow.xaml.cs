@@ -146,6 +146,7 @@ namespace WpfApp_TestingSystem
 
                     // TODO написать обработчик нажатия на название теста (Test).
                     //(gridLineTest.Children[0] as Button).Click += ButtonCategoryLine_Click;   //TODO !!! обработчик
+                    (gridLineTest.Children[0] as Button).Click += ButtonTestLine_Click;
 
                     if (this.isTeacher)
                     {

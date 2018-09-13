@@ -7,6 +7,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
+using WpfApp_TestingSystem.EntityDeleteButton;
+using WpfApp_TestingSystem.EntityEditButton;
 
 namespace WpfApp_TestingSystem
 {
@@ -114,8 +116,11 @@ namespace WpfApp_TestingSystem
         public override void AddingAdminButtons(int idEntity)
         {
             // TODO добавить кнопку ButtonEditTest
+            this.ButtonEdit = new ButtonEditTest(idEntity);
+            this.Children.Add(this.ButtonEdit);
             // TODO добавить кнопку ButtonDeleteTest
-            throw new NotImplementedException();
+            this.ButtonDelete = new ButtonDeleteTest(idEntity);
+            this.Children.Add(this.ButtonDelete);
         }
     }
 }
