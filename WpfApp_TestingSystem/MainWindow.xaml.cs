@@ -146,7 +146,7 @@ namespace WpfApp_TestingSystem
 
                     // TODO написать обработчик нажатия на название теста (Test).
                     //(gridLineTest.Children[0] as Button).Click += ButtonCategoryLine_Click;   //TODO !!! обработчик
-                    (gridLineTest.Children[0] as Button).Click += ButtonTestLine_Click;
+                    (gridLineTest.Children[0] as Button).Click += ButtonInGridLineTest_Click;
 
                     if (this.isTeacher)
                     {
@@ -537,52 +537,52 @@ namespace WpfApp_TestingSystem
             this.ShowTestsOfSelectedCategories(Convert.ToInt32((sender as Button).Tag));
         }
 
-        private void ShowTestsOfCurrentCategory(ButtonCategoryLine buttonCategoryLine)
-        {
-            if (this.stackPanelSelection.Children.Count > 0)
-            {
-                this.stackPanelSelection.Children.Clear();
-            }
+        //private void ShowTestsOfCurrentCategory(ButtonCategoryLine buttonCategoryLine)
+        //{
+        //    if (this.stackPanelSelection.Children.Count > 0)
+        //    {
+        //        this.stackPanelSelection.Children.Clear();
+        //    }
 
 
 
-            using (TestingSystemEntities db = new TestingSystemEntities())
-            {
-                db.Database.Log = Console.Write;
+        //    using (TestingSystemEntities db = new TestingSystemEntities())
+        //    {
+        //        db.Database.Log = Console.Write;
 
-                //int tempCategoryID = buttonCategoryLine.CategoryID;
+        //        //int tempCategoryID = buttonCategoryLine.CategoryID;
 
-                var testsOfTheSelectedCategory
-                    = (
-                    from test in db.Test
-                        //where test.CategoryId == (sender as ButtonCategoryLine).CategoryID    // What #2 ???
-                    where test.CategoryId == buttonCategoryLine.CategoryID
-                    //where test.CategoryId == tempCategoryID
-                    select test
-                    )
-                    //.Where(x => x.CategoryId == 1)
-                    .ToList();
+        //        var testsOfTheSelectedCategory
+        //            = (
+        //            from test in db.Test
+        //                //where test.CategoryId == (sender as ButtonCategoryLine).CategoryID    // What #2 ???
+        //            where test.CategoryId == buttonCategoryLine.CategoryID
+        //            //where test.CategoryId == tempCategoryID
+        //            select test
+        //            )
+        //            //.Where(x => x.CategoryId == 1)
+        //            .ToList();
 
-                for (int i = 0; i < testsOfTheSelectedCategory.Count(); i++)
-                {
+        //        for (int i = 0; i < testsOfTheSelectedCategory.Count(); i++)
+        //        {
 
-                    ButtonTestLine buttonTestLine
-                        = new ButtonTestLine(
-                            i,
-                            testsOfTheSelectedCategory[i].Name,
-                            testsOfTheSelectedCategory[i].Category.Name,
-                            testsOfTheSelectedCategory[i].Question.Count()
-                        );
-                    buttonTestLine.TestID = testsOfTheSelectedCategory[i].Id;
+        //            ButtonTestLine buttonTestLine
+        //                = new ButtonTestLine(
+        //                    i,
+        //                    testsOfTheSelectedCategory[i].Name,
+        //                    testsOfTheSelectedCategory[i].Category.Name,
+        //                    testsOfTheSelectedCategory[i].Question.Count()
+        //                );
+        //            buttonTestLine.TestID = testsOfTheSelectedCategory[i].Id;
 
-                    buttonTestLine.Style = (Style)(this.Resources["styleButtonForList"]); // What #1 ???
-                    buttonTestLine.Click += ButtonTestLine_Click;
-                    this.stackPanelSelection.Children.Add(buttonTestLine);
-                }
-            }
-        }
+        //            buttonTestLine.Style = (Style)(this.Resources["styleButtonForList"]); // What #1 ???
+        //            buttonTestLine.Click += ButtonTestLine_Click;
+        //            this.stackPanelSelection.Children.Add(buttonTestLine);
+        //        }
+        //    }
+        //}
 
-        private void ButtonTestLine_Click(object sender, RoutedEventArgs e)
+        private void ButtonInGridLineTest_Click(object sender, RoutedEventArgs e)
         {
             // TODO при нажатии на тест - запуск вопросов теста
             MessageBox.Show("запуск вопросов теста");
@@ -595,10 +595,11 @@ namespace WpfApp_TestingSystem
             //this.textBlockPassing_Title.Text
             //    = this.listBoxAllTests.SelectedValue.ToString();
 
-            ButtonTestLine buttonTestLine = sender as ButtonTestLine;
+            //ButtonTestLine buttonTestLine = sender as ButtonTestLine;
+            GridLineTest gridLineTest = (sender as Button).Parent as GridLineTest;
 
             this.textBlockPassing_Title.Text
-                = buttonTestLine.CategoryName;
+                = gridLineTest.CategoryName;
 
 
             this.answersToTheCurrentQuestion = new List<Answer>();
@@ -613,7 +614,7 @@ namespace WpfApp_TestingSystem
                 this.questionsOfTheSelectedTest = (
                     from question in db.Question.Include("Answer")  // HACK или безотложная (много маленьких запросов)
                     //where question.Test.Name == this.listBoxAllTests.SelectedValue.ToString()
-                    where question.Test.Id == buttonTestLine.TestID
+                    where question.Test.Id == gridLineTest.TestID
                     select question
                     )
                     .ToList();

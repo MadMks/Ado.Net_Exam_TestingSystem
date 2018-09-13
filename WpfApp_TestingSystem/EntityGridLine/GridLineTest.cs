@@ -17,6 +17,16 @@ namespace WpfApp_TestingSystem
         //private Button button = null;
         private Grid gridLineButton = null;
 
+        private TextBlock textBlockCategory = null;
+
+        public int TestID { get; set; }
+
+        public string CategoryName
+        {
+            get { return textBlockCategory.Text; }
+            set { textBlockCategory.Text = value; }    // TODO ?!?!?!? времменно написал - нужно правильно присваивать!
+        }
+
         public GridLineTest() {}
 
         public GridLineTest(int number, Test currentTests)
@@ -68,7 +78,7 @@ namespace WpfApp_TestingSystem
                 Text = currentTests.Name,
                 Background = Brushes.Aqua
             };
-            TextBlock textBlockCategory = new TextBlock
+            /*TextBlock*/ textBlockCategory = new TextBlock
             {
                 Text = currentTests.Category.Name,
                 Background = Brushes.Bisque
@@ -98,7 +108,9 @@ namespace WpfApp_TestingSystem
             button.Content = gridLineButton;
 
             // HACK добавляю в Tag id теста
-            button.Tag = currentTests.Id;
+            button.Tag = currentTests.Id;   // TODO ??? убрать
+            // заменил нижней строкой.
+            this.TestID = currentTests.Id;
 
             // Установка кнопки в первую колонку
             Grid.SetColumn(button, 0);
