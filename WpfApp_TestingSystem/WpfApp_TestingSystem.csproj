@@ -81,6 +81,7 @@
     <Compile Include="EntityDeleteButton\IDelete.cs" />
     <Compile Include="EntityEditButton\ButtonEditCategory.cs" />
     <Compile Include="EntityEditButton\ButtonEditEntity.cs" />
+    <Compile Include="EntityEditButton\ButtonEditQuestion.cs" />
     <Compile Include="EntityEditButton\ButtonEditTest.cs" />
     <Compile Include="EntityGridLine\GridLineCategory.cs" />
     <Compile Include="EntityGridLine\GridLineEntity.cs" />

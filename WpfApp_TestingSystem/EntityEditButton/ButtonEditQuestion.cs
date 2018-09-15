@@ -7,11 +7,11 @@ using System.Windows;
 
 namespace WpfApp_TestingSystem.EntityEditButton
 {
-    public class ButtonEditTest : ButtonEditEntity
+    public class ButtonEditQuestion : ButtonEditEntity
     {
-        public ButtonEditTest() {}
+        public ButtonEditQuestion() {}
 
-        public ButtonEditTest(int idTest) : base(idTest) { }
+        public ButtonEditQuestion(int idQuestion) : base(idQuestion) { }
 
         public override bool EditingEntity(TestingSystemEntities db)
         {
