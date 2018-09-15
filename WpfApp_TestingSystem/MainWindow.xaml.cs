@@ -628,10 +628,10 @@ namespace WpfApp_TestingSystem
                     // TODO написать обработчик нажатия на название Вопроса (Question).
                     (gridLineQuestion.Children[0] as Button).Click += ButtonInGridLineQuestion_Click;
 
-                    if (this.isTeacher)
-                    {
+                    //if (this.isTeacher)
+                    //{
                         this.CreateEditingButtons(gridLineQuestion, listOfQuestionsCurrentTest[i].Id);
-                    }
+                    //}
 
                     this.stackPanelSelection.Children.Add(gridLineQuestion);
                 }
@@ -673,11 +673,24 @@ namespace WpfApp_TestingSystem
 
                 for (int i = 0; i < listOfAnswersCurrentQuestion.Count(); i++)
                 {
+                    GridLineAnswer gridLineAnswer
+                        = new GridLineAnswer(
+                            i,
+                            listOfAnswersCurrentQuestion[i]
+                        );
 
+                    // Установить стиль кнопки внутри grid
+                    (gridLineAnswer.Children[0] as Button).Style = (Style)(this.Resources["styleButtonForList"]);
+
+                    // TODO написать обработчик нажатия на Ответ
+                    //
+
+                    //this.CreateEditingButtons(gridLineAnswer, listOfAnswersCurrentQuestion[i].Id);
+
+                    this.stackPanelSelection.Children.Add(gridLineAnswer);
                 }
             }
-
-            throw new NotImplementedException();
+            
         }
 
         private void LaunchingTestQuestions(Button senderButton)
