@@ -16,6 +16,7 @@ namespace WpfApp_TestingSystem.EntityGridLine
     {
         private Grid gridLineButton = null;
 
+        public int QuestionID { get; set; }
 
         public GridLineQuestion() {}
 
@@ -87,6 +88,8 @@ namespace WpfApp_TestingSystem.EntityGridLine
 
             // Добавим в кнопку grid с текстБлоками (в которых данные).
             button.Content = gridLineButton;
+
+            this.QuestionID = currentQuestion.Id;
 
             // Установка кнопки в первую колонку
             Grid.SetColumn(button, 0);

@@ -626,6 +626,7 @@ namespace WpfApp_TestingSystem
                     (gridLineQuestion.Children[0] as Button).Style = (Style)(this.Resources["styleButtonForList"]);
 
                     // TODO написать обработчик нажатия на название Вопроса (Question).
+                    (gridLineQuestion.Children[0] as Button).Click += ButtonInGridLineQuestion_Click;
 
                     if (this.isTeacher)
                     {
@@ -635,6 +636,48 @@ namespace WpfApp_TestingSystem
                     this.stackPanelSelection.Children.Add(gridLineQuestion);
                 }
             }
+        }
+
+        private void ButtonInGridLineQuestion_Click(object sender, RoutedEventArgs e)
+        {
+            // TODO показать Ответы выбранного вопроса
+
+            int idQuestion = ((sender as Button).Parent as GridLineQuestion).QuestionID;
+
+            this.ShowAnswersForSelectedOfQuestion(idQuestion);
+        }
+
+        /// <summary>
+        /// Показать ответы выбранного теста.
+        /// </summary>
+        /// <param name="idQuestion">Id выбранного теста.</param>
+        private void ShowAnswersForSelectedOfQuestion(int idQuestion)
+        {
+            if (this.stackPanelSelection.Children.Count > 0)
+            {
+                this.stackPanelSelection.Children.Clear();
+            }
+
+
+            using (TestingSystemEntities db = new TestingSystemEntities())
+            {
+                db.Database.Log = Console.Write;
+
+                var listOfAnswersCurrentQuestion
+                    = (
+                    from answer in db.Answer
+                    where answer.QuestionId == idQuestion
+                    select answer
+                    )
+                    .ToList();
+
+                for (int i = 0; i < listOfAnswersCurrentQuestion.Count(); i++)
+                {
+
+                }
+            }
+
+            throw new NotImplementedException();
         }
 
         private void LaunchingTestQuestions(Button senderButton)
