@@ -15,7 +15,7 @@ namespace WpfApp_TestingSystem.EntityEditButton
 
         public override bool EditingEntity(TestingSystemEntities db)
         {
-            MessageBox.Show("Реализовать редактирование вопроса");
+            MessageBox.Show("Реализовать редактирование теста");
 
             throw new NotImplementedException();
         }

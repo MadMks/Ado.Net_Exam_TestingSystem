@@ -77,6 +77,7 @@
     </Compile>
     <Compile Include="EntityDeleteButton\ButtonDeleteCategory.cs" />
     <Compile Include="EntityDeleteButton\ButtonDeleteEntity.cs" />
+    <Compile Include="EntityDeleteButton\ButtonDeleteQuestion.cs" />
     <Compile Include="EntityDeleteButton\ButtonDeleteTest.cs" />
     <Compile Include="EntityDeleteButton\IDelete.cs" />
     <Compile Include="EntityEditButton\ButtonEditCategory.cs" />
