@@ -457,7 +457,9 @@ namespace WpfApp_TestingSystem
 
                     if (isRemoved)
                     {
-                        this.ShowAllCategories();
+                        // TODO HACK должна выводится та сущность, которую редактировали!
+
+                        this.ShowGridLineEntity(sender);
                     }
                 }
 

@@ -56,13 +56,13 @@ namespace WpfApp_TestingSystem.EntityDeleteButton
 
                     if (deleteQuestions.Count > 0)
                     {
-                        int[] delQuestionId = (from question in deleteQuestions select question.Id).ToArray();
+                        int[] delQuestionsId = (from question in deleteQuestions select question.Id).ToArray();
 
                         // answer
                         var deleteAnswer
                             = (
                             from answer in db.Answer
-                            where (delQuestionId).Contains(answer.QuestionId)
+                            where (delQuestionsId).Contains(answer.QuestionId)
                             select answer
                             )
                             .ToList();
