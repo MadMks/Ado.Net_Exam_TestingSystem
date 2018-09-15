@@ -84,6 +84,7 @@
     <Compile Include="EntityEditButton\ButtonEditTest.cs" />
     <Compile Include="EntityGridLine\GridLineCategory.cs" />
     <Compile Include="EntityGridLine\GridLineEntity.cs" />
+    <Compile Include="EntityGridLine\GridLineQuestion.cs" />
     <Compile Include="EntityGridLine\GridLineTest.cs" />
     <Compile Include="Question.cs">
       <DependentUpon>TestingSystemModel.tt</DependentUpon>

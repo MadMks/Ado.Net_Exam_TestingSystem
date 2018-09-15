@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WpfApp_TestingSystem.EntityDeleteButton;
 using WpfApp_TestingSystem.EntityEditButton;
+using WpfApp_TestingSystem.EntityGridLine;
 
 namespace WpfApp_TestingSystem
 {
@@ -157,6 +158,8 @@ namespace WpfApp_TestingSystem
 
 
                     //buttonTestLine.Click += ButtonTestLine_Click;
+
+                    // TODO CREATE method "button ADD Test"
                 }
             }
         }
@@ -193,12 +196,9 @@ namespace WpfApp_TestingSystem
                 this.stackPanelSelection.Children.Clear();
             }
 
-            //this.LoadingCategoriesFromTheDatabase();
-
             using (TestingSystemEntities db = new TestingSystemEntities())
             {
                 db.Database.Log = Console.Write;
-                //db.Configuration.LazyLoadingEnabled = false;
 
                 var listOfAllCategories
                     = (
@@ -207,24 +207,9 @@ namespace WpfApp_TestingSystem
                     )
                     .ToList();
 
-                //MessageBox.Show("1");
-
                 for (int i = 0; i < listOfAllCategories.Count(); i++)
                 {
                     // TODO new line fo list category - method
-
-                    //ButtonCategoryLine buttonCategoryLine
-                    //    = new ButtonCategoryLine(
-                    //        i,
-                    //        listOfAllCategories[i].Name,
-                    //        listOfAllCategories[i].Test.Count()
-                    //        //, this.isTeacher
-                    //        );
-                    //buttonCategoryLine.CategoryID = listOfAllCategories[i].Id;
-
-                    //buttonCategoryLine.Style = (Style)(this.Resources["styleButtonForList"]);
-                    //buttonCategoryLine.Click += ButtonCategoryLine_Click;
-                    //MessageBox.Show("2");
 
                     //GridLineCategory gridLineCategory 
                     //    = new GridLineCategory(
@@ -592,7 +577,49 @@ namespace WpfApp_TestingSystem
 
             if (this.isTeacher)
             {
+                // TODO CREATE method
 
+                // TODO clear stackP
+                if (this.stackPanelSelection.Children.Count > 0)
+                {
+                    this.stackPanelSelection.Children.Clear();
+                }
+
+                int idTest = ((sender as Button).Parent as GridLineTest).TestID;
+
+                using (TestingSystemEntities db = new TestingSystemEntities())
+                {
+                    db.Database.Log = Console.Write;
+
+                    var listOfQuestionsCurrentTest
+                        = (
+                        from question in db.Question.Include("Answer")
+                        where question.TestId == idTest
+                        select question
+                        )
+                        .ToList();
+
+                    for (int i = 0; i < listOfQuestionsCurrentTest.Count(); i++)
+                    {
+                        GridLineQuestion gridLineQuestion
+                            = new GridLineQuestion(
+                                i,
+                                listOfQuestionsCurrentTest[i]
+                            );
+
+                        // Установить стиль кнопки внутри grid
+                        (gridLineQuestion.Children[0] as Button).Style = (Style)(this.Resources["styleButtonForList"]);
+
+                        // TODO написать обработчик нажатия на название Вопроса (Question).
+
+                        if (this.isTeacher)
+                        {
+                            this.CreateEditingButtons(gridLineQuestion, listOfQuestionsCurrentTest[i].Id);
+                        }
+
+                        this.stackPanelSelection.Children.Add(gridLineQuestion);
+                    }
+                }
             }
             else
             {

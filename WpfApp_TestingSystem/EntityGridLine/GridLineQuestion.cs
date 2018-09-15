@@ -7,29 +7,17 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
-using WpfApp_TestingSystem.EntityDeleteButton;
-using WpfApp_TestingSystem.EntityEditButton;
 
-namespace WpfApp_TestingSystem
+namespace WpfApp_TestingSystem.EntityGridLine
 {
-    public class GridLineTest : /*Grid*/GridLineEntity
+    public class GridLineQuestion : GridLineEntity
     {
-        //private Button button = null;
         private Grid gridLineButton = null;
 
-        private TextBlock textBlockCategory = null;
 
-        public int TestID { get; set; }
+        public GridLineQuestion() {}
 
-        public string CategoryName
-        {
-            get { return textBlockCategory.Text; }
-            set { textBlockCategory.Text = value; }    // TODO ?!?!?!? времменно написал - нужно правильно присваивать!
-        }
-
-        public GridLineTest() {}
-
-        public GridLineTest(int number, Test currentTest)
+        public GridLineQuestion(int number, Question currentQuestion)
         {
             // Колонки для основного Grid
             this.ColumnDefinitions.Add(new ColumnDefinition
@@ -45,6 +33,7 @@ namespace WpfApp_TestingSystem
                 Width = new GridLength(1.0, GridUnitType.Star)
             });
 
+
             // "Главная " кнопка
             button = new Button { Style = (Style)(this.Resources["styleButtonForList"]) };
             // grid внутри главной кнопки
@@ -56,16 +45,13 @@ namespace WpfApp_TestingSystem
             });
             gridLineButton.ColumnDefinitions.Add(new ColumnDefinition
             {
-                Width = new GridLength(9.0, GridUnitType.Star)
+                Width = new GridLength(10.0, GridUnitType.Star)
             });
             gridLineButton.ColumnDefinitions.Add(new ColumnDefinition
             {
                 Width = new GridLength(1.0, GridUnitType.Star)
             });
-            gridLineButton.ColumnDefinitions.Add(new ColumnDefinition
-            {
-                Width = new GridLength(1.0, GridUnitType.Star)
-            });
+
 
             // Данные главной кнопки
             TextBlock textBlockNumber = new TextBlock
@@ -73,44 +59,32 @@ namespace WpfApp_TestingSystem
                 Text = (number + 1).ToString(),
                 Background = Brushes.AliceBlue
             };
-            TextBlock textBlockTestName = new TextBlock
+            TextBlock textBlockQuestionName = new TextBlock
             {
-                Text = currentTest.Name,
+                Text = currentQuestion.QuestionText,
                 Background = Brushes.Aqua
             };
-            /*TextBlock*/ textBlockCategory = new TextBlock
+            TextBlock textBlockQuantityAnswers = new TextBlock
             {
-                Text = currentTest.Category.Name,
-                Background = Brushes.Bisque
-            };
-            TextBlock textBlockQuantityQuestions = new TextBlock
-            {
-                Text = currentTest.Question.Count().ToString(),
+                Text = currentQuestion.Answer.Count().ToString(),
                 Background = Brushes.BurlyWood
             };
 
             // Добавление textBlock с данными в кнопку.
             gridLineButton.Children.Add(textBlockNumber);
-            gridLineButton.Children.Add(textBlockTestName);
-            gridLineButton.Children.Add(textBlockCategory);
-            gridLineButton.Children.Add(textBlockQuantityQuestions);
+            gridLineButton.Children.Add(textBlockQuestionName);
+            gridLineButton.Children.Add(textBlockQuantityAnswers);
 
             // Расстановка textBlock по колонкам
             Grid.SetColumn(textBlockNumber, 0);
-            Grid.SetColumn(textBlockTestName, 1);
-            Grid.SetColumn(textBlockCategory, 2);
-            Grid.SetColumn(textBlockQuantityQuestions, 3);
+            Grid.SetColumn(textBlockQuestionName, 1);
+            Grid.SetColumn(textBlockQuantityAnswers, 2);
 
             // Скрываем зарезервированное место для кнопок админа.
             Grid.SetColumnSpan(button, 3);
 
             // Добавим в кнопку grid с текстБлоками (в которых данные).
             button.Content = gridLineButton;
-
-            // HACK добавляю в Tag id теста
-            button.Tag = currentTest.Id;   // TODO ??? убрать
-            // заменил нижней строкой.
-            this.TestID = currentTest.Id;
 
             // Установка кнопки в первую колонку
             Grid.SetColumn(button, 0);
@@ -125,14 +99,10 @@ namespace WpfApp_TestingSystem
             this.Children.Add(button);
         }
 
+
         public override void AddingAdminButtons(int idEntity)
         {
-            // TODO добавить кнопку ButtonEditTest
-            this.ButtonEdit = new ButtonEditTest(idEntity);
-            this.Children.Add(this.ButtonEdit);
-            // TODO добавить кнопку ButtonDeleteTest
-            this.ButtonDelete = new ButtonDeleteTest(idEntity);
-            this.Children.Add(this.ButtonDelete);
+            throw new NotImplementedException();
         }
     }
 }
