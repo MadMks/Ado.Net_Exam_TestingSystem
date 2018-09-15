@@ -579,52 +579,61 @@ namespace WpfApp_TestingSystem
             {
                 // TODO CREATE method
 
-                // TODO clear stackP
-                if (this.stackPanelSelection.Children.Count > 0)
-                {
-                    this.stackPanelSelection.Children.Clear();
-                }
-
                 int idTest = ((sender as Button).Parent as GridLineTest).TestID;
 
-                using (TestingSystemEntities db = new TestingSystemEntities())
-                {
-                    db.Database.Log = Console.Write;
-
-                    var listOfQuestionsCurrentTest
-                        = (
-                        from question in db.Question.Include("Answer")
-                        where question.TestId == idTest
-                        select question
-                        )
-                        .ToList();
-
-                    for (int i = 0; i < listOfQuestionsCurrentTest.Count(); i++)
-                    {
-                        GridLineQuestion gridLineQuestion
-                            = new GridLineQuestion(
-                                i,
-                                listOfQuestionsCurrentTest[i]
-                            );
-
-                        // Установить стиль кнопки внутри grid
-                        (gridLineQuestion.Children[0] as Button).Style = (Style)(this.Resources["styleButtonForList"]);
-
-                        // TODO написать обработчик нажатия на название Вопроса (Question).
-
-                        if (this.isTeacher)
-                        {
-                            this.CreateEditingButtons(gridLineQuestion, listOfQuestionsCurrentTest[i].Id);
-                        }
-
-                        this.stackPanelSelection.Children.Add(gridLineQuestion);
-                    }
-                }
+                this.ShowQuestionsOfSelectedOfTest(idTest);
             }
             else
             {
                 // TODO при нажатии на тест - запуск вопросов теста
                 this.LaunchingTestQuestions(sender as Button);
+            }
+        }
+
+        /// <summary>
+        /// Показать вопросы выбранного теста.
+        /// </summary>
+        /// <param name="idTest">Id выбранного теста.</param>
+        private void ShowQuestionsOfSelectedOfTest(int idTest)
+        {
+            if (this.stackPanelSelection.Children.Count > 0)
+            {
+                this.stackPanelSelection.Children.Clear();
+            }
+            
+
+            using (TestingSystemEntities db = new TestingSystemEntities())
+            {
+                db.Database.Log = Console.Write;
+
+                var listOfQuestionsCurrentTest
+                    = (
+                    from question in db.Question.Include("Answer")
+                    where question.TestId == idTest
+                    select question
+                    )
+                    .ToList();
+
+                for (int i = 0; i < listOfQuestionsCurrentTest.Count(); i++)
+                {
+                    GridLineQuestion gridLineQuestion
+                        = new GridLineQuestion(
+                            i,
+                            listOfQuestionsCurrentTest[i]
+                        );
+
+                    // Установить стиль кнопки внутри grid
+                    (gridLineQuestion.Children[0] as Button).Style = (Style)(this.Resources["styleButtonForList"]);
+
+                    // TODO написать обработчик нажатия на название Вопроса (Question).
+
+                    if (this.isTeacher)
+                    {
+                        this.CreateEditingButtons(gridLineQuestion, listOfQuestionsCurrentTest[i].Id);
+                    }
+
+                    this.stackPanelSelection.Children.Add(gridLineQuestion);
+                }
             }
         }
 
