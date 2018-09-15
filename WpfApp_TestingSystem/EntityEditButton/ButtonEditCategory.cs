@@ -24,9 +24,9 @@ namespace WpfApp_TestingSystem.EntityEditButton
             windowEdit.gridEditCategory.Visibility = Visibility.Visible;
 
             var editCategory = db.Category
-                                .Where(x => x.Id == idCategory)
-                                //.Select(x => x.Name)
-                                .FirstOrDefault();
+                .Where(x => x.Id == idCategory)
+                //.Select(x => x.Name)
+                .FirstOrDefault();
 
             windowEdit.CategoryName = editCategory.Name;
 

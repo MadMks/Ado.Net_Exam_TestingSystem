@@ -13,8 +13,8 @@
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" Name="gridEditCategory" 
-              >
+        <Grid Grid.Row="0" Name="gridEditCategory"
+              Visibility="Hidden">
 
             <Grid.RowDefinitions>
                 <RowDefinition/>
@@ -31,6 +31,32 @@
                      Name="textBoxCategoryName">
                 
             </TextBox>
+
+        </Grid>
+
+        <Grid Grid.Row="0" Name="gridEditTest">
+
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" VerticalAlignment="Bottom"  FontSize="20" Margin="10, 10, 10, 5">
+                Название теста:
+            </TextBlock>
+
+            <TextBox Grid.Row="1" VerticalAlignment="Top" FontSize="20" Margin="10, 5, 10, 10"
+                     Name="textBoxTestName">
+            </TextBox>
+
+            <TextBlock Grid.Row="2" VerticalAlignment="Bottom" FontSize="20" Margin="10, 10, 10, 5">
+                Категория теста:
+            </TextBlock>
+
+            <ComboBox Grid.Row="3" VerticalAlignment="Top" FontSize="20" Margin="10, 5, 10, 10"
+                      Name="comboBoxTestCategories"></ComboBox>
 
         </Grid>
 

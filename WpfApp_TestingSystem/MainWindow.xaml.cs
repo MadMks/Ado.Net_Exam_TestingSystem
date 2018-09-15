@@ -506,7 +506,7 @@ namespace WpfApp_TestingSystem
 
                     if (isEdited)
                     {
-                        this.ShowAllCategories();
+                        this.ShowAllCategories();   // TODO HACK должна выводится та сущность, которую редактировали!
                     }
                 }
             }
@@ -685,7 +685,7 @@ namespace WpfApp_TestingSystem
                     // TODO написать обработчик нажатия на Ответ
                     //
 
-                    //this.CreateEditingButtons(gridLineAnswer, listOfAnswersCurrentQuestion[i].Id);
+                    this.CreateEditingButtons(gridLineAnswer, listOfAnswersCurrentQuestion[i].Id);
 
                     this.stackPanelSelection.Children.Add(gridLineAnswer);
                 }
