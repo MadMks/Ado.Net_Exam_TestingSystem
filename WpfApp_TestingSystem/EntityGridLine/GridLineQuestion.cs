@@ -7,6 +7,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
+using WpfApp_TestingSystem.EntityDeleteButton;
+using WpfApp_TestingSystem.EntityEditButton;
 
 namespace WpfApp_TestingSystem.EntityGridLine
 {
@@ -102,7 +104,11 @@ namespace WpfApp_TestingSystem.EntityGridLine
 
         public override void AddingAdminButtons(int idEntity)
         {
-            throw new NotImplementedException();
+            this.ButtonEdit = new ButtonEditQuestion(idEntity);
+            this.Children.Add(this.ButtonEdit);
+
+            this.ButtonDelete = new ButtonDeleteQuestion(idEntity);
+            this.Children.Add(this.ButtonDelete);
         }
     }
 }
