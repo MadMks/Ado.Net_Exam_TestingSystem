@@ -47,6 +47,8 @@ namespace WpfApp_TestingSystem
         //    get { return textBlockHiddenForSizeButtonLine; }
         //}
 
+        Level level;
+
 
 
         public MainWindow()
@@ -115,6 +117,8 @@ namespace WpfApp_TestingSystem
 
                 if (idCategory == null)
                 {
+                    this.level = Level.AllTests;
+
                     listTestsOfSelectedCategories
                         = (
                         from test in db.Test
@@ -124,6 +128,8 @@ namespace WpfApp_TestingSystem
                 }
                 else
                 {
+                    this.level = Level.TestsOfTheSelectedCategory;
+
                     listTestsOfSelectedCategories
                         = (
                         from test in db.Test
@@ -503,10 +509,34 @@ namespace WpfApp_TestingSystem
                 if (sender is ButtonEditEntity)
                 {
                     bool isEdited = (sender as ButtonEditEntity).EditingEntity(db);
-
+                    
                     if (isEdited)
                     {
-                        this.ShowAllCategories();   // TODO HACK должна выводится та сущность, которую редактировали!
+                        // TODO HACK должна выводится та сущность, которую редактировали!
+                        MessageBox.Show("true");
+                        //this.ShowAllCategories();
+
+                        if (sender is ButtonEditCategory)
+                        {
+                            MessageBox.Show("all category");
+                            this.ShowAllCategories();
+                        }
+                        else if (sender is ButtonEditTest)
+                        {
+                            if (level == Level.AllTests)
+                            {
+                                MessageBox.Show("all test");
+                                this.ShowTestsOfSelectedCategories(null);
+                            }
+                            else if (level == Level.TestsOfTheSelectedCategory)
+                            {
+                                int idCategory = ((sender as ButtonEditTest).Parent as GridLineTest).CategoryId;
+
+                                MessageBox.Show("test selected category");
+
+                                this.ShowTestsOfSelectedCategories(idCategory);
+                            }
+                        }
                     }
                 }
             }

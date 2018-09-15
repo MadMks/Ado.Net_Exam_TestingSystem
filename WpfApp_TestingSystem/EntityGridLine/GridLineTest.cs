@@ -21,11 +21,16 @@ namespace WpfApp_TestingSystem
 
         public int TestID { get; set; }
 
+        // test
+        public int CategoryId { get; set; }
+
         public string CategoryName
         {
             get { return textBlockCategory.Text; }
             set { textBlockCategory.Text = value; }    // TODO ?!?!?!? времменно написал - нужно правильно присваивать!
         }
+
+        
 
         public GridLineTest() {}
 
@@ -111,6 +116,9 @@ namespace WpfApp_TestingSystem
             button.Tag = currentTest.Id;   // TODO ??? убрать
             // заменил нижней строкой.
             this.TestID = currentTest.Id;
+
+            // test
+            this.CategoryId = currentTest.CategoryId;
 
             // Установка кнопки в первую колонку
             Grid.SetColumn(button, 0);

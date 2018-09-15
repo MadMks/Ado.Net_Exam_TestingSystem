@@ -91,6 +91,7 @@
     <Compile Include="EntityGridLine\GridLineEntity.cs" />
     <Compile Include="EntityGridLine\GridLineQuestion.cs" />
     <Compile Include="EntityGridLine\GridLineTest.cs" />
+    <Compile Include="EnumLevels.cs" />
     <Compile Include="Question.cs">
       <DependentUpon>TestingSystemModel.tt</DependentUpon>
     </Compile>

@@ -13,6 +13,7 @@ namespace WpfApp_TestingSystem.EntityEditButton
 
         public ButtonEditTest(int idTest) : base(idTest) { }
 
+
         public override bool EditingEntity(TestingSystemEntities db)
         {
             int idTest = Convert.ToInt32(this.Tag);
