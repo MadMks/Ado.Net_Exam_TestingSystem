@@ -584,7 +584,25 @@ namespace WpfApp_TestingSystem
 
         private void ButtonInGridLineTest_Click(object sender, RoutedEventArgs e)
         {
-            // TODO при нажатии на тест - запуск вопросов теста
+            // если учитель
+            // то загружаем кнопки Вопросов
+
+            // если студент
+            // то загружаем Вопросы теста (сдача теста).
+
+            if (this.isTeacher)
+            {
+
+            }
+            else
+            {
+                // TODO при нажатии на тест - запуск вопросов теста
+                this.LaunchingTestQuestions(sender as Button);
+            }
+        }
+
+        private void LaunchingTestQuestions(Button senderButton)
+        {
             MessageBox.Show("запуск вопросов теста");
             // загрузить страницу прохождения теста
             this.gridTestSelection.Visibility = Visibility.Hidden;
@@ -596,7 +614,7 @@ namespace WpfApp_TestingSystem
             //    = this.listBoxAllTests.SelectedValue.ToString();
 
             //ButtonTestLine buttonTestLine = sender as ButtonTestLine;
-            GridLineTest gridLineTest = (sender as Button).Parent as GridLineTest;
+            GridLineTest gridLineTest = senderButton.Parent as GridLineTest;
 
             this.textBlockPassing_Title.Text
                 = gridLineTest.CategoryName;
@@ -613,7 +631,7 @@ namespace WpfApp_TestingSystem
                 // TODO загрузить все вопросы и ответы
                 this.questionsOfTheSelectedTest = (
                     from question in db.Question.Include("Answer")  // HACK или безотложная (много маленьких запросов)
-                    //where question.Test.Name == this.listBoxAllTests.SelectedValue.ToString()
+                                                                    //where question.Test.Name == this.listBoxAllTests.SelectedValue.ToString()
                     where question.Test.Id == gridLineTest.TestID
                     select question
                     )
