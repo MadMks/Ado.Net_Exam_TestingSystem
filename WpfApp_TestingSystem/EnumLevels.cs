@@ -2,7 +2,7 @@
 
 namespace WpfApp_TestingSystem
 {
-    enum Level
+    internal enum Level
     {
         AllCategories,
         AllTests,

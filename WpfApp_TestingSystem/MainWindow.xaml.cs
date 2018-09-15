@@ -47,7 +47,7 @@ namespace WpfApp_TestingSystem
         //    get { return textBlockHiddenForSizeButtonLine; }
         //}
 
-        Level level;
+        private Level level;
 
 
 
@@ -513,32 +513,35 @@ namespace WpfApp_TestingSystem
                     if (isEdited)
                     {
                         // TODO HACK должна выводится та сущность, которую редактировали!
-                        MessageBox.Show("true");
-                        //this.ShowAllCategories();
 
-                        if (sender is ButtonEditCategory)
-                        {
-                            MessageBox.Show("all category");
-                            this.ShowAllCategories();
-                        }
-                        else if (sender is ButtonEditTest)
-                        {
-                            if (level == Level.AllTests)
-                            {
-                                MessageBox.Show("all test");
-                                this.ShowTestsOfSelectedCategories(null);
-                            }
-                            else if (level == Level.TestsOfTheSelectedCategory)
-                            {
-                                int idCategory = ((sender as ButtonEditTest).Parent as GridLineTest).CategoryId;
-
-                                MessageBox.Show("test selected category");
-
-                                this.ShowTestsOfSelectedCategories(idCategory);
-                            }
-                        }
+                        this.ShowGridLineEntity(sender);
                     }
                 }
+            }
+        }
+
+        private void ShowGridLineEntity(object sender)
+        {
+            if (sender is ButtonEditCategory || sender is ButtonDeleteCategory)
+            {
+                this.ShowAllCategories();
+            }
+            else if (sender is ButtonEditTest || sender is ButtonDeleteTest)
+            {
+                if (level == Level.AllTests)
+                {
+                    this.ShowTestsOfSelectedCategories(null);
+                }
+                else if (level == Level.TestsOfTheSelectedCategory)
+                {
+                    int idCategory = ((sender as Button).Parent as GridLineTest).CategoryId;
+
+                    this.ShowTestsOfSelectedCategories(idCategory);
+                }
+            }
+            else if (sender is ButtonEditQuestion || sender is ButtonDeleteQuestion)
+            {
+                MessageBox.Show("реализовать повторный вывод вопросов - level - enum");
             }
         }
 
