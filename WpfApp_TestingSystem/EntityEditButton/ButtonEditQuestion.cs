@@ -17,7 +17,31 @@ namespace WpfApp_TestingSystem.EntityEditButton
         {
             MessageBox.Show("Реализовать редактирование вопроса");
 
-            throw new NotImplementedException();
+            int idQuestion = Convert.ToInt32(this.Tag);
+
+            WindowEdit windowEdit = new WindowEdit();
+            windowEdit.gridEditQuestion.Visibility = Visibility.Visible;
+
+            var editQuestion = db.Question
+                .Where(x => x.Id == idQuestion)
+                .FirstOrDefault();
+
+            // Заполняем поле вопроса
+            windowEdit.QuestionName = editQuestion.QuestionText;
+
+            bool? result = windowEdit.ShowDialog();
+
+            if (result == true)
+            {
+                editQuestion.QuestionText = windowEdit.QuestionName;
+
+                db.SaveChanges();
+
+                return true;
+            }
+
+
+            return false;
         }
     }
 }

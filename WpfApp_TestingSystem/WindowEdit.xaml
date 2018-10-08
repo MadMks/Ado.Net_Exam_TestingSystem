@@ -34,7 +34,8 @@
 
         </Grid>
 
-        <Grid Grid.Row="0" Name="gridEditTest">
+        <Grid Grid.Row="0" Name="gridEditTest"
+              Visibility="Hidden">
 
             <Grid.RowDefinitions>
                 <RowDefinition/>
@@ -57,6 +58,27 @@
 
             <ComboBox Grid.Row="3" VerticalAlignment="Top" FontSize="20" Margin="10, 5, 10, 10"
                       Name="comboBoxTestCategories"></ComboBox>
+
+        </Grid>
+
+        <Grid Grid.Row="0" Name="gridEditQuestion"
+              Visibility="Hidden">
+
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="1" VerticalAlignment="Bottom"  FontSize="20" Margin="10, 10, 10, 5">
+                Название категории:
+            </TextBlock>
+
+            <TextBox Grid.Row="2" VerticalAlignment="Top" FontSize="20" Margin="10, 5, 10, 10"
+                     Name="textBoxQuestionName">
+
+            </TextBox>
 
         </Grid>
 
