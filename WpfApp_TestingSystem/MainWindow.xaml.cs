@@ -48,8 +48,7 @@ namespace WpfApp_TestingSystem
         //}
 
         private Level level;
-
-
+        private int currentIdTest;
 
         public MainWindow()
         {
@@ -543,7 +542,7 @@ namespace WpfApp_TestingSystem
             }
             else if (sender is ButtonEditQuestion || sender is ButtonDeleteQuestion)
             {
-                MessageBox.Show("реализовать повторный вывод вопросов - level - enum");
+                this.ShowQuestionsOfSelectedOfTest(this.currentIdTest);
             }
         }
 
@@ -614,9 +613,10 @@ namespace WpfApp_TestingSystem
             {
                 // TODO CREATE method
 
-                int idTest = ((sender as Button).Parent as GridLineTest).TestID;
+                //int idTest = ((sender as Button).Parent as GridLineTest).TestID;
+                this.currentIdTest = ((sender as Button).Parent as GridLineTest).TestID;
 
-                this.ShowQuestionsOfSelectedOfTest(idTest);
+                this.ShowQuestionsOfSelectedOfTest(this.currentIdTest);
             }
             else
             {
