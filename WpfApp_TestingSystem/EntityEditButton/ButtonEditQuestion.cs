@@ -15,8 +15,6 @@ namespace WpfApp_TestingSystem.EntityEditButton
 
         public override bool EditingEntity(TestingSystemEntities db)
         {
-            MessageBox.Show("Реализовать редактирование вопроса");
-
             int idQuestion = Convert.ToInt32(this.Tag);
 
             WindowEdit windowEdit = new WindowEdit();
@@ -39,7 +37,6 @@ namespace WpfApp_TestingSystem.EntityEditButton
 
                 return true;
             }
-
 
             return false;
         }

@@ -16,7 +16,10 @@ namespace WpfApp_TestingSystem.EntityEditButton
         {
             MessageBox.Show("Реализовать редактирование ответа");
 
-            throw new NotImplementedException();
+            //int idAnswer = Convert.ToInt32(this.Tag);
+
+            //WindowEdit windowEdit = new WindowEdit();
+            //windowEdit
         }
     }
 }
