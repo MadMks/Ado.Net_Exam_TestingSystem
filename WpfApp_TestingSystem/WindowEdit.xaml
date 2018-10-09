@@ -72,13 +72,45 @@
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Row="1" VerticalAlignment="Bottom"  FontSize="20" Margin="10, 10, 10, 5">
-                Название категории:
+                Текст вопроса:
             </TextBlock>
 
             <TextBox Grid.Row="2" VerticalAlignment="Top" FontSize="20" Margin="10, 5, 10, 10"
                      Name="textBoxQuestionName">
 
             </TextBox>
+
+        </Grid>
+
+        <Grid Grid.Row="0" Name="gridEditAnswer"
+              Visibility="Hidden">
+
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" VerticalAlignment="Bottom"  FontSize="20" Margin="10, 10, 10, 5">
+                Ответ:
+            </TextBlock>
+
+            <TextBox Grid.Row="1" VerticalAlignment="Top" FontSize="20" Margin="10, 5, 10, 10"
+                     Name="textBoxAnswerText">
+            </TextBox>
+
+            <TextBlock Grid.Row="2" VerticalAlignment="Bottom" FontSize="20" Margin="10, 10, 10, 5">
+                Значение:
+            </TextBlock>
+
+            <ComboBox Grid.Row="3" VerticalAlignment="Top" FontSize="20" Margin="10, 5, 10, 10"
+                      Name="comboBoxAnswerValue">
+
+                <ComboBoxItem>Правильный</ComboBoxItem>
+                <ComboBoxItem>Не правильный</ComboBoxItem>
+
+            </ComboBox>
 
         </Grid>
 
