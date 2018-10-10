@@ -15,9 +15,28 @@ namespace WpfApp_TestingSystem.EntityDeleteButton
 
         public override bool DeletingEntity(TestingSystemEntities db)
         {
-            MessageBox.Show("Реализовать удаление ответа");
+            int idAnswer = Convert.ToInt32(this.Tag);
 
-            throw new NotImplementedException();
+            var deleteAnswer = db.Answer
+                .Where(x => x.Id == idAnswer)
+                .FirstOrDefault();
+
+            MessageBoxResult result = MessageBox.Show(
+                $"Вы действительно хотите удалить этот ответ?",
+                $"Удаление ответа",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                db.Answer.Remove(deleteAnswer);
+                db.SaveChanges();
+
+                return true;
+            }
+
+
+            return false;
         }
     }
 }

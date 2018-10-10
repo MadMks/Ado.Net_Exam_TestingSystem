@@ -544,6 +544,12 @@ namespace WpfApp_TestingSystem
             {
                 this.ShowQuestionsOfSelectedOfTest(this.currentIdTest);
             }
+            else if (sender is ButtonEditAnswer || sender is ButtonDeleteAnswer)
+            {
+                int idQuestion = ((sender as Button).Parent as GridLineAnswer).QuestionId;
+
+                this.ShowAnswersForSelectedOfQuestion(idQuestion);
+            }
         }
 
         // TODO +
@@ -683,9 +689,9 @@ namespace WpfApp_TestingSystem
         }
 
         /// <summary>
-        /// Показать ответы выбранного теста.
+        /// Показать ответы выбранного вопроса.
         /// </summary>
-        /// <param name="idQuestion">Id выбранного теста.</param>
+        /// <param name="idQuestion">Id выбранного вопроса.</param>
         private void ShowAnswersForSelectedOfQuestion(int idQuestion)
         {
             if (this.stackPanelSelection.Children.Count > 0)
