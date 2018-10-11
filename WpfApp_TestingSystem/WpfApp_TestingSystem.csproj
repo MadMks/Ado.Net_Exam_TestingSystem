@@ -75,6 +75,8 @@
     <Compile Include="Category.cs">
       <DependentUpon>TestingSystemModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="EntityAddButton\ButtonAddCategory.cs" />
+    <Compile Include="EntityAddButton\ButtonAddEntity.cs" />
     <Compile Include="EntityDeleteButton\ButtonDeleteAnswer.cs" />
     <Compile Include="EntityDeleteButton\ButtonDeleteCategory.cs" />
     <Compile Include="EntityDeleteButton\ButtonDeleteEntity.cs" />

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfApp_TestingSystem.EntityAddButton;
 using WpfApp_TestingSystem.EntityDeleteButton;
 using WpfApp_TestingSystem.EntityEditButton;
 using WpfApp_TestingSystem.EntityGridLine;
@@ -212,21 +213,14 @@ namespace WpfApp_TestingSystem
                     )
                     .ToList();
 
+                GridLineCategory gridLineCategory = null;
+
                 for (int i = 0; i < listOfAllCategories.Count(); i++)
                 {
                     // TODO new line fo list category - method
 
-                    //GridLineCategory gridLineCategory 
-                    //    = new GridLineCategory(
-                    //        i,
-                    //        listOfAllCategories[i].Name,
-                    //        listOfAllCategories[i].Test.Count()
-                    //        //, this.textBlockHiddenForSizeButtonLine
-                    //    );
-
-
                     // TEST создаю gridLine и передаю в него сущность
-                    GridLineCategory gridLineCategory
+                    /*GridLineCategory */gridLineCategory
                         = new GridLineCategory(
                             i,
                             listOfAllCategories[i]
@@ -250,25 +244,63 @@ namespace WpfApp_TestingSystem
                 }
 
                 // Если Учитель, то добавим кнопку "Добавить" категорию.
+                // TODO ! метод - проверка (если учитель) -> то создать кнопку Add (abstract)
                 if (this.isTeacher)
                 {
+                    // testing кнопка add абстракция.
+                    //gridLineCategory?.AddAddButton();
                     // this.CreateAnAddButton();
 
-                    Button buttonAddCategory = new Button
-                    {
-                        Content = "Добавить категорию",
-                        Margin = new Thickness(10.0),
-                        Padding = new Thickness(10.0, 5.0, 10.0, 5.0),
-                        HorizontalAlignment = HorizontalAlignment.Center
-                    };
+                    //Button buttonAddCategory = new Button
+                    //{
+                    //    Content = "Добавить категорию",
+                    //    Margin = new Thickness(10.0),
+                    //    Padding = new Thickness(10.0, 5.0, 10.0, 5.0),
+                    //    HorizontalAlignment = HorizontalAlignment.Center
+                    //};
 
-                    buttonAddCategory.Click += ButtonAddCategory_Click;
+                    //buttonAddCategory.Click += ButtonAddCategory_Click;
 
-                    this.stackPanelSelection.Children.Add(buttonAddCategory);
+                    //this.stackPanelSelection.Children.Add(buttonAddCategory);
+
+                    //this.stackPanelSelection.Children.Add(gridLineCategory.AddingAnAddEntityButton());
+
+                    this.CreateAddButton(gridLineCategory);
+                    // TODO !!! >>> this.stackPanelSelection.Children.Add(buttonAddCategory);
                 }
             }
         }
 
+        private void CreateAddButton(GridLineEntity gridLineEntity)
+        {
+            ButtonAddEntity buttonAddEntity = 
+                gridLineEntity.AddingAnAddEntityButton();
+            gridLineEntity.ButtonAdd.Click += ButtonAddEntity_Click;
+
+            this.stackPanelSelection.Children.Add(buttonAddEntity);
+        }
+
+        private void ButtonAddEntity_Click(object sender, RoutedEventArgs e)
+        {
+            using (TestingSystemEntities db = new TestingSystemEntities())
+            {
+                db.Database.Log = Console.Write;
+
+                if (sender is ButtonAddEntity)
+                {
+                    bool isAdded = (sender as ButtonAddEntity).AddEntity(db);
+
+                    if (isAdded)
+                    {
+                        // TODO HACK должна выводится та сущность, которую добавили!
+
+                        this.ShowGridLineEntity(sender);
+                    }
+                }
+            }
+        }
+
+        // TODO перместить реализацию в класс добавления для каждой сущности.
         private void ButtonAddCategory_Click(object sender, RoutedEventArgs e)
         {
             using (TestingSystemEntities db = new TestingSystemEntities())
@@ -523,7 +555,8 @@ namespace WpfApp_TestingSystem
 
         private void ShowGridLineEntity(object sender)
         {
-            if (sender is ButtonEditCategory || sender is ButtonDeleteCategory)
+            if (sender is ButtonEditCategory || sender is ButtonDeleteCategory
+                || sender is ButtonAddCategory)
             {
                 this.ShowAllCategories();
             }

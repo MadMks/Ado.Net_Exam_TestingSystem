@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
+using WpfApp_TestingSystem.EntityAddButton;
 using WpfApp_TestingSystem.EntityDeleteButton;
 using WpfApp_TestingSystem.EntityEditButton;
 
@@ -141,6 +142,11 @@ namespace WpfApp_TestingSystem
             // TODO добавить кнопку ButtonDeleteTest
             this.ButtonDelete = new ButtonDeleteTest(idEntity);
             this.Children.Add(this.ButtonDelete);
+        }
+
+        public override ButtonAddEntity AddingAnAddEntityButton()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
+using WpfApp_TestingSystem.EntityAddButton;
 using WpfApp_TestingSystem.EntityDeleteButton;
 using WpfApp_TestingSystem.EntityEditButton;
 
@@ -112,6 +113,11 @@ namespace WpfApp_TestingSystem.EntityGridLine
 
             this.ButtonDelete = new ButtonDeleteQuestion(idEntity);
             this.Children.Add(this.ButtonDelete);
+        }
+
+        public override ButtonAddEntity AddingAnAddEntityButton()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
+using WpfApp_TestingSystem.EntityAddButton;
 using WpfApp_TestingSystem.EntityDeleteButton;
 using WpfApp_TestingSystem.EntityEditButton;
 
@@ -128,6 +129,45 @@ namespace WpfApp_TestingSystem
             //this.Children.Add(buttonDeleteCategory);
             this.Children.Add(this.ButtonDelete);
         }
+
+        public override ButtonAddEntity AddingAnAddEntityButton()
+        {
+            //Button buttonAddEntity
+            //    = base.AddingAnAddEntityButton();
+            this.ButtonAdd = new ButtonAddCategory();
+            //this.ButtonAdd.Content = "Добавить категорию";
+            //this.ButtonAdd.Click += ButtonAddEntity_Click;
+
+            return this.ButtonAdd;
+        }
+
+        //private void ButtonAddEntity_Click(object sender, RoutedEventArgs e)
+        //{
+        //    using (TestingSystemEntities db = new TestingSystemEntities())
+        //    {
+        //        db.Database.Log = Console.Write;
+
+        //        WindowEdit windowAdd = new WindowEdit();
+        //        windowAdd.gridEditCategory.Visibility = Visibility.Visible;
+        //        windowAdd.buttonOk.Content = "Добавить";
+
+
+        //        bool? result = windowAdd.ShowDialog();
+
+        //        if (result == true)
+        //        {
+        //            // запишем в базу
+
+        //            Category category = new Category();
+        //            category.Name = windowAdd.CategoryName;
+
+        //            db.Category.Add(category);
+        //            db.SaveChanges();
+
+        //            this.ShowAllCategories();
+        //        }
+        //    }
+        //}
 
 
         //public GridLineCategory(int number, string nameCategory, int quantityTests)
