@@ -18,7 +18,7 @@ namespace WpfApp_TestingSystem
 
         //private TextBlock tbNumber = null;
 
-
+        public int CategoryId { get; set; }
 
         //public int CategoryID
         //{
@@ -100,6 +100,10 @@ namespace WpfApp_TestingSystem
 
             // HACK добавляю в Tag id категории
             button.Tag = currentCategories.Id;
+
+            // TODO возможно вместо верхней (если она еще и не используется).
+            // test 2 
+            this.CategoryId = currentCategories.Id;
 
             // Установка кнопки в первую колонку
             Grid.SetColumn(button, 0);

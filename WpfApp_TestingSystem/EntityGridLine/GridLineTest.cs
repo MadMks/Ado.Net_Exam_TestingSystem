@@ -146,7 +146,13 @@ namespace WpfApp_TestingSystem
 
         public override ButtonAddEntity AddingAnAddEntityButton()
         {
-            throw new NotImplementedException();
+            this.ButtonAdd = new ButtonAddTest();
+
+            //this.ButtonAdd.Tag = this.CategoryId;
+            (this.ButtonAdd as ButtonAddTest).CategoryId
+                = this.CategoryId;
+
+            return this.ButtonAdd;
         }
     }
 }

@@ -50,6 +50,7 @@ namespace WpfApp_TestingSystem
 
         private Level level;
         private int currentIdTest;
+        private int currentIdCategory;
 
         public MainWindow()
         {
@@ -139,10 +140,11 @@ namespace WpfApp_TestingSystem
                         .ToList();
                 }
 
+                GridLineTest gridLineTest = null;
 
                 for (int i = 0; i < listTestsOfSelectedCategories.Count(); i++)
                 {
-                    GridLineTest gridLineTest
+                    /*GridLineTest*/ gridLineTest
                         = new GridLineTest(
                             i,
                             listTestsOfSelectedCategories[i]
@@ -166,6 +168,16 @@ namespace WpfApp_TestingSystem
                     //buttonTestLine.Click += ButtonTestLine_Click;
 
                     // TODO CREATE method "button ADD Test"
+                }
+
+                if (this.isTeacher)
+                {
+                    if (gridLineTest == null)
+                    {
+                        gridLineTest = new GridLineTest();
+                        gridLineTest.CategoryId = this.currentIdCategory;
+                    }
+                    this.CreateAddButton(gridLineTest);
                 }
             }
         }
@@ -264,6 +276,10 @@ namespace WpfApp_TestingSystem
                     //this.stackPanelSelection.Children.Add(buttonAddCategory);
 
                     //this.stackPanelSelection.Children.Add(gridLineCategory.AddingAnAddEntityButton());
+                    //if (gridLineCategory == null)
+                    //{
+                    //    gridLineCategory = new GridLineCategory();
+                    //}
 
                     this.CreateAddButton(gridLineCategory);
                     // TODO !!! >>> this.stackPanelSelection.Children.Add(buttonAddCategory);
@@ -560,7 +576,8 @@ namespace WpfApp_TestingSystem
             {
                 this.ShowAllCategories();
             }
-            else if (sender is ButtonEditTest || sender is ButtonDeleteTest)
+            else if (sender is ButtonEditTest || sender is ButtonDeleteTest
+                || sender is ButtonAddTest)
             {
                 if (level == Level.AllTests)
                 {
@@ -568,7 +585,17 @@ namespace WpfApp_TestingSystem
                 }
                 else if (level == Level.TestsOfTheSelectedCategory)
                 {
-                    int idCategory = ((sender as Button).Parent as GridLineTest).CategoryId;
+                    int idCategory;
+
+                    if ((sender as Button).Parent is GridLineTest)
+                    {
+                        idCategory = ((sender as Button).Parent as GridLineTest).CategoryId;
+                    }
+                    else
+                    {
+                        idCategory = this.currentIdCategory;
+                    }
+                    
 
                     this.ShowTestsOfSelectedCategories(idCategory);
                 }
@@ -591,6 +618,11 @@ namespace WpfApp_TestingSystem
             // TODO показать в стекПанел тесты данной категории.
 
             //this.ShowTestsOfCurrentCategory(sender as ButtonCategoryLine);
+
+            if (this.isTeacher)
+            {
+                this.currentIdCategory = ((sender as Button).Parent as GridLineCategory).CategoryId;
+            }
 
             this.ShowTestsOfSelectedCategories(Convert.ToInt32((sender as Button).Tag));
         }

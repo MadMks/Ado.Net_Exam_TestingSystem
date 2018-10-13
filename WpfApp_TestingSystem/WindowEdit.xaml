@@ -23,7 +23,8 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="1" VerticalAlignment="Bottom"  FontSize="20" Margin="10, 10, 10, 5">
+            <TextBlock Grid.Row="1" VerticalAlignment="Bottom"  FontSize="20" Margin="10, 10, 10, 5"
+                       Name="textBlockCategoryName">
                 Название категории:
             </TextBlock>
 
