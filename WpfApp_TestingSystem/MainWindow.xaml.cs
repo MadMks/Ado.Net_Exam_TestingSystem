@@ -600,7 +600,8 @@ namespace WpfApp_TestingSystem
                     this.ShowTestsOfSelectedCategories(idCategory);
                 }
             }
-            else if (sender is ButtonEditQuestion || sender is ButtonDeleteQuestion)
+            else if (sender is ButtonEditQuestion || sender is ButtonDeleteQuestion
+                || sender is ButtonAddQuestion)
             {
                 this.ShowQuestionsOfSelectedOfTest(this.currentIdTest);
             }
@@ -720,9 +721,11 @@ namespace WpfApp_TestingSystem
                     )
                     .ToList();
 
+                GridLineQuestion gridLineQuestion = null;
+
                 for (int i = 0; i < listOfQuestionsCurrentTest.Count(); i++)
                 {
-                    GridLineQuestion gridLineQuestion
+                    /*GridLineQuestion*/ gridLineQuestion
                         = new GridLineQuestion(
                             i,
                             listOfQuestionsCurrentTest[i]
@@ -740,6 +743,17 @@ namespace WpfApp_TestingSystem
                     //}
 
                     this.stackPanelSelection.Children.Add(gridLineQuestion);
+                }
+
+                if (gridLineQuestion == null)
+                {
+                    gridLineQuestion = new GridLineQuestion();
+                    gridLineQuestion.TestId = this.currentIdTest;
+                }
+
+                if (this.isTeacher)
+                {
+                    this.CreateAddButton(gridLineQuestion);
                 }
             }
         }

@@ -17,6 +17,7 @@ namespace WpfApp_TestingSystem.EntityGridLine
     {
         private Grid gridLineButton = null;
 
+        public int TestId { get; set; }
         public int QuestionID { get; set; }
 
         public GridLineQuestion() {}
@@ -91,6 +92,7 @@ namespace WpfApp_TestingSystem.EntityGridLine
             button.Content = gridLineButton;
 
             this.QuestionID = currentQuestion.Id;
+            this.TestId = currentQuestion.TestId;
 
             // Установка кнопки в первую колонку
             Grid.SetColumn(button, 0);
@@ -117,7 +119,12 @@ namespace WpfApp_TestingSystem.EntityGridLine
 
         public override ButtonAddEntity AddingAnAddEntityButton()
         {
-            throw new NotImplementedException();
+            this.ButtonAdd = new ButtonAddQuestion();
+
+            (this.ButtonAdd as ButtonAddQuestion).TestId
+                = this.TestId;
+
+            return this.ButtonAdd;
         }
     }
 }
