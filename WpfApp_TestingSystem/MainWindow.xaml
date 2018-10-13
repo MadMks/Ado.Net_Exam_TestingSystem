@@ -80,18 +80,28 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
         </Grid>-->
-
+        
+        
         <Grid Grid.Row="0" Name="gridSelection"
               Visibility="Hidden">
 
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="10*"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
 
+            <DockPanel Grid.Row="0" LastChildFill="False">
+                <ToolBarTray DockPanel.Dock="Top">
+                    <ToolBar>
+                        <Button Name="buttonMenuBack" Click="buttonMenuBack_Click">Назад</Button>
+                    </ToolBar>
+                </ToolBarTray>
+            </DockPanel>
+
             <!--All Header-->
-            <Grid Grid.Row="0">
+            <Grid Grid.Row="1">
 
                 <Grid.RowDefinitions>
                     <RowDefinition/>
@@ -121,7 +131,7 @@
             </Grid>
             
             
-            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
 
                 <Grid>
                     <Grid.ColumnDefinitions>

@@ -260,30 +260,7 @@ namespace WpfApp_TestingSystem
                 // TODO ! метод - проверка (если учитель) -> то создать кнопку Add (abstract)
                 if (this.isTeacher)
                 {
-                    // testing кнопка add абстракция.
-                    //gridLineCategory?.AddAddButton();
-                    // this.CreateAnAddButton();
-
-                    //Button buttonAddCategory = new Button
-                    //{
-                    //    Content = "Добавить категорию",
-                    //    Margin = new Thickness(10.0),
-                    //    Padding = new Thickness(10.0, 5.0, 10.0, 5.0),
-                    //    HorizontalAlignment = HorizontalAlignment.Center
-                    //};
-
-                    //buttonAddCategory.Click += ButtonAddCategory_Click;
-
-                    //this.stackPanelSelection.Children.Add(buttonAddCategory);
-
-                    //this.stackPanelSelection.Children.Add(gridLineCategory.AddingAnAddEntityButton());
-                    //if (gridLineCategory == null)
-                    //{
-                    //    gridLineCategory = new GridLineCategory();
-                    //}
-
                     this.CreateAddButton(gridLineCategory);
-                    // TODO !!! >>> this.stackPanelSelection.Children.Add(buttonAddCategory);
                 }
             }
         }
@@ -640,50 +617,6 @@ namespace WpfApp_TestingSystem
             this.ShowTestsOfSelectedCategories(Convert.ToInt32((sender as Button).Tag));
         }
 
-        //private void ShowTestsOfCurrentCategory(ButtonCategoryLine buttonCategoryLine)
-        //{
-        //    if (this.stackPanelSelection.Children.Count > 0)
-        //    {
-        //        this.stackPanelSelection.Children.Clear();
-        //    }
-
-
-
-        //    using (TestingSystemEntities db = new TestingSystemEntities())
-        //    {
-        //        db.Database.Log = Console.Write;
-
-        //        //int tempCategoryID = buttonCategoryLine.CategoryID;
-
-        //        var testsOfTheSelectedCategory
-        //            = (
-        //            from test in db.Test
-        //                //where test.CategoryId == (sender as ButtonCategoryLine).CategoryID    // What #2 ???
-        //            where test.CategoryId == buttonCategoryLine.CategoryID
-        //            //where test.CategoryId == tempCategoryID
-        //            select test
-        //            )
-        //            //.Where(x => x.CategoryId == 1)
-        //            .ToList();
-
-        //        for (int i = 0; i < testsOfTheSelectedCategory.Count(); i++)
-        //        {
-
-        //            ButtonTestLine buttonTestLine
-        //                = new ButtonTestLine(
-        //                    i,
-        //                    testsOfTheSelectedCategory[i].Name,
-        //                    testsOfTheSelectedCategory[i].Category.Name,
-        //                    testsOfTheSelectedCategory[i].Question.Count()
-        //                );
-        //            buttonTestLine.TestID = testsOfTheSelectedCategory[i].Id;
-
-        //            buttonTestLine.Style = (Style)(this.Resources["styleButtonForList"]); // What #1 ???
-        //            buttonTestLine.Click += ButtonTestLine_Click;
-        //            this.stackPanelSelection.Children.Add(buttonTestLine);
-        //        }
-        //    }
-        //}
 
         private void ButtonInGridLineTest_Click(object sender, RoutedEventArgs e)
         {
@@ -724,6 +657,8 @@ namespace WpfApp_TestingSystem
             using (TestingSystemEntities db = new TestingSystemEntities())
             {
                 db.Database.Log = Console.Write;
+
+                this.level = Level.QuestionsOfTheSelectedTest;
 
                 var listOfQuestionsCurrentTest
                     = (
@@ -1085,5 +1020,29 @@ namespace WpfApp_TestingSystem
             }
         }
 
+        private void buttonMenuBack_Click(object sender, RoutedEventArgs e)
+        {
+            //if (this.level == Level.AllCategories)
+            //{
+            //    this.buttonMenuBack.IsEnabled = false;
+            //}
+
+            if (this.level == Level.AllTests)
+            {
+                this.gridSelection.Visibility = Visibility.Hidden;
+                this.gridCategoryOrAllTest.Visibility = Visibility.Visible;
+            }
+            else if (this.level == Level.TestsOfTheSelectedCategory)
+            {
+                //this.gridCategoryOrAllTest.Visibility = Visibility.Hidden;
+
+                this.ShowAllCategories();
+            }
+            else if (this.level == Level.QuestionsOfTheSelectedTest)
+            {
+                this.ShowTestsOfSelectedCategories(this.currentIdCategory);
+            }
+
+        }
     }
 }

@@ -6,6 +6,7 @@ namespace WpfApp_TestingSystem
     {
         AllCategories,
         AllTests,
-        TestsOfTheSelectedCategory
+        TestsOfTheSelectedCategory,
+        QuestionsOfTheSelectedTest
     }
 }
