@@ -51,6 +51,7 @@ namespace WpfApp_TestingSystem
         private Level level;
         private int currentIdTest;
         private int currentIdCategory;
+        private int currentIdQuestion;
 
         public MainWindow()
         {
@@ -605,9 +606,20 @@ namespace WpfApp_TestingSystem
             {
                 this.ShowQuestionsOfSelectedOfTest(this.currentIdTest);
             }
-            else if (sender is ButtonEditAnswer || sender is ButtonDeleteAnswer)
+            else if (sender is ButtonEditAnswer || sender is ButtonDeleteAnswer
+                || sender is ButtonAddAnswer)
             {
-                int idQuestion = ((sender as Button).Parent as GridLineAnswer).QuestionId;
+                int idQuestion;
+                // TODO возможно сравнение заменить строкой:
+                // >>> idQuestion = this.currentIdCategory;
+                if ((sender as Button).Parent is GridLineAnswer)
+                {
+                    idQuestion = ((sender as Button).Parent as GridLineAnswer).QuestionId;
+                }
+                else
+                {
+                    idQuestion = this.currentIdQuestion;
+                }
 
                 this.ShowAnswersForSelectedOfQuestion(idQuestion);
             }
@@ -762,9 +774,9 @@ namespace WpfApp_TestingSystem
         {
             // TODO показать Ответы выбранного вопроса
 
-            int idQuestion = ((sender as Button).Parent as GridLineQuestion).QuestionID;
+            this.currentIdQuestion = ((sender as Button).Parent as GridLineQuestion).QuestionID;
 
-            this.ShowAnswersForSelectedOfQuestion(idQuestion);
+            this.ShowAnswersForSelectedOfQuestion(this.currentIdQuestion);
         }
 
         /// <summary>
@@ -791,9 +803,11 @@ namespace WpfApp_TestingSystem
                     )
                     .ToList();
 
+                GridLineAnswer gridLineAnswer = null;
+
                 for (int i = 0; i < listOfAnswersCurrentQuestion.Count(); i++)
                 {
-                    GridLineAnswer gridLineAnswer
+                    /*GridLineAnswer*/ gridLineAnswer
                         = new GridLineAnswer(
                             i,
                             listOfAnswersCurrentQuestion[i]
@@ -808,6 +822,17 @@ namespace WpfApp_TestingSystem
                     this.CreateEditingButtons(gridLineAnswer, listOfAnswersCurrentQuestion[i].Id);
 
                     this.stackPanelSelection.Children.Add(gridLineAnswer);
+                }
+
+                if (gridLineAnswer == null)
+                {
+                    gridLineAnswer = new GridLineAnswer();
+                    gridLineAnswer.QuestionId = this.currentIdQuestion;
+                }
+
+                if (this.isTeacher)
+                {
+                    this.CreateAddButton(gridLineAnswer);
                 }
             }
             

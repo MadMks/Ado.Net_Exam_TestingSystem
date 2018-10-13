@@ -122,7 +122,12 @@ namespace WpfApp_TestingSystem.EntityGridLine
 
         public override ButtonAddEntity AddingAnAddEntityButton()
         {
-            throw new NotImplementedException();
+            this.ButtonAdd = new ButtonAddAnswer();
+
+            (this.ButtonAdd as ButtonAddAnswer).QuestionId
+                = this.QuestionId;
+
+            return this.ButtonAdd;
         }
     }
 }

@@ -37,6 +37,12 @@ namespace WpfApp_TestingSystem
             set { this.textBoxQuestionName.Text = value; }
         }
 
+        public string AnswerName
+        {
+            get { return this.textBoxAnswerText.Text; }
+            set { this.textBoxAnswerText.Text = value; }
+        }
+
 
         public WindowEdit()
         {
