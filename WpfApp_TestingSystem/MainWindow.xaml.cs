@@ -82,6 +82,7 @@ namespace WpfApp_TestingSystem
             //this.listBoxAllTests.MouseLeftButtonUp += ListBoxAllTests_MouseLeftButtonUp;
             this.buttonPassing_Reply.Click += ButtonPassing_Reply_Click;
         }
+
         // +
         private void ButtonStudent_Click(object sender, RoutedEventArgs e)
         {
@@ -104,6 +105,8 @@ namespace WpfApp_TestingSystem
         // +
         private void ShowTestsOfSelectedCategories(int? idCategory)
         {
+            this.ShowHeaderTest();
+
             if (this.stackPanelSelection.Children.Count > 0)
             {
                 this.stackPanelSelection.Children.Clear();
@@ -192,14 +195,16 @@ namespace WpfApp_TestingSystem
             //this.stackPanelSelection.Visibility = Visibility.Visible;
             this.gridSelection.Visibility = Visibility.Visible;
 
-            this.ShowHeaderCategory();
-
+            //this.ShowHeaderCategory();
+            
             this.ShowAllCategories();
         }
 
         private void ShowHeaderCategory()
         {
             this.gridHeaderCategory.Visibility = Visibility.Visible;
+
+            this.gridHeaderTest.Visibility = Visibility.Hidden;
 
             if (this.isTeacher)
             {
@@ -210,6 +215,8 @@ namespace WpfApp_TestingSystem
         // +
         private void ShowAllCategories()
         {
+            this.ShowHeaderCategory();
+
             // TODO clear stackP
             if (this.stackPanelSelection.Children.Count > 0)
             {
@@ -608,6 +615,9 @@ namespace WpfApp_TestingSystem
         // TODO +
         private void ButtonCategoryLine_Click(object sender, RoutedEventArgs e)
         {
+            //this.ShowHeaderTest();
+            //this.ShowHeaderEntity(sender);
+
             // TODO показать в стекПанел тесты данной категории.
 
             //this.ShowTestsOfCurrentCategory(sender as ButtonCategoryLine);
@@ -620,9 +630,22 @@ namespace WpfApp_TestingSystem
             this.ShowTestsOfSelectedCategories(Convert.ToInt32((sender as Button).Tag));
         }
 
+        private void ShowHeaderEntity(object sender)
+        {
+            if (sender is GridLineCategory)
+            {
+                this.ShowHeaderTest();
+            }
+            else if (sender is GridLineTest)
+            {
+                
+            }
+        }
 
         private void ButtonInGridLineTest_Click(object sender, RoutedEventArgs e)
         {
+            
+
             // если учитель
             // то загружаем кнопки Вопросов
 
@@ -642,6 +665,18 @@ namespace WpfApp_TestingSystem
             {
                 // TODO при нажатии на тест - запуск вопросов теста
                 this.LaunchingTestQuestions(sender as Button);
+            }
+        }
+
+        private void ShowHeaderTest()
+        {
+            this.gridHeaderTest.Visibility = Visibility.Visible;
+
+            this.gridHeaderCategory.Visibility = Visibility.Hidden;
+
+            if (this.isTeacher)
+            {
+                Grid.SetColumnSpan(this.gridHeaderTest, 1);
             }
         }
 
