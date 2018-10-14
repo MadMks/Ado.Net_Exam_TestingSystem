@@ -120,6 +120,7 @@ namespace WpfApp_TestingSystem
                 if (idCategory == null)
                 {
                     this.level = Level.AllTests;
+                    this.currentIdCategory = -1;    // TODO HACK ??? #14.
 
                     listTestsOfSelectedCategories
                         = (
@@ -218,6 +219,8 @@ namespace WpfApp_TestingSystem
             using (TestingSystemEntities db = new TestingSystemEntities())
             {
                 db.Database.Log = Console.Write;
+
+                this.level = Level.AllCategories;
 
                 var listOfAllCategories
                     = (
@@ -730,6 +733,8 @@ namespace WpfApp_TestingSystem
             {
                 db.Database.Log = Console.Write;
 
+                this.level = Level.AnswersForSelectedOfQuestion;
+
                 var listOfAnswersCurrentQuestion
                     = (
                     from answer in db.Answer
@@ -1032,6 +1037,11 @@ namespace WpfApp_TestingSystem
                 this.gridSelection.Visibility = Visibility.Hidden;
                 this.gridCategoryOrAllTest.Visibility = Visibility.Visible;
             }
+            else if (this.level == Level.AllCategories)
+            {
+                this.gridSelection.Visibility = Visibility.Hidden;
+                this.gridCategoryOrAllTest.Visibility = Visibility.Visible;
+            }
             else if (this.level == Level.TestsOfTheSelectedCategory)
             {
                 //this.gridCategoryOrAllTest.Visibility = Visibility.Hidden;
@@ -1040,7 +1050,18 @@ namespace WpfApp_TestingSystem
             }
             else if (this.level == Level.QuestionsOfTheSelectedTest)
             {
-                this.ShowTestsOfSelectedCategories(this.currentIdCategory);
+                if (this.currentIdCategory != -1)
+                {
+                    this.ShowTestsOfSelectedCategories(this.currentIdCategory);
+                }
+                else
+                {
+                    this.ShowTestsOfSelectedCategories(null);
+                }
+            }
+            else if (this.level == Level.AnswersForSelectedOfQuestion)
+            {
+                this.ShowQuestionsOfSelectedOfTest(this.currentIdTest);
             }
 
         }
