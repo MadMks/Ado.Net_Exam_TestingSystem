@@ -78,7 +78,7 @@
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="1*"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="10*"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
@@ -113,9 +113,15 @@
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Grid.Column="0">№</TextBlock>
-                    <TextBlock Grid.Column="1">Название категории</TextBlock>
-                    <TextBlock Grid.Column="2" TextWrapping="Wrap">Кол-во тестов</TextBlock>
+                    <TextBlock Grid.Column="0" Style="{StaticResource styleTextBlockForLine}"
+                               HorizontalAlignment="Center">
+                        №</TextBlock>
+                    <TextBlock Grid.Column="1" Style="{StaticResource styleTextBlockForLine}">
+                        Название категории</TextBlock>
+                    <TextBlock Grid.Column="2" TextWrapping="Wrap"
+                               Style="{StaticResource styleTextBlockForLine}"
+                               Padding="0 5 0 5">
+                        Кол-во тестов</TextBlock>
                     
                 </Grid>
 
@@ -131,10 +137,18 @@
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Grid.Column="0">№</TextBlock>
-                    <TextBlock Grid.Column="1">Название теста</TextBlock>
-                    <TextBlock Grid.Column="2">Категория</TextBlock>
-                    <TextBlock Grid.Column="3" TextWrapping="Wrap">Кол-во вопросов</TextBlock>
+                    <TextBlock Grid.Column="0" Style="{StaticResource styleTextBlockForLine}"
+                               HorizontalAlignment="Center">
+                        №</TextBlock>
+                    <TextBlock Grid.Column="1" Style="{StaticResource styleTextBlockForLine}">
+                        Название теста</TextBlock>
+                    <TextBlock Grid.Column="2" Style="{StaticResource styleTextBlockForLine}"
+                               Padding="0 5 0 5">
+                        Категория</TextBlock>
+                    <TextBlock Grid.Column="3" TextWrapping="Wrap"
+                               Style="{StaticResource styleTextBlockForLine}"
+                               Padding="0 5 0 5">
+                        Кол-во вопросов</TextBlock>
 
                 </Grid>
 
