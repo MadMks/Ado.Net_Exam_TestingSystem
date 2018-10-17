@@ -205,6 +205,7 @@ namespace WpfApp_TestingSystem
             this.gridHeaderCategory.Visibility = Visibility.Visible;
 
             this.gridHeaderTest.Visibility = Visibility.Hidden;
+            this.gridHeaderQuestion.Visibility = Visibility.Hidden;
 
             if (this.isTeacher)
             {
@@ -673,6 +674,7 @@ namespace WpfApp_TestingSystem
             this.gridHeaderTest.Visibility = Visibility.Visible;
 
             this.gridHeaderCategory.Visibility = Visibility.Hidden;
+            this.gridHeaderQuestion.Visibility = Visibility.Hidden;
 
             if (this.isTeacher)
             {
@@ -686,6 +688,8 @@ namespace WpfApp_TestingSystem
         /// <param name="idTest">Id выбранного теста.</param>
         private void ShowQuestionsOfSelectedOfTest(int idTest)
         {
+            this.ShowHeaderQuestion();
+
             if (this.stackPanelSelection.Children.Count > 0)
             {
                 this.stackPanelSelection.Children.Clear();
@@ -740,6 +744,19 @@ namespace WpfApp_TestingSystem
                 {
                     this.CreateAddButton(gridLineQuestion);
                 }
+            }
+        }
+
+        private void ShowHeaderQuestion()
+        {
+            this.gridHeaderQuestion.Visibility = Visibility.Visible;
+
+            this.gridHeaderCategory.Visibility = Visibility.Hidden;
+            this.gridHeaderTest.Visibility = Visibility.Hidden;
+
+            if (this.isTeacher)
+            {
+                Grid.SetColumnSpan(this.gridHeaderQuestion, 1);
             }
         }
 

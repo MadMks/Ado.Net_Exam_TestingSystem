@@ -111,7 +111,7 @@
                     <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
 
-                
+                <!--Header Category-->
                 <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
                       Name="gridHeaderCategory"
                       Visibility="Hidden">
@@ -128,6 +128,7 @@
                     
                 </Grid>
 
+                <!--Header Test-->
                 <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
                       Name="gridHeaderTest"
                       Visibility="Hidden">
@@ -143,6 +144,23 @@
                     <TextBlock Grid.Column="1">Название теста</TextBlock>
                     <TextBlock Grid.Column="2">Категория</TextBlock>
                     <TextBlock Grid.Column="3" TextWrapping="Wrap">Кол-во вопросов</TextBlock>
+
+                </Grid>
+
+                <!--Header Question-->
+                <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                      Name="gridHeaderQuestion"
+                      Visibility="Hidden">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0">№</TextBlock>
+                    <TextBlock Grid.Column="1">Вопрос</TextBlock>
+                    <TextBlock Grid.Column="2" TextWrapping="Wrap">Кол-во ответов</TextBlock>
 
                 </Grid>
 
