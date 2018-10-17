@@ -72,16 +72,7 @@
 
         </Grid>
 
-        <!--<Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-        </Grid>-->
-        
-        
+
         <Grid Grid.Row="0" Name="gridSelection"
               Visibility="Hidden">
 

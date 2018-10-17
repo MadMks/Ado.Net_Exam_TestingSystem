@@ -46,7 +46,7 @@ namespace WpfApp_TestingSystem
 
             // "Главная " кнопка
             /*Button*/
-            button = new Button { Style = (Style)(this.Resources["styleButtonForList"]) };
+            button = new Button() /*{ Style = (Style)(this.Resources["styleButtonForList"]) }*/;
             // grid внутри главной кнопки
             /*Grid*/
             gridLineButton = new Grid { Background = Brushes.MediumBlue };
@@ -65,20 +65,28 @@ namespace WpfApp_TestingSystem
             });
 
             // Данные главной кнопки
-            TextBlock tbNumber = new TextBlock
+            TextBlockForNumber tbNumber = new TextBlockForNumber
             {
                 Text = (number + 1).ToString(),
                 Background = Brushes.AliceBlue
+                //, Height = 35
+                //, HorizontalAlignment = HorizontalAlignment.Center
+                //,
+                //Padding = new Thickness(0, 15.0, 0, 15.0)
             };
-            TextBlock tbNameCategory = new TextBlock
+            TextBlockForText tbNameCategory = new TextBlockForText
             {
                 Text = currentCategories.Name,
                 Background = Brushes.Aqua
+                //,
+                //Padding = new Thickness(0, 15.0, 0, 15.0)
             };
-            TextBlock tbQuantityTests = new TextBlock
+            TextBlockForNumber tbQuantityTests = new TextBlockForNumber
             {
                 Text = currentCategories.Test.Count().ToString(),
                 Background = Brushes.BurlyWood
+                //,
+                //Padding = new Thickness(0, 15.0, 0, 15.0)
             };
 
             // Добавление textBlock с данными в кнопку.
@@ -97,7 +105,7 @@ namespace WpfApp_TestingSystem
 
             // Добавим в кнопку grid с текстБлоками (в которых данные).
             button.Content = gridLineButton;
-
+            //button.Height = 25;
             // HACK добавляю в Tag id категории
             button.Tag = currentCategories.Id;
 

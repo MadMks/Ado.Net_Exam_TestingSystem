@@ -18,6 +18,30 @@ namespace WpfApp_TestingSystem
         //internal ButtonEditEntity buttonEdit = null;
         //internal ButtonDeleteEntity buttonDelete = null;
 
+        private const double currentPadding = 7.0;
+
+        internal class TextBlockForNumber : TextBlock
+        {
+            public TextBlockForNumber()
+            {
+                this.HorizontalAlignment = HorizontalAlignment.Center;
+                this.Padding 
+                    = new Thickness(
+                        0, currentPadding,
+                        0, currentPadding);
+            }
+        }
+        internal class TextBlockForText : TextBlock
+        {
+            public TextBlockForText()
+            {
+                this.Padding
+                    = new Thickness(
+                        7.0, currentPadding,
+                        0, currentPadding);
+            }
+        }
+
         public ButtonEditEntity ButtonEdit { get; set; }
         public ButtonDeleteEntity ButtonDelete { get; set; }
 
@@ -31,16 +55,5 @@ namespace WpfApp_TestingSystem
         public abstract void AddingAdminButtons(int idEntity);
 
         public abstract ButtonAddEntity AddingAnAddEntityButton();
-        //{
-            //Button buttonAddEntity = new Button
-            //{
-            //    Content = "no name button",
-            //    Margin = new Thickness(10.0),
-            //    Padding = new Thickness(10.0, 5.0, 10.0, 5.0),
-            //    HorizontalAlignment = HorizontalAlignment.Center
-            //};
-
-            //return buttonAddEntity;
-        //}
     }
 }
