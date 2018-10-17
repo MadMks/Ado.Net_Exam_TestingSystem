@@ -18,7 +18,7 @@ namespace WpfApp_TestingSystem
         //private Button button = null;
         private Grid gridLineButton = null;
 
-        private TextBlock textBlockCategory = null;
+        private TextBlockForNumber textBlockCategory = null;
 
         public int TestID { get; set; }
 
@@ -74,22 +74,22 @@ namespace WpfApp_TestingSystem
             });
 
             // Данные главной кнопки
-            TextBlock textBlockNumber = new TextBlock
+            TextBlockForNumber textBlockNumber = new TextBlockForNumber
             {
                 Text = (number + 1).ToString(),
                 Background = Brushes.AliceBlue
             };
-            TextBlock textBlockTestName = new TextBlock
+            TextBlockForText textBlockTestName = new TextBlockForText
             {
                 Text = currentTest.Name,
                 Background = Brushes.Aqua
             };
-            /*TextBlock*/ textBlockCategory = new TextBlock
+            /*TextBlock*/ textBlockCategory = new TextBlockForNumber
             {
                 Text = currentTest.Category.Name,
                 Background = Brushes.Bisque
             };
-            TextBlock textBlockQuantityQuestions = new TextBlock
+            TextBlockForNumber textBlockQuantityQuestions = new TextBlockForNumber
             {
                 Text = currentTest.Question.Count().ToString(),
                 Background = Brushes.BurlyWood

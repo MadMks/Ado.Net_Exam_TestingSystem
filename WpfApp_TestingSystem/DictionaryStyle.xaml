@@ -19,7 +19,7 @@
             <Setter Property="Template" Value="{StaticResource templateButtonForList}"/>
             <Setter Property="Background" Value="Gray"/>
             <!--<Setter Property="Padding" Value="5"/>-->
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <!--<Setter Property="VerticalContentAlignment" Value="Center"/>-->
             <!--<Setter Property="Height" Value="Auto"/>-->
         </Style.Setters>
     </Style>

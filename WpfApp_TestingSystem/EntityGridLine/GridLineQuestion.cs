@@ -59,17 +59,17 @@ namespace WpfApp_TestingSystem.EntityGridLine
 
 
             // Данные главной кнопки
-            TextBlock textBlockNumber = new TextBlock
+            TextBlockForNumber textBlockNumber = new TextBlockForNumber
             {
                 Text = (number + 1).ToString(),
                 Background = Brushes.AliceBlue
             };
-            TextBlock textBlockQuestionName = new TextBlock
+            TextBlockForText textBlockQuestionName = new TextBlockForText
             {
                 Text = currentQuestion.QuestionText,
                 Background = Brushes.Aqua
             };
-            TextBlock textBlockQuantityAnswers = new TextBlock
+            TextBlockForNumber textBlockQuantityAnswers = new TextBlockForNumber
             {
                 Text = currentQuestion.Answer.Count().ToString(),
                 Background = Brushes.BurlyWood
