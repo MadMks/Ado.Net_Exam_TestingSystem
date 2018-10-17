@@ -164,6 +164,23 @@
 
                 </Grid>
 
+                <!--Header Answer-->
+                <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                      Name="gridHeaderAnswer"
+                      Visibility="Hidden">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0">№</TextBlock>
+                    <TextBlock Grid.Column="1">Ответ</TextBlock>
+                    <TextBlock Grid.Column="2" TextWrapping="Wrap">Результат</TextBlock>
+
+                </Grid>
+
             </Grid>
             
             

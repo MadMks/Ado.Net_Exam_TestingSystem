@@ -206,6 +206,7 @@ namespace WpfApp_TestingSystem
 
             this.gridHeaderTest.Visibility = Visibility.Hidden;
             this.gridHeaderQuestion.Visibility = Visibility.Hidden;
+            this.gridHeaderAnswer.Visibility = Visibility.Hidden;
 
             if (this.isTeacher)
             {
@@ -675,6 +676,7 @@ namespace WpfApp_TestingSystem
 
             this.gridHeaderCategory.Visibility = Visibility.Hidden;
             this.gridHeaderQuestion.Visibility = Visibility.Hidden;
+            this.gridHeaderAnswer.Visibility = Visibility.Hidden;
 
             if (this.isTeacher)
             {
@@ -753,6 +755,7 @@ namespace WpfApp_TestingSystem
 
             this.gridHeaderCategory.Visibility = Visibility.Hidden;
             this.gridHeaderTest.Visibility = Visibility.Hidden;
+            this.gridHeaderAnswer.Visibility = Visibility.Hidden;
 
             if (this.isTeacher)
             {
@@ -775,6 +778,8 @@ namespace WpfApp_TestingSystem
         /// <param name="idQuestion">Id выбранного вопроса.</param>
         private void ShowAnswersForSelectedOfQuestion(int idQuestion)
         {
+            this.ShowHeaderAnswer();
+
             if (this.stackPanelSelection.Children.Count > 0)
             {
                 this.stackPanelSelection.Children.Clear();
@@ -828,6 +833,20 @@ namespace WpfApp_TestingSystem
                 }
             }
             
+        }
+
+        private void ShowHeaderAnswer()
+        {
+            this.gridHeaderAnswer.Visibility = Visibility.Visible;
+
+            this.gridHeaderCategory.Visibility = Visibility.Hidden;
+            this.gridHeaderTest.Visibility = Visibility.Hidden;
+            this.gridHeaderQuestion.Visibility = Visibility.Hidden;
+
+            if (this.isTeacher)
+            {
+                Grid.SetColumnSpan(this.gridHeaderAnswer, 1);
+            }
         }
 
         private void LaunchingTestQuestions(Button senderButton)
