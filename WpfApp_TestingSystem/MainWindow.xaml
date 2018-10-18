@@ -92,7 +92,10 @@
             </DockPanel>
 
             <!--All Header-->
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="1" 
+                  Background="DeepPink"
+                  HorizontalAlignment="Left"
+                  Width="{Binding ElementName=stackPanelSelection, Path=ActualWidth}">
 
                 <Grid.RowDefinitions>
                     <RowDefinition/>
@@ -187,8 +190,9 @@
                 </Grid>
 
             </Grid>
-            
-            
+
+
+            <!--Scroll Viewer-->
             <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
 
                 <Grid>
