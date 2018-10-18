@@ -13,7 +13,10 @@
         </Border>
     </ControlTemplate>
 
-    <!--Стиль-->
+    
+    <!--Стили-->
+
+    <!--Кнопки - строки списка-->
     <Style TargetType="Button" x:Key="styleButtonForList">
         <Style.Setters>
             <Setter Property="Template" Value="{StaticResource templateButtonForList}"/>
@@ -24,11 +27,26 @@
         </Style.Setters>
     </Style>
 
-    <Style TargetType="TextBlock" x:Key="styleTextBlockForLine">
+    <!--Текстовые блоки хедеров-->
+    <Style TargetType="TextBlock" x:Key="styleTextBlockForHeader">
         <Style.Setters>
-            <Setter Property="Padding" Value="7 5 5 5"/>
+            <Setter Property="Padding" Value="7 10 5 10"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
         </Style.Setters>
     </Style>
-    
+
+    <Style TargetType="TextBlock" x:Key="styleTextBlockForHeaderNumber"
+           BasedOn="{StaticResource styleTextBlockForHeader}">
+        <Style.Setters>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style.Setters>
+    </Style>
+
+    <Style TargetType="TextBlock" x:Key="styleTextBlockForHeaderText"
+           BasedOn="{StaticResource styleTextBlockForHeader}">
+        <Style.Setters>
+            <Setter Property="Padding" Value="7 10 5 10"/>
+        </Style.Setters>
+    </Style>
+
 </ResourceDictionary>
