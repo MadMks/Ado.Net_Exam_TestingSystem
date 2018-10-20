@@ -56,12 +56,17 @@ namespace WpfApp_TestingSystem
             // TODO ? delete
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void ButtonOk_Click(object sender, RoutedEventArgs e)
         {
+            if (true)
+            {
+
+            }
+
             this.DialogResult = true;
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void ButtonCancel_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = false;
         }
