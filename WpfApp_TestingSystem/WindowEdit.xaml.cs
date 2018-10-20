@@ -20,6 +20,11 @@ namespace WpfApp_TestingSystem
     /// </summary>
     public partial class WindowEdit : Window
     {
+        /// <summary>
+        /// Текст имени редактируемой сущности
+        /// (чтоб можно было сохранять редактируемую сущность
+        /// с тем же именем).
+        /// </summary>
         private string editableField = "";
 
         public string CategoryName
@@ -50,8 +55,6 @@ namespace WpfApp_TestingSystem
         public WindowEdit()
         {
             InitializeComponent();
-
-            //this.Loaded += WindowEdit_Loaded;
         }
 
         public WindowEdit(string editableField)
@@ -59,26 +62,6 @@ namespace WpfApp_TestingSystem
             InitializeComponent();
 
             this.editableField = editableField;
-        }
-
-        private void WindowEdit_Loaded(object sender, RoutedEventArgs e)
-        {
-            //if (this.gridEditCategory.IsVisible == true)
-            //{
-            //    this.editableField = this.textBoxCategoryName.Text;
-            //}
-            //else if (this.gridEditTest.IsVisible == true)
-            //{
-            //    this.editableField = this.textBoxTestName.Text;
-            //}
-            //else if (this.gridEditQuestion.IsVisible == true)
-            //{
-            //    this.editableField = this.textBoxQuestionName.Text;
-            //}
-            //else if (this.gridEditAnswer.IsVisible == true)
-            //{
-            //    this.editableField = this.textBoxAnswerText.Text;
-            //}
         }
 
         private void ButtonOk_Click(object sender, RoutedEventArgs e)

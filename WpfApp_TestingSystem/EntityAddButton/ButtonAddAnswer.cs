@@ -34,6 +34,10 @@ namespace WpfApp_TestingSystem.EntityAddButton
 
             if (result == true)
             {
+                this.SwitchingOtherAnswersToWrong(db, 
+                    windowAdd.comboBoxAnswerValue.SelectedIndex,
+                    this.QuestionId);
+
                 Answer addAnswer = new Answer();
                 addAnswer.ResponseText = windowAdd.AnswerName;
                 addAnswer.CorrectAnswer 
@@ -41,7 +45,8 @@ namespace WpfApp_TestingSystem.EntityAddButton
                     .comboBoxAnswerValue.SelectedIndex == 0
                     ? true : false;
 
-                addAnswer.QuestionId = Convert.ToInt16(this.QuestionId);
+                addAnswer.QuestionId = this.QuestionId;
+
 
                 db.Answer.Add(addAnswer);
                 db.SaveChanges();
@@ -50,6 +55,22 @@ namespace WpfApp_TestingSystem.EntityAddButton
             }
 
             return false;
+        }
+
+        private void SwitchingOtherAnswersToWrong(TestingSystemEntities db, int selectedIndex, int questionId)
+        {
+            if (selectedIndex == 0)
+            {
+                var answers
+                    = db.Answer
+                    .Where(x => x.QuestionId == questionId)
+                    .ToList();
+
+                foreach (var answer in answers)
+                {
+                    answer.CorrectAnswer = false;
+                }
+            }
         }
     }
 }

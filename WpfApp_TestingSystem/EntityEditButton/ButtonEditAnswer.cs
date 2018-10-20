@@ -34,6 +34,10 @@ namespace WpfApp_TestingSystem.EntityEditButton
 
             if (result == true)
             {
+                this.SwitchingOtherAnswersToWrong(db,
+                    windowEdit.comboBoxAnswerValue.SelectedIndex,
+                    editAnswer.QuestionId);
+
                 editAnswer.ResponseText = windowEdit.textBoxAnswerText.Text;
                 editAnswer.CorrectAnswer
                     = windowEdit.comboBoxAnswerValue.SelectedIndex == 0
@@ -45,6 +49,22 @@ namespace WpfApp_TestingSystem.EntityEditButton
             }
 
             return false;
+        }
+
+        private void SwitchingOtherAnswersToWrong(TestingSystemEntities db, int selectedIndex, int questionId)
+        {
+            if (selectedIndex == 0)
+            {
+                var answers
+                    = db.Answer
+                    .Where(x => x.QuestionId == questionId)
+                    .ToList();
+
+                foreach (var answer in answers)
+                {
+                    answer.CorrectAnswer = false;
+                }
+            }
         }
     }
 }
