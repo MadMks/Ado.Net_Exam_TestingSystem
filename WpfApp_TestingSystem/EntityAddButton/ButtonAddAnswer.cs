@@ -25,6 +25,7 @@ namespace WpfApp_TestingSystem.EntityAddButton
             windowAdd.buttonOk.Content = "Добавить";
             windowAdd.Title = "Добавление ответа";
 
+            windowAdd.textBoxAnswerText.MaxLength = 300;
 
             // Ставим значение по умолчанию
             windowAdd.comboBoxAnswerValue.SelectedIndex = 1;   // TODO enum or stringValue

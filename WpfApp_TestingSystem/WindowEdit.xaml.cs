@@ -55,14 +55,38 @@ namespace WpfApp_TestingSystem
         public WindowEdit()
         {
             InitializeComponent();
+
+            //this.Loaded += WindowEdit_Loaded;
         }
 
         public WindowEdit(string editableField)
         {
             InitializeComponent();
 
+            //this.Loaded += WindowEdit_Loaded;
+
             this.editableField = editableField;
         }
+
+        //private void WindowEdit_Loaded(object sender, RoutedEventArgs e)
+        //{
+        //    if (this.gridEditCategory.IsVisible == true)
+        //    {
+        //        //this.textBoxCategoryName.Max
+        //    }
+        //    else if (this.gridEditTest.IsVisible == true)
+        //    {
+        //        isEdit = this.textBoxTestName.Text == this.editableField ? true : false;
+        //    }
+        //    else if (this.gridEditQuestion.IsVisible == true)
+        //    {
+        //        isEdit = this.textBoxQuestionName.Text == this.editableField ? true : false;
+        //    }
+        //    else if (this.gridEditAnswer.IsVisible == true)
+        //    {
+        //        isEdit = this.textBoxAnswerText.Text == this.editableField ? true : false;
+        //    }
+        //}
 
         private void ButtonOk_Click(object sender, RoutedEventArgs e)
         {

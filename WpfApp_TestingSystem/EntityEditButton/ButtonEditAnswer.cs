@@ -23,6 +23,8 @@ namespace WpfApp_TestingSystem.EntityEditButton
             WindowEdit windowEdit = new WindowEdit(editAnswer.ResponseText);
             windowEdit.gridEditAnswer.Visibility = Visibility.Visible;
 
+            windowEdit.textBoxAnswerText.MaxLength = 300;
+
             // Заполняем поле ответа
             windowEdit.textBoxAnswerText.Text = editAnswer.ResponseText;
             // Ставим значение

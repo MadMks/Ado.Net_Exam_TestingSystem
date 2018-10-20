@@ -30,6 +30,8 @@ namespace WpfApp_TestingSystem.EntityEditButton
 
             windowEdit.CategoryName = editCategory.Name;
 
+            windowEdit.textBoxCategoryName.MaxLength = 30;
+
             bool? result = windowEdit.ShowDialog();
 
             if (result == true)

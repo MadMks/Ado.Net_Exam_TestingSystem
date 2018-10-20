@@ -26,6 +26,8 @@ namespace WpfApp_TestingSystem.EntityEditButton
             WindowEdit windowEdit = new WindowEdit(editTest.Name);
             windowEdit.gridEditTest.Visibility = Visibility.Visible;
 
+            windowEdit.textBoxTestName.MaxLength = 60;
+
             var categoriesTest
                 = (
                 from category in db.Category

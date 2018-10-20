@@ -56,6 +56,7 @@ namespace WpfApp_TestingSystem.EntityAddButton
             windowAdd.comboBoxTestCategories.IsEnabled
                 = false;
 
+            windowAdd.textBoxTestName.MaxLength = 60;
 
             bool? result = windowAdd.ShowDialog();
 
