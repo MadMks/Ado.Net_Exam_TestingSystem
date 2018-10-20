@@ -86,12 +86,15 @@ namespace WpfApp_TestingSystem
         // +
         private void ButtonStudent_Click(object sender, RoutedEventArgs e)
         {
+            this.level = Level.SelectCategoryOrAllTest;
+
             this.gridUserTypeSelection.Visibility = Visibility.Hidden;
 
             this.gridCategoryOrAllTest.Visibility = Visibility.Visible;
 
             this.isTeacher = false;
         }
+
         // +
         private void ButtonAllTests_Click(object sender, RoutedEventArgs e)
         {
@@ -917,6 +920,8 @@ namespace WpfApp_TestingSystem
 
         private void ButtonTeacher_Click(object sender, RoutedEventArgs e)
         {
+            this.level = Level.SelectCategoryOrAllTest;
+
             this.gridUserTypeSelection.Visibility = Visibility.Hidden;
 
             this.gridCategoryOrAllTest.Visibility = Visibility.Visible;
@@ -1102,14 +1107,29 @@ namespace WpfApp_TestingSystem
             //{
             //    this.buttonMenuBack.IsEnabled = false;
             //}
-
-            if (this.level == Level.AllTests)
+            if (this.level == Level.SelectCategoryOrAllTest)
             {
+                this.gridCategoryOrAllTest.Visibility = Visibility.Hidden;
+
+                this.gridUserTypeSelection.Visibility = Visibility.Visible;
+
+                // Закрытие зарезервированного места для кнопок редактирования
+                Grid.SetColumnSpan(this.textBlockHiddenForSizeButtonLine, 3);
+
+                Grid.SetColumnSpan(this.gridHeaderCategory, 2);
+                Grid.SetColumnSpan(this.gridHeaderTest, 2);
+            }
+            else if (this.level == Level.AllTests)
+            {
+                this.level = Level.SelectCategoryOrAllTest;
+
                 this.gridSelection.Visibility = Visibility.Hidden;
                 this.gridCategoryOrAllTest.Visibility = Visibility.Visible;
             }
             else if (this.level == Level.AllCategories)
             {
+                this.level = Level.SelectCategoryOrAllTest;
+
                 this.gridSelection.Visibility = Visibility.Hidden;
                 this.gridCategoryOrAllTest.Visibility = Visibility.Visible;
             }
