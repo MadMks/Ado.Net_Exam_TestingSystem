@@ -69,9 +69,34 @@
     <Compile Include="Answer.cs">
       <DependentUpon>TestingSystemModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ButtonCategoryLine.cs" />
+    <Compile Include="ButtonLine.cs" />
+    <Compile Include="ButtonTestLine.cs" />
     <Compile Include="Category.cs">
       <DependentUpon>TestingSystemModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="EntityAddButton\ButtonAddAnswer.cs" />
+    <Compile Include="EntityAddButton\ButtonAddCategory.cs" />
+    <Compile Include="EntityAddButton\ButtonAddEntity.cs" />
+    <Compile Include="EntityAddButton\ButtonAddQuestion.cs" />
+    <Compile Include="EntityAddButton\ButtonAddTest.cs" />
+    <Compile Include="EntityDeleteButton\ButtonDeleteAnswer.cs" />
+    <Compile Include="EntityDeleteButton\ButtonDeleteCategory.cs" />
+    <Compile Include="EntityDeleteButton\ButtonDeleteEntity.cs" />
+    <Compile Include="EntityDeleteButton\ButtonDeleteQuestion.cs" />
+    <Compile Include="EntityDeleteButton\ButtonDeleteTest.cs" />
+    <Compile Include="EntityDeleteButton\IDelete.cs" />
+    <Compile Include="EntityEditButton\ButtonEditAnswer.cs" />
+    <Compile Include="EntityEditButton\ButtonEditCategory.cs" />
+    <Compile Include="EntityEditButton\ButtonEditEntity.cs" />
+    <Compile Include="EntityEditButton\ButtonEditQuestion.cs" />
+    <Compile Include="EntityEditButton\ButtonEditTest.cs" />
+    <Compile Include="EntityGridLine\GridLineAnswer.cs" />
+    <Compile Include="EntityGridLine\GridLineCategory.cs" />
+    <Compile Include="EntityGridLine\GridLineEntity.cs" />
+    <Compile Include="EntityGridLine\GridLineQuestion.cs" />
+    <Compile Include="EntityGridLine\GridLineTest.cs" />
+    <Compile Include="EnumLevels.cs" />
     <Compile Include="Question.cs">
       <DependentUpon>TestingSystemModel.tt</DependentUpon>
     </Compile>
@@ -93,6 +118,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TestingSystemModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="WindowEdit.xaml.cs">
+      <DependentUpon>WindowEdit.xaml</DependentUpon>
+    </Compile>
+    <Page Include="DictionaryStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -105,6 +137,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="WindowEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -155,5 +191,6 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

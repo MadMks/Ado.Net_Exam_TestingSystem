@@ -7,10 +7,315 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
 
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="DictionaryStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
     
     <Grid>
 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <!--Menu-->
+        <DockPanel Grid.Row="0" LastChildFill="False">
+
+            <Grid DockPanel.Dock="Top">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <ToolBarTray Grid.Column="0" HorizontalAlignment="Left">
+                    <ToolBar>
+                        <Button Name="buttonMenuBack" Click="buttonMenuBack_Click">Назад</Button>
+                    </ToolBar>
+                </ToolBarTray>
+
+                <ToolBarTray Grid.Column="1"
+                                 HorizontalAlignment="Right">
+                    <ToolBar>
+                        <Button Name="buttonMenuUsersExit" Click="buttonMenuUsersExit_Click">Выход</Button>
+                    </ToolBar>
+                </ToolBarTray>
+
+            </Grid>
+
+        </DockPanel>
+
+        <Grid Grid.Row="0" Name="gridUserTypeSelection" 
+              Background="Aqua" d:IsHidden="True"
+              Grid.RowSpan="2"
+              >
+            <!--Temp Visibility="Hidden"-->
+
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="1" Text="Выберите тип пользователя"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"/>
+            <Button Grid.Row="2" Name="buttonTeacher"
+                    HorizontalAlignment="Center">
+                Учитель
+            </Button>
+            <Button Grid.Row="3" Name="buttonStudent"
+                    HorizontalAlignment="Center">
+                Студент
+            </Button>
+            
+        </Grid>
+
+        <!--Select Category or all Test-->
+        <Grid Grid.Row="1" Name="gridCategoryOrAllTest"
+              Background="Crimson"
+              Visibility="Hidden"
+              >
+
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Button Grid.Row="1" Name="buttonAllTests"
+                    HorizontalAlignment="Center">
+                Все тесты
+            </Button>
+            <Button Grid.Row="2" Name="buttonCategory"
+                    HorizontalAlignment="Center">
+                По категории
+            </Button>
+
+        </Grid>
+
+        <!--Selection Entity-->
+        <Grid Grid.Row="1" Name="gridSelection"
+              Visibility="Hidden">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+
+
+            
+            <!--All Header-->
+            <Grid Grid.Row="1" 
+                  Background="DeepPink"
+                  HorizontalAlignment="Left"
+                  Width="{Binding ElementName=stackPanelSelection, Path=ActualWidth}">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+
+                <!--Header Category-->
+                <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                      Name="gridHeaderCategory"
+                      Visibility="Hidden">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0" 
+                               Style="{StaticResource styleTextBlockForHeaderNumber}">
+                        №</TextBlock>
+                    <TextBlock Grid.Column="1" 
+                               Style="{StaticResource styleTextBlockForHeaderText}">
+                        Название категории</TextBlock>
+                    <TextBlock Grid.Column="2" TextWrapping="Wrap"
+                               Style="{StaticResource styleTextBlockForHeaderNumber}"
+                               Padding="0 5 0 5">
+                        Кол-во тестов</TextBlock>
+                    
+                </Grid>
+
+                <!--Header Test-->
+                <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                      Name="gridHeaderTest"
+                      Visibility="Hidden">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="9*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0" 
+                               Style="{StaticResource styleTextBlockForHeaderNumber}">
+                        №</TextBlock>
+                    <TextBlock Grid.Column="1" 
+                               Style="{StaticResource styleTextBlockForHeaderText}">
+                        Название теста</TextBlock>
+                    <TextBlock Grid.Column="2" 
+                               Style="{StaticResource styleTextBlockForHeaderNumber}"
+                               Padding="0 5 0 5">
+                        Категория</TextBlock>
+                    <TextBlock Grid.Column="3" TextWrapping="Wrap"
+                               Style="{StaticResource styleTextBlockForHeaderNumber}"
+                               Padding="0 5 0 5">
+                        Кол-во вопросов</TextBlock>
+
+                </Grid>
+
+                <!--Header Question-->
+                <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                      Name="gridHeaderQuestion"
+                      Visibility="Hidden">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0"
+                               Style="{StaticResource styleTextBlockForHeaderNumber}">
+                        №</TextBlock>
+                    <TextBlock Grid.Column="1"
+                               Style="{StaticResource styleTextBlockForHeaderText}">
+                        Вопрос</TextBlock>
+                    <TextBlock Grid.Column="2" TextWrapping="Wrap"
+                               Style="{StaticResource styleTextBlockForHeaderNumber}"
+                               Padding="0 5 0 5">
+                        Кол-во ответов</TextBlock>
+
+                </Grid>
+
+                <!--Header Answer-->
+                <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                      Name="gridHeaderAnswer"
+                      Visibility="Hidden">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0"
+                               Style="{StaticResource styleTextBlockForHeaderNumber}">
+                        №</TextBlock>
+                    <TextBlock Grid.Column="1"
+                               Style="{StaticResource styleTextBlockForHeaderText}">
+                        Ответ</TextBlock>
+                    <TextBlock Grid.Column="2" TextWrapping="Wrap"
+                               Style="{StaticResource styleTextBlockForHeaderNumber}"
+                               Padding="0 5 0 5">
+                        Результат</TextBlock>
+
+                </Grid>
+
+            </Grid>
+
+
+            <!--Scroll Viewer-->
+            <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    
+                    <!--Первая невидимая строка для привязки к ней размера grid в Кнопке-->
+                    <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
+                               Name="textBlockHiddenForSizeButtonLine" Background="BlueViolet"
+                               Height="0"/>
+
+                    <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" 
+                                Name="stackPanelSelection"
+                                Background="DodgerBlue"/>
+
+                </Grid>
+            </ScrollViewer>
+
+        </Grid>
+
+        <Grid Grid.Row="1" Name="gridTestSelection"
+              Background="Beige"
+              Visibility="Hidden">
+
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <TabControl Name="tabControlForStudent">
+                <TabItem Header="Полный список">
+                    <ListBox Name="listBoxAllTests"/>
+                </TabItem>
+                <TabItem Header="Категории">
+                    Размещение категорий
+                </TabItem>
+            </TabControl>
+        </Grid>
+
         
+        <!--Страница прохождения теста-->
+        <Grid Grid.Row="0" Name="gridPassingTheTest"
+              Background="Blue"
+              Visibility="Hidden"
+              Grid.RowSpan="2"
+              >
+            <!--Visibility="Hidden"-->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <!--Title-->
+            <TextBlock Grid.Row="0" Name="textBlockPassing_Title"/>
+            <!--Question-->
+            <TextBlock Grid.Row="1" Name="textBlockPassing_Question"
+                  Background="CadetBlue"/>
+            <!--Answer-->
+            <StackPanel Grid.Row="2" Name="stackPanelPassing_Answer"
+                       Background="Chocolate">
+                <!--<Grid.RowDefinitions></Grid.RowDefinitions>-->
+                
+            </StackPanel>
+            <!--Reply-->
+            <Button Grid.Row="3" Name="buttonPassing_Reply"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+                Ответить
+            </Button>
+            <!--Empty Block-->
+            <!-- -->
+            
+        </Grid>
         
     </Grid>
 </Window>
