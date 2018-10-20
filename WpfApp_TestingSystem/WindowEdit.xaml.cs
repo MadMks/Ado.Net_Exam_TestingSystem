@@ -58,12 +58,52 @@ namespace WpfApp_TestingSystem
 
         private void ButtonOk_Click(object sender, RoutedEventArgs e)
         {
-            if (true)
+            if (this.IsTextBoxFieldFilled())
             {
+                this.DialogResult = true;
+            }
+            else
+            {
+                MessageBox.Show("Поле не заполнено!",
+                    "Ошибка",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Asterisk);
+            }
+            
+        }
 
+        private bool IsTextBoxFieldFilled()
+        {
+            bool isFilled = false;
+
+            if (this.gridEditCategory.IsVisible == true)
+            {
+                isFilled = this.IsTextFieldFilled(this.textBoxCategoryName);
+            }
+            else if (this.gridEditTest.IsVisible == true)
+            {
+                isFilled = this.IsTextFieldFilled(this.textBoxTestName);
+            }
+            else if (this.gridEditQuestion.IsVisible == true)
+            {
+                isFilled = this.IsTextFieldFilled(this.textBoxQuestionName);
+            }
+            else if (this.gridEditAnswer.IsVisible == true)
+            {
+                isFilled = this.IsTextFieldFilled(this.textBoxAnswerText);
             }
 
-            this.DialogResult = true;
+            return isFilled;
+        }
+
+        private bool IsTextFieldFilled(TextBox textBoxField)
+        {
+            if (textBoxField.Text.Length > 0)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
