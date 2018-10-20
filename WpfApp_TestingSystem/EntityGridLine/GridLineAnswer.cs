@@ -80,7 +80,9 @@ namespace WpfApp_TestingSystem.EntityGridLine
             //};
             CheckBox checkBox = new CheckBox
             {
-                IsEnabled = false
+                IsEnabled = false,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center
             };
             if (currentAnswer.CorrectAnswer == true)
             {
