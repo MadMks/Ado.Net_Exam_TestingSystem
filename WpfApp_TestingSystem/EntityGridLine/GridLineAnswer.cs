@@ -74,20 +74,32 @@ namespace WpfApp_TestingSystem.EntityGridLine
             //    Text = currentQuestion.Answer.Count().ToString(),
             //    Background = Brushes.BurlyWood
             //};
-            RadioButton radioButton = new RadioButton
+            //RadioButton radioButton = new RadioButton
+            //{
+            //    GroupName = "radioButtonGroupAnswer"
+            //};
+            CheckBox checkBox = new CheckBox
             {
-                GroupName = "radioButtonGroupAnswer"
+                IsEnabled = false
             };
+            if (currentAnswer.CorrectAnswer == true)
+            {
+                checkBox.IsChecked = true;
+            }
+            else
+            {
+                checkBox.IsChecked = false;
+            }
 
             // Добавление элементов с данными в кнопку.
             gridLineButton.Children.Add(textBlockNumber);
             gridLineButton.Children.Add(textBlockQuestionName);
-            gridLineButton.Children.Add(radioButton);
+            gridLineButton.Children.Add(checkBox);
 
             // Расстановка textBlock по колонкам
             Grid.SetColumn(textBlockNumber, 0);
             Grid.SetColumn(textBlockQuestionName, 1);
-            Grid.SetColumn(radioButton, 2);
+            Grid.SetColumn(checkBox, 2);
 
             // Скрываем зарезервированное место для кнопок админа.
             Grid.SetColumnSpan(button, 3);
