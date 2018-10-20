@@ -19,12 +19,12 @@ namespace WpfApp_TestingSystem.EntityEditButton
         {
             int idTest = Convert.ToInt32(this.Tag);
 
-            WindowEdit windowEdit = new WindowEdit();
-            windowEdit.gridEditTest.Visibility = Visibility.Visible;
-
             var editTest = db.Test
                 .Where(x => x.Id == idTest)
                 .FirstOrDefault();
+
+            WindowEdit windowEdit = new WindowEdit(editTest.Name);
+            windowEdit.gridEditTest.Visibility = Visibility.Visible;
 
             var categoriesTest
                 = (

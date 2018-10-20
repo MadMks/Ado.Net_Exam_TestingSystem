@@ -20,13 +20,13 @@ namespace WpfApp_TestingSystem.EntityEditButton
         {
             int idCategory = Convert.ToInt32(this.Tag);
 
-            WindowEdit windowEdit = new WindowEdit();
-            windowEdit.gridEditCategory.Visibility = Visibility.Visible;
-
             var editCategory = db.Category
                 .Where(x => x.Id == idCategory)
                 //.Select(x => x.Name)
                 .FirstOrDefault();
+
+            WindowEdit windowEdit = new WindowEdit(editCategory.Name);
+            windowEdit.gridEditCategory.Visibility = Visibility.Visible;
 
             windowEdit.CategoryName = editCategory.Name;
 

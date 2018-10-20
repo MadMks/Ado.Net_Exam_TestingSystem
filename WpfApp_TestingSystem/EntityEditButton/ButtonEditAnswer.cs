@@ -16,12 +16,12 @@ namespace WpfApp_TestingSystem.EntityEditButton
         {
             int idAnswer = Convert.ToInt32(this.Tag);
 
-            WindowEdit windowEdit = new WindowEdit();
-            windowEdit.gridEditAnswer.Visibility = Visibility.Visible;
-
             var editAnswer = db.Answer
                 .Where(x => x.Id == idAnswer)
                 .FirstOrDefault();
+
+            WindowEdit windowEdit = new WindowEdit(editAnswer.ResponseText);
+            windowEdit.gridEditAnswer.Visibility = Visibility.Visible;
 
             // Заполняем поле ответа
             windowEdit.textBoxAnswerText.Text = editAnswer.ResponseText;

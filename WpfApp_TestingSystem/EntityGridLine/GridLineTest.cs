@@ -134,6 +134,21 @@ namespace WpfApp_TestingSystem
             this.Children.Add(button);
         }
 
+        internal static bool IsNameAlreadyExists(string testName)
+        {
+            using (TestingSystemEntities db = new TestingSystemEntities())
+            {
+                Test result = db.Test.Where(x => x.Name == testName).FirstOrDefault();
+
+                if (result == null)
+                {
+                    return false;
+                }
+
+                return true;
+            }
+        }
+
         public override void AddingAdminButtons(int idEntity)
         {
             // TODO добавить кнопку ButtonEditTest

@@ -125,6 +125,21 @@ namespace WpfApp_TestingSystem.EntityGridLine
             this.Children.Add(button);
         }
 
+        internal static bool IsNameAlreadyExists(string answerName)
+        {
+            using (TestingSystemEntities db = new TestingSystemEntities())
+            {
+                Answer result = db.Answer.Where(x => x.ResponseText == answerName).FirstOrDefault();
+
+                if (result == null)
+                {
+                    return false;
+                }
+
+                return true;
+            }
+        }
+
         public override void AddingAdminButtons(int idEntity)
         {
             this.ButtonEdit = new ButtonEditAnswer(idEntity);
