@@ -286,7 +286,11 @@ namespace WpfApp_TestingSystem
                 gridLineEntity.AddingAnAddEntityButton();
             gridLineEntity.ButtonAdd.Click += ButtonAddEntity_Click;
 
-            this.stackPanelSelection.Children.Add(buttonAddEntity);
+            //this.stackPanelSelection.Children.Add(buttonAddEntity);
+
+            // test 20.10
+            this.gridForButtonAddEntity.Children.Clear();
+            this.gridForButtonAddEntity.Children.Add(buttonAddEntity);
         }
 
         private void ButtonAddEntity_Click(object sender, RoutedEventArgs e)
@@ -1118,6 +1122,9 @@ namespace WpfApp_TestingSystem
 
                 Grid.SetColumnSpan(this.gridHeaderCategory, 2);
                 Grid.SetColumnSpan(this.gridHeaderTest, 2);
+
+                // test 20.10
+                this.gridForButtonAddEntity.Children.Clear();
             }
             else if (this.level == Level.AllTests)
             {
@@ -1167,6 +1174,9 @@ namespace WpfApp_TestingSystem
             this.gridSelection.Visibility = Visibility.Hidden;
 
             this.gridUserTypeSelection.Visibility = Visibility.Visible;
+
+            // test 20.10
+            this.gridForButtonAddEntity.Children.Clear();
 
             // Закрытие зарезервированного места для кнопок редактирования
             Grid.SetColumnSpan(this.textBlockHiddenForSizeButtonLine, 3);

@@ -13,9 +13,9 @@ namespace WpfApp_TestingSystem.EntityAddButton
         public ButtonAddEntity()
         {
             this.Content = "no name button";
-            this.Margin = new Thickness(10.0);
+            this.Margin = new Thickness(8.0);
             this.Padding = new Thickness(10.0, 5.0, 10.0, 5.0);
-            this.HorizontalAlignment = HorizontalAlignment.Center;
+            this.HorizontalAlignment = HorizontalAlignment.Right;
         }
 
         // HACK сдесь реализовую добавление
