@@ -41,7 +41,7 @@
                 <ToolBarTray Grid.Column="1"
                                  HorizontalAlignment="Right">
                     <ToolBar>
-                        <Button Name="buttonMenuUsers">Выход</Button>
+                        <Button Name="buttonMenuUsersExit" Click="buttonMenuUsersExit_Click">Выход</Button>
                     </ToolBar>
                 </ToolBarTray>
 

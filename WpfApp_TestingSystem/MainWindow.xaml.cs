@@ -1156,5 +1156,23 @@ namespace WpfApp_TestingSystem
             }
 
         }
+
+        private void buttonMenuUsersExit_Click(object sender, RoutedEventArgs e)
+        {
+            this.gridCategoryOrAllTest.Visibility = Visibility.Hidden;
+            this.gridHeaderCategory.Visibility = Visibility.Hidden;
+            this.gridHeaderTest.Visibility = Visibility.Hidden;
+            this.gridHeaderQuestion.Visibility = Visibility.Hidden;
+            this.gridHeaderAnswer.Visibility = Visibility.Hidden;
+            this.gridSelection.Visibility = Visibility.Hidden;
+
+            this.gridUserTypeSelection.Visibility = Visibility.Visible;
+
+            // Закрытие зарезервированного места для кнопок редактирования
+            Grid.SetColumnSpan(this.textBlockHiddenForSizeButtonLine, 3);
+
+            Grid.SetColumnSpan(this.gridHeaderCategory, 2);
+            Grid.SetColumnSpan(this.gridHeaderTest, 2);
+        }
     }
 }
