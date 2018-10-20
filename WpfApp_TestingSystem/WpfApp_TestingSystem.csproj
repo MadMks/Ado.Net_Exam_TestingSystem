@@ -69,9 +69,6 @@
     <Compile Include="Answer.cs">
       <DependentUpon>TestingSystemModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="ButtonCategoryLine.cs" />
-    <Compile Include="ButtonLine.cs" />
-    <Compile Include="ButtonTestLine.cs" />
     <Compile Include="Category.cs">
       <DependentUpon>TestingSystemModel.tt</DependentUpon>
     </Compile>
