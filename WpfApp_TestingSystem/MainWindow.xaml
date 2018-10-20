@@ -72,7 +72,7 @@
 
         </Grid>
 
-
+        <!--Selection Entity-->
         <Grid Grid.Row="0" Name="gridSelection"
               Visibility="Hidden">
 
@@ -83,12 +83,41 @@
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
 
+            <!--Menu-->
             <DockPanel Grid.Row="0" LastChildFill="False">
-                <ToolBarTray DockPanel.Dock="Top">
-                    <ToolBar>
+                <!--<ToolBarTray DockPanel.Dock="Top">
+                    <ToolBar Band="0">
                         <Button Name="buttonMenuBack" Click="buttonMenuBack_Click">Назад</Button>
                     </ToolBar>
-                </ToolBarTray>
+
+                    <ToolBar Band="0" BandIndex="1">
+                        <Button Name="buttonMenuUsers">Current user</Button>
+                    </ToolBar>
+
+                </ToolBarTray>-->
+
+                <Grid DockPanel.Dock="Top">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <ToolBarTray Grid.Column="0">
+                        <ToolBar>
+                            <Button Name="buttonMenuBack" Click="buttonMenuBack_Click">Назад</Button>
+                        </ToolBar>
+                    </ToolBarTray>
+
+                    <ToolBarTray Grid.Column="1"
+                                 HorizontalAlignment="Right">
+                        <ToolBar>
+                            <Button Name="buttonMenuUsers">Current user</Button>
+                        </ToolBar>
+                    </ToolBarTray>
+
+                </Grid>
+                
             </DockPanel>
 
             <!--All Header-->
