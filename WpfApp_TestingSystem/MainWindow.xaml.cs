@@ -639,22 +639,20 @@ namespace WpfApp_TestingSystem
             this.ShowTestsOfSelectedCategories(Convert.ToInt32((sender as Button).Tag));
         }
 
-        private void ShowHeaderEntity(object sender)
-        {
-            if (sender is GridLineCategory)
-            {
-                this.ShowHeaderTest();
-            }
-            else if (sender is GridLineTest)
-            {
+        //private void ShowHeaderEntity(object sender)
+        //{
+        //    if (sender is GridLineCategory)
+        //    {
+        //        this.ShowHeaderTest();
+        //    }
+        //    else if (sender is GridLineTest)
+        //    {
                 
-            }
-        }
+        //    }
+        //}
 
         private void ButtonInGridLineTest_Click(object sender, RoutedEventArgs e)
         {
-            
-
             // если учитель
             // то загружаем кнопки Вопросов
 
@@ -672,6 +670,8 @@ namespace WpfApp_TestingSystem
             }
             else
             {
+                this.currentIdCategory = ((sender as Button).Parent as GridLineTest).CategoryId;
+
                 // TODO при нажатии на тест - запуск вопросов теста
                 this.LaunchingTestQuestions(sender as Button);
             }
@@ -860,7 +860,7 @@ namespace WpfApp_TestingSystem
         {
             MessageBox.Show("запуск вопросов теста");
             // загрузить страницу прохождения теста
-            this.gridTestSelection.Visibility = Visibility.Hidden;
+            this.gridSelection.Visibility = Visibility.Hidden;
 
             this.gridPassingTheTest.Visibility = Visibility.Visible;
 
@@ -1037,11 +1037,21 @@ namespace WpfApp_TestingSystem
             this.ComputeOfPercent();
 
             // TODO вывод результата на экран - метод
-            
+            MessageBox.Show(
+                $"Результат прохождения теста: {this.testResultInPercent}%",
+                "Результат",
+                MessageBoxButton.OK,
+                MessageBoxImage.Information
+                );
+
 
             // TODO запись результата в таблицу.
 
-            throw new NotImplementedException();
+
+            this.gridPassingTheTest.Visibility = Visibility.Hidden;
+            this.gridSelection.Visibility = Visibility.Visible;
+            
+            this.ShowTests();
         }
 
         private void ComputeOfPercent()
@@ -1085,32 +1095,28 @@ namespace WpfApp_TestingSystem
 
         }
 
-        private void buttonStudent_Click(object sender, RoutedEventArgs e)
-        {
-            this.gridUserTypeSelection.Visibility = Visibility.Hidden;
+        //private void buttonStudent_Click(object sender, RoutedEventArgs e)
+        //{
+        //    this.gridUserTypeSelection.Visibility = Visibility.Hidden;
 
-            this.gridTestSelection.Visibility = Visibility.Visible;
+        //    this.gridTestSelection.Visibility = Visibility.Visible;
 
 
-            using (TestingSystemEntities db = new TestingSystemEntities())
-            {
-                db.Database.Log = Console.Write;
+        //    using (TestingSystemEntities db = new TestingSystemEntities())
+        //    {
+        //        db.Database.Log = Console.Write;
 
-                this.listBoxAllTests.ItemsSource
-                    = (
-                    from test in db.Test
-                    select test.Name
-                    )
-                    .ToList();
-            }
-        }
+        //        this.listBoxAllTests.ItemsSource
+        //            = (
+        //            from test in db.Test
+        //            select test.Name
+        //            )
+        //            .ToList();
+        //    }
+        //}
 
         private void buttonMenuBack_Click(object sender, RoutedEventArgs e)
         {
-            //if (this.level == Level.AllCategories)
-            //{
-            //    this.buttonMenuBack.IsEnabled = false;
-            //}
             if (this.level == Level.SelectCategoryOrAllTest)
             {
                 this.gridCategoryOrAllTest.Visibility = Visibility.Hidden;
@@ -1148,20 +1154,25 @@ namespace WpfApp_TestingSystem
             }
             else if (this.level == Level.QuestionsOfTheSelectedTest)
             {
-                if (this.currentIdCategory != -1)
-                {
-                    this.ShowTestsOfSelectedCategories(this.currentIdCategory);
-                }
-                else
-                {
-                    this.ShowTestsOfSelectedCategories(null);
-                }
+                this.ShowTests();
             }
             else if (this.level == Level.AnswersForSelectedOfQuestion)
             {
                 this.ShowQuestionsOfSelectedOfTest(this.currentIdTest);
             }
 
+        }
+
+        private void ShowTests()
+        {
+            if (this.currentIdCategory != -1)
+            {
+                this.ShowTestsOfSelectedCategories(this.currentIdCategory);
+            }
+            else
+            {
+                this.ShowTestsOfSelectedCategories(null);
+            }
         }
 
         private void buttonMenuUsersExit_Click(object sender, RoutedEventArgs e)

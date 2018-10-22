@@ -9,6 +9,7 @@ namespace WpfApp_TestingSystem
         AllTests,
         TestsOfTheSelectedCategory,
         QuestionsOfTheSelectedTest,
-        AnswersForSelectedOfQuestion
+        AnswersForSelectedOfQuestion,
+        PassingTheTest
     }
 }
