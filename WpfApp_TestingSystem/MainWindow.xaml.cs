@@ -653,6 +653,9 @@ namespace WpfApp_TestingSystem
 
         private void ButtonInGridLineTest_Click(object sender, RoutedEventArgs e)
         {
+
+            //Level tempLevel = this.level;
+            //int tempCurrentIdCategory = this.currentIdCategory;
             // если учитель
             // то загружаем кнопки Вопросов
 
@@ -670,10 +673,16 @@ namespace WpfApp_TestingSystem
             }
             else
             {
-                this.currentIdCategory = ((sender as Button).Parent as GridLineTest).CategoryId;
+                if (this.level == Level.TestsOfTheSelectedCategory)
+                {
+                    this.currentIdCategory = ((sender as Button).Parent as GridLineTest).CategoryId;
+                }
 
                 // TODO при нажатии на тест - запуск вопросов теста
                 this.LaunchingTestQuestions(sender as Button);
+
+                //this.level = tempLevel;
+                //this.currentIdCategory = tempCurrentIdCategory;
             }
         }
 
@@ -1012,18 +1021,15 @@ namespace WpfApp_TestingSystem
 
         private void ShowQuestionWithAnswers()
         {
-            // проверка на кол-во вопросов (номер вопроса)
+            // Проверка на кол-во вопросов (номер вопроса)
             if (this.numberOfTheCurrentQuestion < this.questionsOfTheSelectedTest.Count)
             {
-                // Show
-                // Вывод на экран 1го вопроса
                 this.ShowCurrentQuestion();
-                // ответов для 1го вопроса
+
                 this.ShowCurrentAnswers();
             }
             else
             {
-                // TODO подсчет результатов
                 this.ComputeOfResults();
             }
         }
@@ -1036,22 +1042,34 @@ namespace WpfApp_TestingSystem
             // TODO подсчет
             this.ComputeOfPercent();
 
-            // TODO вывод результата на экран - метод
-            MessageBox.Show(
-                $"Результат прохождения теста: {this.testResultInPercent}%",
-                "Результат",
-                MessageBoxButton.OK,
-                MessageBoxImage.Information
-                );
+            this.ShowTestResult();
 
+            this.ResetTest();
 
-            // TODO запись результата в таблицу.
-
+            // TODO здесь можно записать результат в таблицу.
 
             this.gridPassingTheTest.Visibility = Visibility.Hidden;
             this.gridSelection.Visibility = Visibility.Visible;
-            
+
             this.ShowTests();
+        }
+
+        private void ShowTestResult()
+        {
+            MessageBox.Show(
+                            $"Результат прохождения теста: {this.testResultInPercent}%",
+                            "Результат",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Information
+                            );
+        }
+
+        private void ResetTest()
+        {
+            this.numberOfTheCurrentQuestion = 0;
+            this.testResultInPercent = 0;
+            this.questionsOfTheSelectedTest.Clear();
+            this.numberOfCorrectAnswersStudent = 0;
         }
 
         private void ComputeOfPercent()
