@@ -17,12 +17,14 @@ namespace WpfApp_TestingSystem.EntityEditButton
         {
             int idQuestion = Convert.ToInt32(this.Tag);
 
-            WindowEdit windowEdit = new WindowEdit();
-            windowEdit.gridEditQuestion.Visibility = Visibility.Visible;
-
             var editQuestion = db.Question
                 .Where(x => x.Id == idQuestion)
                 .FirstOrDefault();
+
+            WindowEdit windowEdit = new WindowEdit(editQuestion.QuestionText);
+            windowEdit.gridEditQuestion.Visibility = Visibility.Visible;
+
+            windowEdit.textBoxQuestionName.MaxLength = 500;
 
             // Заполняем поле вопроса
             windowEdit.QuestionName = editQuestion.QuestionText;

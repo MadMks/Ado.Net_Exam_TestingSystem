@@ -25,6 +25,8 @@ namespace WpfApp_TestingSystem.EntityAddButton
             windowAdd.buttonOk.Content = "Добавить";
             windowAdd.Title = "Добавление вопроса";
 
+            windowAdd.textBoxQuestionName.MaxLength = 500;
+
             bool? result = windowAdd.ShowDialog();
 
             if (result == true)

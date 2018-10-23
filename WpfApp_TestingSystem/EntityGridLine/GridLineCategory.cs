@@ -128,6 +128,7 @@ namespace WpfApp_TestingSystem
             this.Children.Add(button);
         }
 
+
         public override void AddingAdminButtons(int idEntity)
         {
             // Кнопка "Редактировать".
@@ -279,5 +280,25 @@ namespace WpfApp_TestingSystem
         //    binding.Path = new PropertyPath("ActualWidth");
         //    gridLineButton.SetBinding(Grid.WidthProperty, binding);
         //}
+
+        /// <summary>
+        /// Данное имя уже существует в базе данных.
+        /// </summary>
+        /// <param name="textBoxText"></param>
+        /// <returns></returns>
+        internal static bool IsNameAlreadyExists(string categoryName)
+        {
+            using (TestingSystemEntities db = new TestingSystemEntities())
+            {
+                Category result = db.Category.Where(x => x.Name == categoryName).FirstOrDefault();
+
+                if (result == null)
+                {
+                    return false;
+                }
+
+                return true;
+            }
+        }
     }
 }

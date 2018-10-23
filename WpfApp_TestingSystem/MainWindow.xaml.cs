@@ -235,11 +235,12 @@ namespace WpfApp_TestingSystem
                 this.level = Level.AllCategories;
 
                 var listOfAllCategories
-                    = (
-                    from category in db.Category.Include("Test")
-                    select category
-                    )
-                    .ToList();
+                        = (
+                        from category in db.Category.Include("Test")
+                        select category
+                        )
+                        .ToList();
+
 
                 GridLineCategory gridLineCategory = null;
 
@@ -286,7 +287,11 @@ namespace WpfApp_TestingSystem
                 gridLineEntity.AddingAnAddEntityButton();
             gridLineEntity.ButtonAdd.Click += ButtonAddEntity_Click;
 
-            this.stackPanelSelection.Children.Add(buttonAddEntity);
+            //this.stackPanelSelection.Children.Add(buttonAddEntity);
+
+            // test 20.10
+            this.gridForButtonAddEntity.Children.Clear();
+            this.gridForButtonAddEntity.Children.Add(buttonAddEntity);
         }
 
         private void ButtonAddEntity_Click(object sender, RoutedEventArgs e)
@@ -635,22 +640,23 @@ namespace WpfApp_TestingSystem
             this.ShowTestsOfSelectedCategories(Convert.ToInt32((sender as Button).Tag));
         }
 
-        private void ShowHeaderEntity(object sender)
-        {
-            if (sender is GridLineCategory)
-            {
-                this.ShowHeaderTest();
-            }
-            else if (sender is GridLineTest)
-            {
+        //private void ShowHeaderEntity(object sender)
+        //{
+        //    if (sender is GridLineCategory)
+        //    {
+        //        this.ShowHeaderTest();
+        //    }
+        //    else if (sender is GridLineTest)
+        //    {
                 
-            }
-        }
+        //    }
+        //}
 
         private void ButtonInGridLineTest_Click(object sender, RoutedEventArgs e)
         {
-            
 
+            //Level tempLevel = this.level;
+            //int tempCurrentIdCategory = this.currentIdCategory;
             // если учитель
             // то загружаем кнопки Вопросов
 
@@ -668,8 +674,16 @@ namespace WpfApp_TestingSystem
             }
             else
             {
+                if (this.level == Level.TestsOfTheSelectedCategory)
+                {
+                    this.currentIdCategory = ((sender as Button).Parent as GridLineTest).CategoryId;
+                }
+
                 // TODO при нажатии на тест - запуск вопросов теста
                 this.LaunchingTestQuestions(sender as Button);
+
+                //this.level = tempLevel;
+                //this.currentIdCategory = tempCurrentIdCategory;
             }
         }
 
@@ -856,7 +870,7 @@ namespace WpfApp_TestingSystem
         {
             MessageBox.Show("запуск вопросов теста");
             // загрузить страницу прохождения теста
-            this.gridTestSelection.Visibility = Visibility.Hidden;
+            this.gridSelection.Visibility = Visibility.Hidden;
 
             this.gridPassingTheTest.Visibility = Visibility.Visible;
 
@@ -1008,18 +1022,15 @@ namespace WpfApp_TestingSystem
 
         private void ShowQuestionWithAnswers()
         {
-            // проверка на кол-во вопросов (номер вопроса)
+            // Проверка на кол-во вопросов (номер вопроса)
             if (this.numberOfTheCurrentQuestion < this.questionsOfTheSelectedTest.Count)
             {
-                // Show
-                // Вывод на экран 1го вопроса
                 this.ShowCurrentQuestion();
-                // ответов для 1го вопроса
+
                 this.ShowCurrentAnswers();
             }
             else
             {
-                // TODO подсчет результатов
                 this.ComputeOfResults();
             }
         }
@@ -1032,12 +1043,34 @@ namespace WpfApp_TestingSystem
             // TODO подсчет
             this.ComputeOfPercent();
 
-            // TODO вывод результата на экран - метод
-            
+            this.ShowTestResult();
 
-            // TODO запись результата в таблицу.
+            this.ResetTest();
 
-            throw new NotImplementedException();
+            // TODO здесь можно записать результат в таблицу.
+
+            this.gridPassingTheTest.Visibility = Visibility.Hidden;
+            this.gridSelection.Visibility = Visibility.Visible;
+
+            this.ShowTests();
+        }
+
+        private void ShowTestResult()
+        {
+            MessageBox.Show(
+                            $"Результат прохождения теста: {this.testResultInPercent}%",
+                            "Результат",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Information
+                            );
+        }
+
+        private void ResetTest()
+        {
+            this.numberOfTheCurrentQuestion = 0;
+            this.testResultInPercent = 0;
+            this.questionsOfTheSelectedTest.Clear();
+            this.numberOfCorrectAnswersStudent = 0;
         }
 
         private void ComputeOfPercent()
@@ -1081,32 +1114,28 @@ namespace WpfApp_TestingSystem
 
         }
 
-        private void buttonStudent_Click(object sender, RoutedEventArgs e)
-        {
-            this.gridUserTypeSelection.Visibility = Visibility.Hidden;
+        //private void buttonStudent_Click(object sender, RoutedEventArgs e)
+        //{
+        //    this.gridUserTypeSelection.Visibility = Visibility.Hidden;
 
-            this.gridTestSelection.Visibility = Visibility.Visible;
+        //    this.gridTestSelection.Visibility = Visibility.Visible;
 
 
-            using (TestingSystemEntities db = new TestingSystemEntities())
-            {
-                db.Database.Log = Console.Write;
+        //    using (TestingSystemEntities db = new TestingSystemEntities())
+        //    {
+        //        db.Database.Log = Console.Write;
 
-                this.listBoxAllTests.ItemsSource
-                    = (
-                    from test in db.Test
-                    select test.Name
-                    )
-                    .ToList();
-            }
-        }
+        //        this.listBoxAllTests.ItemsSource
+        //            = (
+        //            from test in db.Test
+        //            select test.Name
+        //            )
+        //            .ToList();
+        //    }
+        //}
 
         private void buttonMenuBack_Click(object sender, RoutedEventArgs e)
         {
-            //if (this.level == Level.AllCategories)
-            //{
-            //    this.buttonMenuBack.IsEnabled = false;
-            //}
             if (this.level == Level.SelectCategoryOrAllTest)
             {
                 this.gridCategoryOrAllTest.Visibility = Visibility.Hidden;
@@ -1118,6 +1147,9 @@ namespace WpfApp_TestingSystem
 
                 Grid.SetColumnSpan(this.gridHeaderCategory, 2);
                 Grid.SetColumnSpan(this.gridHeaderTest, 2);
+
+                // test 20.10
+                this.gridForButtonAddEntity.Children.Clear();
             }
             else if (this.level == Level.AllTests)
             {
@@ -1141,20 +1173,25 @@ namespace WpfApp_TestingSystem
             }
             else if (this.level == Level.QuestionsOfTheSelectedTest)
             {
-                if (this.currentIdCategory != -1)
-                {
-                    this.ShowTestsOfSelectedCategories(this.currentIdCategory);
-                }
-                else
-                {
-                    this.ShowTestsOfSelectedCategories(null);
-                }
+                this.ShowTests();
             }
             else if (this.level == Level.AnswersForSelectedOfQuestion)
             {
                 this.ShowQuestionsOfSelectedOfTest(this.currentIdTest);
             }
 
+        }
+
+        private void ShowTests()
+        {
+            if (this.currentIdCategory != -1)
+            {
+                this.ShowTestsOfSelectedCategories(this.currentIdCategory);
+            }
+            else
+            {
+                this.ShowTestsOfSelectedCategories(null);
+            }
         }
 
         private void buttonMenuUsersExit_Click(object sender, RoutedEventArgs e)
@@ -1167,6 +1204,9 @@ namespace WpfApp_TestingSystem
             this.gridSelection.Visibility = Visibility.Hidden;
 
             this.gridUserTypeSelection.Visibility = Visibility.Visible;
+
+            // test 20.10
+            this.gridForButtonAddEntity.Children.Clear();
 
             // Закрытие зарезервированного места для кнопок редактирования
             Grid.SetColumnSpan(this.textBlockHiddenForSizeButtonLine, 3);

@@ -16,12 +16,14 @@ namespace WpfApp_TestingSystem.EntityEditButton
         {
             int idAnswer = Convert.ToInt32(this.Tag);
 
-            WindowEdit windowEdit = new WindowEdit();
-            windowEdit.gridEditAnswer.Visibility = Visibility.Visible;
-
             var editAnswer = db.Answer
                 .Where(x => x.Id == idAnswer)
                 .FirstOrDefault();
+
+            WindowEdit windowEdit = new WindowEdit(editAnswer.ResponseText);
+            windowEdit.gridEditAnswer.Visibility = Visibility.Visible;
+
+            windowEdit.textBoxAnswerText.MaxLength = 300;
 
             // Заполняем поле ответа
             windowEdit.textBoxAnswerText.Text = editAnswer.ResponseText;
@@ -34,6 +36,10 @@ namespace WpfApp_TestingSystem.EntityEditButton
 
             if (result == true)
             {
+                this.SwitchingOtherAnswersToWrong(db,
+                    windowEdit.comboBoxAnswerValue.SelectedIndex,
+                    editAnswer.QuestionId);
+
                 editAnswer.ResponseText = windowEdit.textBoxAnswerText.Text;
                 editAnswer.CorrectAnswer
                     = windowEdit.comboBoxAnswerValue.SelectedIndex == 0
@@ -45,6 +51,22 @@ namespace WpfApp_TestingSystem.EntityEditButton
             }
 
             return false;
+        }
+
+        private void SwitchingOtherAnswersToWrong(TestingSystemEntities db, int selectedIndex, int questionId)
+        {
+            if (selectedIndex == 0)
+            {
+                var answers
+                    = db.Answer
+                    .Where(x => x.QuestionId == questionId)
+                    .ToList();
+
+                foreach (var answer in answers)
+                {
+                    answer.CorrectAnswer = false;
+                }
+            }
         }
     }
 }
