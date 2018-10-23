@@ -52,6 +52,15 @@ namespace WpfApp_TestingSystem.EntityAddButton
                 db.Answer.Add(addAnswer);
                 db.SaveChanges();
 
+
+                // TODO >>> попробовать Актив
+                // если ответов
+
+                // если вопросов
+
+                // если тестов
+
+
                 return true;
             }
 

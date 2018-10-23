@@ -235,11 +235,12 @@ namespace WpfApp_TestingSystem
                 this.level = Level.AllCategories;
 
                 var listOfAllCategories
-                    = (
-                    from category in db.Category.Include("Test")
-                    select category
-                    )
-                    .ToList();
+                        = (
+                        from category in db.Category.Include("Test")
+                        select category
+                        )
+                        .ToList();
+
 
                 GridLineCategory gridLineCategory = null;
 
