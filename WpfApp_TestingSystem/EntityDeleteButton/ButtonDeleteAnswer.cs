@@ -32,6 +32,25 @@ namespace WpfApp_TestingSystem.EntityDeleteButton
                 db.Answer.Remove(deleteAnswer);
                 db.SaveChanges();
 
+
+                // method установки Active после удаления.
+                // TODO >>> попробовать Актив
+                // если ответов
+                if (db.Answer.Where(x => x.QuestionId == deleteAnswer.QuestionId).Count() < 2)
+                {
+                    // то вопрос делаем не активным
+                    db.Question
+                        .Where(x => x.Id == deleteAnswer.QuestionId)
+                        .FirstOrDefault()
+                        .Active
+                        = false;
+                }
+                // если вопросов
+
+                // если тестов
+
+                db.SaveChanges();
+
                 return true;
             }
 

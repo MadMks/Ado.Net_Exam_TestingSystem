@@ -48,18 +48,27 @@ namespace WpfApp_TestingSystem.EntityAddButton
 
                 addAnswer.QuestionId = this.QuestionId;
 
-
                 db.Answer.Add(addAnswer);
                 db.SaveChanges();
 
 
+                // method установки Active
                 // TODO >>> попробовать Актив
                 // если ответов
-
+                if (db.Answer.Where(x => x.QuestionId == this.QuestionId)/*.Select(x => x.Id)*/.Count() >= 2)
+                {
+                    // то вопрос делаем активным
+                    db.Question
+                        .Where(x => x.Id == this.QuestionId)
+                        .FirstOrDefault()
+                        .Active
+                        = true;
+                }
                 // если вопросов
 
                 // если тестов
 
+                db.SaveChanges();
 
                 return true;
             }

@@ -28,6 +28,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="QuestionText" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="TestId" Type="smallint" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Test">
           <Key>
@@ -122,6 +123,7 @@
           <Property Name="TestId" Type="Int16" Nullable="false" />
           <NavigationProperty Name="Answer" Relationship="Self.FK__Answer__Question__182C9B23" FromRole="Question" ToRole="Answer" />
           <NavigationProperty Name="Test" Relationship="Self.FK__Question__TestId__15502E78" FromRole="Question" ToRole="Test" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Test">
           <Key>
@@ -214,6 +216,7 @@
           <EntitySetMapping Name="Question">
             <EntityTypeMapping TypeName="TestingSystemModel.Question">
               <MappingFragment StoreEntitySet="Question">
+                <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="QuestionText" ColumnName="QuestionText" />
                 <ScalarProperty Name="TestId" ColumnName="TestId" />
