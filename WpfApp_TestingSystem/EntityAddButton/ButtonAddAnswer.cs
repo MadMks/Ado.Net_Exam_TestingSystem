@@ -93,8 +93,27 @@ namespace WpfApp_TestingSystem.EntityAddButton
                     .FirstOrDefault()
                     .Active
                     = active;
-            // если вопросов
 
+            db.SaveChanges();
+
+            // если вопросов
+            if (db.Question
+                .Where(q => q.TestId == addAnswer.Question.TestId && q.Active == true)
+                //.Where(q => q.Active == true)
+                .Count() > 0)
+            {
+                active = true;
+                //MessageBox.Show("1");
+            }
+            else
+            {
+                active = false;
+            }
+
+            db.Test
+                .Where(t => t.Id == addAnswer.Question.TestId)
+                .FirstOrDefault()
+                .Active = active;
             // если тестов
 
             db.SaveChanges();

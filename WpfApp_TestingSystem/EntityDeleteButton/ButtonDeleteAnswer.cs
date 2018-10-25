@@ -56,8 +56,35 @@ namespace WpfApp_TestingSystem.EntityDeleteButton
                     .Active
                     = false;
             }
-            // если вопросов
 
+            db.SaveChanges();
+
+            
+            // Тест.
+
+            int deleteAnswerTestId
+                = db.Question.Where(q => q.Id == deleteAnswer.QuestionId)
+                .Select(q => q.TestId).FirstOrDefault();
+
+            bool active;
+            // Если есть активные вопросы у теста
+            if (db.Question
+                .Where(q => q.TestId == deleteAnswerTestId && q.Active == true)
+                //.Where(q => q.Active == true)
+                .Count() > 0)
+            {
+                active = true;
+                //MessageBox.Show("1");
+            }
+            else
+            {
+                active = false;
+            }
+            // Переключаем Тест
+            db.Test
+                .Where(t => t.Id == deleteAnswerTestId)
+                .FirstOrDefault()
+                .Active = active;
             // если тестов
 
             db.SaveChanges();

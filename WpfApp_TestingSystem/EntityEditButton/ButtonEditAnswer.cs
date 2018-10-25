@@ -60,9 +60,13 @@ namespace WpfApp_TestingSystem.EntityEditButton
         {
             bool active;
 
-            if (db.Answer
+            if (
+                db.Answer
+                .Where(x => x.QuestionId == editAnswer.QuestionId).Count() > 1
+                &&
+                (db.Answer
                 .Where(x => x.QuestionId == editAnswer.QuestionId
-                && x.CorrectAnswer == true).Count() > 0
+                && x.CorrectAnswer == true).Count() > 0)
                 )
             {
                 // то вопрос делаем активным
