@@ -47,10 +47,39 @@ namespace WpfApp_TestingSystem.EntityEditButton
 
                 db.SaveChanges();
 
+
+                this.EntityActivitySwitching(db, editAnswer);
+
                 return true;
             }
 
             return false;
+        }
+
+        private void EntityActivitySwitching(TestingSystemEntities db, Answer editAnswer)
+        {
+            bool active;
+
+            if (db.Answer
+                .Where(x => x.QuestionId == editAnswer.QuestionId
+                && x.CorrectAnswer == true).Count() > 0
+                )
+            {
+                // то вопрос делаем активным
+                active = true;
+            }
+            else
+            {
+                active = false;
+            }
+
+            db.Question
+                    .Where(x => x.Id == editAnswer.QuestionId)
+                    .FirstOrDefault()
+                    .Active
+                    = active;
+
+            db.SaveChanges();
         }
 
         private void SwitchingOtherAnswersToWrong(TestingSystemEntities db, int selectedIndex, int questionId)

@@ -34,28 +34,33 @@ namespace WpfApp_TestingSystem.EntityDeleteButton
 
 
                 // method установки Active после удаления.
-                // TODO >>> попробовать Актив
-                // если ответов
-                if (db.Answer.Where(x => x.QuestionId == deleteAnswer.QuestionId).Count() < 2)
-                {
-                    // то вопрос делаем не активным
-                    db.Question
-                        .Where(x => x.Id == deleteAnswer.QuestionId)
-                        .FirstOrDefault()
-                        .Active
-                        = false;
-                }
-                // если вопросов
-
-                // если тестов
-
-                db.SaveChanges();
+                this.EntityActivitySwitching(db, deleteAnswer);
 
                 return true;
             }
 
 
             return false;
+        }
+
+        private void EntityActivitySwitching(TestingSystemEntities db, Answer deleteAnswer)
+        {
+            // TODO >>> попробовать Актив
+            // если ответов
+            if (db.Answer.Where(x => x.QuestionId == deleteAnswer.QuestionId).Count() < 2)
+            {
+                // то вопрос делаем не активным
+                db.Question
+                    .Where(x => x.Id == deleteAnswer.QuestionId)
+                    .FirstOrDefault()
+                    .Active
+                    = false;
+            }
+            // если вопросов
+
+            // если тестов
+
+            db.SaveChanges();
         }
     }
 }

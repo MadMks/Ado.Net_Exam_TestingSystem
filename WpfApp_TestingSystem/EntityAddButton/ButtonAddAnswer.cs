@@ -35,13 +35,13 @@ namespace WpfApp_TestingSystem.EntityAddButton
 
             if (result == true)
             {
-                this.SwitchingOtherAnswersToWrong(db, 
+                this.SwitchingOtherAnswersToWrong(db,
                     windowAdd.comboBoxAnswerValue.SelectedIndex,
                     this.QuestionId);
 
                 Answer addAnswer = new Answer();
                 addAnswer.ResponseText = windowAdd.AnswerName;
-                addAnswer.CorrectAnswer 
+                addAnswer.CorrectAnswer
                     = windowAdd
                     .comboBoxAnswerValue.SelectedIndex == 0
                     ? true : false;
@@ -53,41 +53,51 @@ namespace WpfApp_TestingSystem.EntityAddButton
 
 
                 // method установки Active
-                // TODO >>> попробовать Актив
-                // если ответов
-
-                bool active;
-
-                if (db.Answer.Where(x => x.QuestionId == addAnswer.QuestionId).Count() >= 2
-                    &&
-                    db.Answer
-                    .Where(x => x.QuestionId == addAnswer.QuestionId 
-                    && x.CorrectAnswer == true).Count() > 0
-                    )
-                {
-                    // то вопрос делаем активным
-                    active = true;
-                }
-                else
-                {
-                    active = false;
-                }
-
-                db.Question
-                        .Where(x => x.Id == addAnswer.QuestionId)
-                        .FirstOrDefault()
-                        .Active
-                        = active;
-                // если вопросов
-
-                // если тестов
-
-                db.SaveChanges();
+                this.EntityActivitySwitching(db, addAnswer);
 
                 return true;
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// Переключение активности сущностей.
+        /// </summary>
+        /// <param name="db"></param>
+        /// <param name="addAnswer"></param>
+        private void EntityActivitySwitching(TestingSystemEntities db, Answer addAnswer)
+        {
+            // TODO >>> попробовать Актив
+            // если ответов
+
+            bool active;
+
+            if (db.Answer.Where(x => x.QuestionId == addAnswer.QuestionId).Count() >= 2
+                &&
+                db.Answer
+                .Where(x => x.QuestionId == addAnswer.QuestionId
+                && x.CorrectAnswer == true).Count() > 0
+                )
+            {
+                // то вопрос делаем активным
+                active = true;
+            }
+            else
+            {
+                active = false;
+            }
+
+            db.Question
+                    .Where(x => x.Id == addAnswer.QuestionId)
+                    .FirstOrDefault()
+                    .Active
+                    = active;
+            // если вопросов
+
+            // если тестов
+
+            db.SaveChanges();
         }
 
         private void SwitchingOtherAnswersToWrong(TestingSystemEntities db, int selectedIndex, int questionId)
