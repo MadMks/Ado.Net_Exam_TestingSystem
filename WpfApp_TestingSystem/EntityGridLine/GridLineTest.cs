@@ -31,7 +31,9 @@ namespace WpfApp_TestingSystem
             set { textBlockCategory.Text = value; }    // TODO ?!?!?!? времменно написал - нужно правильно присваивать!
         }
 
-        
+
+        public bool IsTeacher { get; set; }
+
 
         public GridLineTest() {}
 
@@ -89,11 +91,26 @@ namespace WpfApp_TestingSystem
                 Text = currentTest.Category.Name,
                 Background = Brushes.Bisque
             };
-            TextBlockForNumber textBlockQuantityQuestions = new TextBlockForNumber
+
+            TextBlockForNumber textBlockQuantityQuestions = null;
+            if (this.IsTeacher)
             {
-                Text = currentTest.Question.Count().ToString(),
-                Background = Brushes.BurlyWood
-            };
+                textBlockQuantityQuestions = new TextBlockForNumber
+                {
+                    Text = currentTest.Question.Count().ToString(),
+                    Background = Brushes.BurlyWood
+                };
+            }
+            else
+            {
+                textBlockQuantityQuestions = new TextBlockForNumber
+                {
+                    Text = currentTest.Question
+                    .Where(q => q.Active == true)
+                    .Count().ToString(),
+                    Background = Brushes.BurlyWood
+                };
+            }
 
             // Добавление textBlock с данными в кнопку.
             gridLineButton.Children.Add(textBlockNumber);

@@ -144,6 +144,8 @@ namespace WpfApp_TestingSystem
                            listTestsOfSelectedCategories[i]
                        );
 
+                    gridLineTest.IsTeacher = this.isTeacher;
+
                     // Установить стиль кнопки внутри grid
                     (gridLineTest.Children[0] as Button).Style = (Style)(this.Resources["styleButtonForList"]);
 
@@ -1098,9 +1100,7 @@ namespace WpfApp_TestingSystem
         private void ShowQuestionWithAnswers()
         {
             // Проверка на кол-во вопросов (номер вопроса)
-            if (this.numberOfTheCurrentQuestion 
-                < 
-                this.questionsOfTheSelectedTest/*.Where(q => q.Active == true)*/.Count())
+            if (this.numberOfTheCurrentQuestion < this.questionsOfTheSelectedTest.Count())
             {
                 this.ShowCurrentQuestion();
 
