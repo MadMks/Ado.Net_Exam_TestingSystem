@@ -332,6 +332,7 @@ namespace WpfApp_TestingSystem
                     // HACK ?! - добавляю id категории - чтоб при нажатии на кнопку (грид)
                     // вывести тесты данной категории - по добавленному id (в свойство gridLineButton).
                     //gridLineCategory.CategoryID = listOfAllCategories[i].Id;
+                    gridLineCategory.IsTeacher = this.isTeacher;
 
                     // Установить стиль кнопки внутри grid
                     (gridLineCategory.Children[0] as Button).Style = (Style)(this.Resources["styleButtonForList"]);
@@ -970,8 +971,8 @@ namespace WpfApp_TestingSystem
                 // TODO загрузить все вопросы и ответы
                 this.questionsOfTheSelectedTest = (
                     from question in db.Question.Include("Answer")  // HACK или безотложная (много маленьких запросов)
-                                                                    //where question.Test.Name == this.listBoxAllTests.SelectedValue.ToString()
                     where question.Test.Id == gridLineTest.TestID
+                    where question.Active == true
                     select question
                     )
                     .ToList();
@@ -1097,7 +1098,9 @@ namespace WpfApp_TestingSystem
         private void ShowQuestionWithAnswers()
         {
             // Проверка на кол-во вопросов (номер вопроса)
-            if (this.numberOfTheCurrentQuestion < this.questionsOfTheSelectedTest.Count)
+            if (this.numberOfTheCurrentQuestion 
+                < 
+                this.questionsOfTheSelectedTest/*.Where(q => q.Active == true)*/.Count())
             {
                 this.ShowCurrentQuestion();
 
