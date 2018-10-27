@@ -300,7 +300,7 @@ namespace WpfApp_TestingSystem
         /// </summary>
         /// <param name="textBoxText"></param>
         /// <returns></returns>
-        internal static bool IsNameAlreadyExists(string categoryName)
+        internal static bool IsNameAlreadyExists(string categoryName/*, int entityId*/)
         {
             using (TestingSystemEntities db = new TestingSystemEntities())
             {

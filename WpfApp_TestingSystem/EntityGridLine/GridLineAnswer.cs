@@ -125,11 +125,13 @@ namespace WpfApp_TestingSystem.EntityGridLine
             this.Children.Add(button);
         }
 
-        internal static bool IsNameAlreadyExists(string answerName)
+        internal static bool IsNameAlreadyExists(string answerName, int entityParentId)
         {
             using (TestingSystemEntities db = new TestingSystemEntities())
             {
-                Answer result = db.Answer.Where(x => x.ResponseText == answerName).FirstOrDefault();
+                Answer result = db.Answer
+                    .Where(a => a.ResponseText == answerName && a.QuestionId == entityParentId)
+                    .FirstOrDefault();
 
                 if (result == null)
                 {

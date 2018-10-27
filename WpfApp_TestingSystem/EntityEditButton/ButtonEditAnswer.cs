@@ -15,12 +15,12 @@ namespace WpfApp_TestingSystem.EntityEditButton
         public override bool EditingEntity(TestingSystemEntities db)
         {
             int idAnswer = Convert.ToInt32(this.Tag);
-
+            
             var editAnswer = db.Answer
                 .Where(x => x.Id == idAnswer)
                 .FirstOrDefault();
 
-            WindowEdit windowEdit = new WindowEdit(editAnswer.ResponseText);
+            WindowEdit windowEdit = new WindowEdit(editAnswer);
             windowEdit.gridEditAnswer.Visibility = Visibility.Visible;
 
             windowEdit.textBoxAnswerText.MaxLength = 300;

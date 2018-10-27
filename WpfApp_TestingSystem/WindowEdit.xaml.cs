@@ -27,6 +27,8 @@ namespace WpfApp_TestingSystem
         /// </summary>
         private string editableField = "";
 
+        private int entityParentId;
+
         public string CategoryName
         {
             get { return this.textBoxCategoryName.Text; }
@@ -59,13 +61,41 @@ namespace WpfApp_TestingSystem
             //this.Loaded += WindowEdit_Loaded;
         }
 
-        public WindowEdit(string editableField)
+        public WindowEdit(int entityParentid)
+        {
+            InitializeComponent();
+
+            this.entityParentId = entityParentid;
+        }
+
+        public WindowEdit(object editableEntity)
         {
             InitializeComponent();
 
             //this.Loaded += WindowEdit_Loaded;
 
-            this.editableField = editableField;
+            //this.editableField = editableField;
+
+            if (editableEntity is Category)
+            {
+                this.editableField = (editableEntity as Category).Name;
+                //this.editableEntityParentId = (editableEntity as Category).Id;
+            }
+            else if (editableEntity is Test)
+            {
+                this.editableField = (editableEntity as Test).Name;
+                this.entityParentId = (editableEntity as Test).CategoryId;
+            }
+            else if (editableEntity is Question)
+            {
+                this.editableField = (editableEntity as Question).QuestionText;
+                this.entityParentId = (editableEntity as Question).TestId;
+            }
+            else if (editableEntity is Answer)
+            {
+                this.editableField = (editableEntity as Answer).ResponseText;
+                this.entityParentId = (editableEntity as Answer).QuestionId;
+            }
         }
 
         //private void WindowEdit_Loaded(object sender, RoutedEventArgs e)
@@ -148,15 +178,18 @@ namespace WpfApp_TestingSystem
             }
             else if (this.gridEditTest.IsVisible == true)
             {
-                isExists = GridLineTest.IsNameAlreadyExists(this.textBoxTestName.Text);
+                isExists = GridLineTest.IsNameAlreadyExists(
+                    this.textBoxTestName.Text, this.entityParentId);
             }
             else if (this.gridEditQuestion.IsVisible == true)
             {
-                isExists = GridLineQuestion.IsNameAlreadyExists(this.textBoxQuestionName.Text);
+                isExists = GridLineQuestion.IsNameAlreadyExists(
+                    this.textBoxQuestionName.Text, this.entityParentId);
             }
             else if (this.gridEditAnswer.IsVisible == true)
             {
-                isExists = GridLineAnswer.IsNameAlreadyExists(this.textBoxAnswerText.Text);
+                isExists = GridLineAnswer.IsNameAlreadyExists(
+                    this.textBoxAnswerText.Text, this.entityParentId);
             }
 
             return isExists;

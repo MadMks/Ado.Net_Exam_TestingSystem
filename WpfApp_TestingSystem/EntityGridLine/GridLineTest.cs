@@ -151,11 +151,13 @@ namespace WpfApp_TestingSystem
             this.Children.Add(button);
         }
 
-        internal static bool IsNameAlreadyExists(string testName)
+        internal static bool IsNameAlreadyExists(string testName, int entityParentId)
         {
             using (TestingSystemEntities db = new TestingSystemEntities())
             {
-                Test result = db.Test.Where(x => x.Name == testName).FirstOrDefault();
+                Test result = db.Test
+                    .Where(t => t.Name == testName && t.CategoryId == entityParentId)
+                    .FirstOrDefault();
 
                 if (result == null)
                 {

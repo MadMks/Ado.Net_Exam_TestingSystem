@@ -68,9 +68,10 @@ namespace WpfApp_TestingSystem.EntityDeleteButton
                         db.Question.RemoveRange(deleteQuestions);
                     }
 
-                    db.Test.Remove(deleteTest);
-                    db.SaveChanges();
                 }
+
+                db.Test.Remove(deleteTest);
+                db.SaveChanges();
 
                 // method установки Active после удаления.
                 this.EntityActivitySwitching(db, deleteTest);
