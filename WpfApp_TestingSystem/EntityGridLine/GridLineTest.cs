@@ -62,11 +62,11 @@ namespace WpfApp_TestingSystem
             });
             gridLineButton.ColumnDefinitions.Add(new ColumnDefinition
             {
-                Width = new GridLength(9.0, GridUnitType.Star)
+                Width = new GridLength(8.0, GridUnitType.Star)
             });
             gridLineButton.ColumnDefinitions.Add(new ColumnDefinition
             {
-                Width = new GridLength(1.0, GridUnitType.Star)
+                Width = new GridLength(2.0, GridUnitType.Star)
             });
             gridLineButton.ColumnDefinitions.Add(new ColumnDefinition
             {

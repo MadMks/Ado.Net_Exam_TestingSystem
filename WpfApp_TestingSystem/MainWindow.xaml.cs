@@ -130,7 +130,7 @@ namespace WpfApp_TestingSystem
                 else
                 {
                     listTestsOfSelectedCategories
-                        = this.GetActiveListTestsOfSelectedCategories(idCategory, db);
+                        = this.GetListActiveTestsOfSelectedCategories(idCategory, db);
                 }
 
                 GridLineTest gridLineTest = null;
@@ -208,7 +208,7 @@ namespace WpfApp_TestingSystem
             return listTestsOfSelectedCategories;
         }
 
-        private List<Test> GetActiveListTestsOfSelectedCategories(int? idCategory, TestingSystemEntities db)
+        private List<Test> GetListActiveTestsOfSelectedCategories(int? idCategory, TestingSystemEntities db)
         {
             List<Test> listTestsOfSelectedCategories;
 
