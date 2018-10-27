@@ -46,6 +46,10 @@ namespace WpfApp_TestingSystem.EntityDeleteButton
         private void EntityActivitySwitching(TestingSystemEntities db, Answer deleteAnswer)
         {
             // TODO >>> попробовать Актив
+
+            // =====
+            // Вопрос.
+
             // если ответов
             if (db.Answer.Where(x => x.QuestionId == deleteAnswer.QuestionId).Count() < 2)
             {
@@ -59,7 +63,7 @@ namespace WpfApp_TestingSystem.EntityDeleteButton
 
             db.SaveChanges();
 
-            
+            // =====
             // Тест.
 
             int deleteAnswerTestId
@@ -83,6 +87,35 @@ namespace WpfApp_TestingSystem.EntityDeleteButton
             // Переключаем Тест
             db.Test
                 .Where(t => t.Id == deleteAnswerTestId)
+                .FirstOrDefault()
+                .Active = active;
+            // если тестов
+
+            db.SaveChanges();
+
+
+            // =====
+            // Категория.
+
+            int deleteAnswerCategoryId
+                = db.Test
+                .Where(t => t.Id == deleteAnswerTestId)
+                .Select(t => t.CategoryId).FirstOrDefault();
+
+            // Если есть активные тесты у категории
+            if (db.Test
+                .Where(t => t.CategoryId == deleteAnswerCategoryId && t.Active == true)
+                .Count() > 0)
+            {
+                active = true;
+            }
+            else
+            {
+                active = false;
+            }
+            // Переключаем Тест
+            db.Category
+                .Where(c => c.Id == deleteAnswerCategoryId)
                 .FirstOrDefault()
                 .Active = active;
             // если тестов

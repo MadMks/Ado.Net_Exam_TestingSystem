@@ -58,6 +58,10 @@ namespace WpfApp_TestingSystem.EntityEditButton
 
         private void EntityActivitySwitching(TestingSystemEntities db, Answer editAnswer)
         {
+
+            // =====
+            // Вопрос.
+
             bool active;
 
             if (
@@ -84,6 +88,43 @@ namespace WpfApp_TestingSystem.EntityEditButton
                     = active;
 
             db.SaveChanges();
+
+
+            // =====
+            // Тест
+
+            int deleteAnswerTestId
+                = db.Question.Where(q => q.Id == editAnswer.QuestionId)
+                .Select(q => q.TestId).FirstOrDefault();
+
+            //bool active;
+            // Если есть активные вопросы у теста
+            if (db.Question
+                .Where(q => q.TestId == deleteAnswerTestId && q.Active == true)
+                //.Where(q => q.Active == true)
+                .Count() > 0)
+            {
+                active = true;
+                //MessageBox.Show("1");
+            }
+            else
+            {
+                active = false;
+            }
+            // Переключаем Тест
+            db.Test
+                .Where(t => t.Id == deleteAnswerTestId)
+                .FirstOrDefault()
+                .Active = active;
+            // если тестов
+
+            db.SaveChanges();
+
+
+            // =====
+            // Категория
+
+            // TODO Актив Категории - при редактировании ответа.
         }
 
         private void SwitchingOtherAnswersToWrong(TestingSystemEntities db, int selectedIndex, int questionId)

@@ -69,6 +69,11 @@ namespace WpfApp_TestingSystem.EntityAddButton
         private void EntityActivitySwitching(TestingSystemEntities db, Answer addAnswer)
         {
             // TODO >>> попробовать Актив
+
+
+            // =====
+            // Вопрос.
+
             // если ответов
 
             bool active;
@@ -96,6 +101,10 @@ namespace WpfApp_TestingSystem.EntityAddButton
 
             db.SaveChanges();
 
+
+            // =====
+            // Тест.
+
             // если вопросов
             if (db.Question
                 .Where(q => q.TestId == addAnswer.Question.TestId && q.Active == true)
@@ -112,6 +121,35 @@ namespace WpfApp_TestingSystem.EntityAddButton
 
             db.Test
                 .Where(t => t.Id == addAnswer.Question.TestId)
+                .FirstOrDefault()
+                .Active = active;
+            // если тестов
+
+            db.SaveChanges();
+
+
+            // =====
+            // Категория.
+
+            int deleteAnswerCategoryId
+                = db.Test
+                .Where(t => t.Id == addAnswer.Question.TestId)
+                .Select(t => t.CategoryId).FirstOrDefault();
+
+            // Если есть активные тесты у категории
+            if (db.Test
+                .Where(t => t.CategoryId == deleteAnswerCategoryId && t.Active == true)
+                .Count() > 0)
+            {
+                active = true;
+            }
+            else
+            {
+                active = false;
+            }
+            // Переключаем Тест
+            db.Category
+                .Where(c => c.Id == deleteAnswerCategoryId)
                 .FirstOrDefault()
                 .Active = active;
             // если тестов
