@@ -24,7 +24,7 @@ namespace WpfApp_TestingSystem.EntityAddButton
         {
             db.Database.Log = Console.Write;
 
-            WindowEdit windowAdd = new WindowEdit();
+            WindowEdit windowAdd = new WindowEdit(this.CategoryId);
             windowAdd.gridEditTest.Visibility = Visibility.Visible;
             //windowAdd.textBlockCategoryName.Text
             //    = "Название теста:";

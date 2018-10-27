@@ -25,7 +25,7 @@ namespace WpfApp_TestingSystem.EntityEditButton
                 //.Select(x => x.Name)
                 .FirstOrDefault();
 
-            WindowEdit windowEdit = new WindowEdit(editCategory.Name);
+            WindowEdit windowEdit = new WindowEdit(editCategory);
             windowEdit.gridEditCategory.Visibility = Visibility.Visible;
 
             windowEdit.CategoryName = editCategory.Name;

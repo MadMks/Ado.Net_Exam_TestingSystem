@@ -20,7 +20,7 @@ namespace WpfApp_TestingSystem.EntityAddButton
         {
             db.Database.Log = Console.Write;
 
-            WindowEdit windowAdd = new WindowEdit();
+            WindowEdit windowAdd = new WindowEdit(this.TestId);
             windowAdd.gridEditQuestion.Visibility = Visibility.Visible;
             windowAdd.buttonOk.Content = "Добавить";
             windowAdd.Title = "Добавление вопроса";

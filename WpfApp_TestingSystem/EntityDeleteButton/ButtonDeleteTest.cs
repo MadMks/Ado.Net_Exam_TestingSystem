@@ -68,14 +68,51 @@ namespace WpfApp_TestingSystem.EntityDeleteButton
                         db.Question.RemoveRange(deleteQuestions);
                     }
 
-                    db.Test.Remove(deleteTest);
-                    db.SaveChanges();
                 }
+
+                db.Test.Remove(deleteTest);
+                db.SaveChanges();
+
+                // method установки Active после удаления.
+                this.EntityActivitySwitching(db, deleteTest);
 
                 return true;
             }
 
             return false;
+        }
+
+        private void EntityActivitySwitching(TestingSystemEntities db, Test deleteTest)
+        {
+            // =====
+            // Категория.
+
+            bool active;
+
+            int deleteAnswerCategoryId
+                = db.Test
+                .Where(t => t.Id == deleteTest.CategoryId)
+                .Select(t => t.CategoryId).FirstOrDefault();
+
+            // Если есть активные тесты у категории
+            if (db.Test
+                .Where(t => t.CategoryId == deleteTest.CategoryId && t.Active == true)
+                .Count() > 0)
+            {
+                active = true;
+            }
+            else
+            {
+                active = false;
+            }
+            // Переключаем Тест
+            db.Category
+                .Where(c => c.Id == deleteTest.CategoryId)
+                .FirstOrDefault()
+                .Active = active;
+            // если тестов
+
+            db.SaveChanges();
         }
     }
 }

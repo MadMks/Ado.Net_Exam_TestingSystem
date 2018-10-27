@@ -20,7 +20,7 @@ namespace WpfApp_TestingSystem.EntityAddButton
         {
             db.Database.Log = Console.Write;
 
-            WindowEdit windowAdd = new WindowEdit();
+            WindowEdit windowAdd = new WindowEdit(this.QuestionId);
             windowAdd.gridEditAnswer.Visibility = Visibility.Visible;
             windowAdd.buttonOk.Content = "Добавить";
             windowAdd.Title = "Добавление ответа";
@@ -35,36 +35,126 @@ namespace WpfApp_TestingSystem.EntityAddButton
 
             if (result == true)
             {
-                this.SwitchingOtherAnswersToWrong(db, 
+                this.SwitchingOtherAnswersToWrong(db,
                     windowAdd.comboBoxAnswerValue.SelectedIndex,
                     this.QuestionId);
 
                 Answer addAnswer = new Answer();
                 addAnswer.ResponseText = windowAdd.AnswerName;
-                addAnswer.CorrectAnswer 
+                addAnswer.CorrectAnswer
                     = windowAdd
                     .comboBoxAnswerValue.SelectedIndex == 0
                     ? true : false;
 
                 addAnswer.QuestionId = this.QuestionId;
 
-
                 db.Answer.Add(addAnswer);
                 db.SaveChanges();
 
 
-                // TODO >>> попробовать Актив
-                // если ответов
-
-                // если вопросов
-
-                // если тестов
-
+                // method установки Active
+                this.EntityActivitySwitching(db, addAnswer);
 
                 return true;
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// Переключение активности сущностей.
+        /// </summary>
+        /// <param name="db"></param>
+        /// <param name="addAnswer"></param>
+        private void EntityActivitySwitching(TestingSystemEntities db, Answer addAnswer)
+        {
+            // TODO >>> попробовать Актив
+
+
+            // =====
+            // Вопрос.
+
+            // если ответов
+
+            bool active;
+
+            if (db.Answer.Where(x => x.QuestionId == addAnswer.QuestionId).Count() >= 2
+                &&
+                db.Answer
+                .Where(x => x.QuestionId == addAnswer.QuestionId
+                && x.CorrectAnswer == true).Count() > 0
+                )
+            {
+                // то вопрос делаем активным
+                active = true;
+            }
+            else
+            {
+                active = false;
+            }
+
+            db.Question
+                    .Where(x => x.Id == addAnswer.QuestionId)
+                    .FirstOrDefault()
+                    .Active
+                    = active;
+
+            db.SaveChanges();
+
+
+            // =====
+            // Тест.
+
+            // если вопросов
+            if (db.Question
+                .Where(q => q.TestId == addAnswer.Question.TestId && q.Active == true)
+                //.Where(q => q.Active == true)
+                .Count() > 0)
+            {
+                active = true;
+                //MessageBox.Show("1");
+            }
+            else
+            {
+                active = false;
+            }
+
+            db.Test
+                .Where(t => t.Id == addAnswer.Question.TestId)
+                .FirstOrDefault()
+                .Active = active;
+            // если тестов
+
+            db.SaveChanges();
+
+
+            // =====
+            // Категория.
+
+            int deleteAnswerCategoryId
+                = db.Test
+                .Where(t => t.Id == addAnswer.Question.TestId)
+                .Select(t => t.CategoryId).FirstOrDefault();
+
+            // Если есть активные тесты у категории
+            if (db.Test
+                .Where(t => t.CategoryId == deleteAnswerCategoryId && t.Active == true)
+                .Count() > 0)
+            {
+                active = true;
+            }
+            else
+            {
+                active = false;
+            }
+            // Переключаем Тест
+            db.Category
+                .Where(c => c.Id == deleteAnswerCategoryId)
+                .FirstOrDefault()
+                .Active = active;
+            // если тестов
+
+            db.SaveChanges();
         }
 
         private void SwitchingOtherAnswersToWrong(TestingSystemEntities db, int selectedIndex, int questionId)

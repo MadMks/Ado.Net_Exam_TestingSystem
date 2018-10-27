@@ -31,12 +31,16 @@ namespace WpfApp_TestingSystem
             set { textBlockCategory.Text = value; }    // TODO ?!?!?!? времменно написал - нужно правильно присваивать!
         }
 
-        
+
+        //public bool IsTeacher { get; set; }
+
 
         public GridLineTest() {}
 
-        public GridLineTest(int number, Test currentTest)
+        public GridLineTest(int number, Test currentTest, bool isTeacher)
         {
+            //this.IsTeacher = isTeacher;
+
             // Колонки для основного Grid
             this.ColumnDefinitions.Add(new ColumnDefinition
             {
@@ -62,11 +66,11 @@ namespace WpfApp_TestingSystem
             });
             gridLineButton.ColumnDefinitions.Add(new ColumnDefinition
             {
-                Width = new GridLength(9.0, GridUnitType.Star)
+                Width = new GridLength(8.0, GridUnitType.Star)
             });
             gridLineButton.ColumnDefinitions.Add(new ColumnDefinition
             {
-                Width = new GridLength(1.0, GridUnitType.Star)
+                Width = new GridLength(2.0, GridUnitType.Star)
             });
             gridLineButton.ColumnDefinitions.Add(new ColumnDefinition
             {
@@ -89,11 +93,26 @@ namespace WpfApp_TestingSystem
                 Text = currentTest.Category.Name,
                 Background = Brushes.Bisque
             };
-            TextBlockForNumber textBlockQuantityQuestions = new TextBlockForNumber
+
+            TextBlockForNumber textBlockQuantityQuestions = null;
+            if (isTeacher)
             {
-                Text = currentTest.Question.Count().ToString(),
-                Background = Brushes.BurlyWood
-            };
+                textBlockQuantityQuestions = new TextBlockForNumber
+                {
+                    Text = currentTest.Question.Count().ToString(),
+                    Background = Brushes.BurlyWood
+                };
+            }
+            else
+            {
+                textBlockQuantityQuestions = new TextBlockForNumber
+                {
+                    Text = currentTest.Question
+                    .Where(q => q.Active == true)
+                    .Count().ToString(),
+                    Background = Brushes.BurlyWood
+                };
+            }
 
             // Добавление textBlock с данными в кнопку.
             gridLineButton.Children.Add(textBlockNumber);
@@ -134,11 +153,13 @@ namespace WpfApp_TestingSystem
             this.Children.Add(button);
         }
 
-        internal static bool IsNameAlreadyExists(string testName)
+        internal static bool IsNameAlreadyExists(string testName, int entityParentId)
         {
             using (TestingSystemEntities db = new TestingSystemEntities())
             {
-                Test result = db.Test.Where(x => x.Name == testName).FirstOrDefault();
+                Test result = db.Test
+                    .Where(t => t.Name == testName && t.CategoryId == entityParentId)
+                    .FirstOrDefault();
 
                 if (result == null)
                 {

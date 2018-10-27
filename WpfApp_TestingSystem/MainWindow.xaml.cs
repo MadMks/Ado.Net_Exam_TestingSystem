@@ -122,41 +122,30 @@ namespace WpfApp_TestingSystem
                 db.Database.Log = Console.Write;
 
                 List<Test> listTestsOfSelectedCategories = null;
-
-                if (idCategory == null)
+                if (this.isTeacher)
                 {
-                    this.level = Level.AllTests;
-                    this.currentIdCategory = -1;    // TODO HACK ??? #14.
-
                     listTestsOfSelectedCategories
-                        = (
-                        from test in db.Test
-                        select test
-                        )
-                        .ToList();
+                        = this.GetListTestsOfSelectedCategories(idCategory, db);
                 }
                 else
                 {
-                    this.level = Level.TestsOfTheSelectedCategory;
-
                     listTestsOfSelectedCategories
-                        = (
-                        from test in db.Test
-                        where test.CategoryId == idCategory
-                        select test
-                        )
-                        .ToList();
+                        = this.GetListActiveTestsOfSelectedCategories(idCategory, db);
                 }
 
                 GridLineTest gridLineTest = null;
 
                 for (int i = 0; i < listTestsOfSelectedCategories.Count(); i++)
                 {
-                    /*GridLineTest*/ gridLineTest
-                        = new GridLineTest(
-                            i,
-                            listTestsOfSelectedCategories[i]
-                        );
+                    /*GridLineTest*/
+                    gridLineTest
+                       = new GridLineTest(
+                           i,
+                           listTestsOfSelectedCategories[i],
+                           this.isTeacher
+                       );
+
+                    //gridLineTest.IsTeacher = this.isTeacher;
 
                     // Установить стиль кнопки внутри grid
                     (gridLineTest.Children[0] as Button).Style = (Style)(this.Resources["styleButtonForList"]);
@@ -189,7 +178,73 @@ namespace WpfApp_TestingSystem
                 }
             }
         }
-        
+
+        private List<Test> GetListTestsOfSelectedCategories(int? idCategory, TestingSystemEntities db)
+        {
+            List<Test> listTestsOfSelectedCategories;
+
+            if (idCategory == null)
+            {
+                this.level = Level.AllTests;
+                this.currentIdCategory = -1;    // TODO HACK ??? #14.
+
+                listTestsOfSelectedCategories
+                    = (
+                    from test in db.Test
+                    select test
+                    )
+                    .ToList();
+            }
+            else
+            {
+                this.level = Level.TestsOfTheSelectedCategory;
+
+                listTestsOfSelectedCategories
+                    = (
+                    from test in db.Test
+                    where test.CategoryId == idCategory
+                    select test
+                    )
+                    .ToList();
+            }
+
+            return listTestsOfSelectedCategories;
+        }
+
+        private List<Test> GetListActiveTestsOfSelectedCategories(int? idCategory, TestingSystemEntities db)
+        {
+            List<Test> listTestsOfSelectedCategories;
+
+            if (idCategory == null)
+            {
+                this.level = Level.AllTests;
+                this.currentIdCategory = -1;    // TODO HACK ??? #14.
+
+                listTestsOfSelectedCategories
+                    = (
+                    from test in db.Test
+                    where test.Active == true
+                    select test
+                    )
+                    .ToList();
+            }
+            else
+            {
+                this.level = Level.TestsOfTheSelectedCategory;
+
+                listTestsOfSelectedCategories
+                    = (
+                    from test in db.Test
+                    where test.CategoryId == idCategory
+                    where test.Active == true
+                    select test
+                    )
+                    .ToList();
+            }
+
+            return listTestsOfSelectedCategories;
+        }
+
         // +
         private void ButtonCategory_Click(object sender, RoutedEventArgs e)
         {
@@ -234,12 +289,34 @@ namespace WpfApp_TestingSystem
 
                 this.level = Level.AllCategories;
 
-                var listOfAllCategories
+                //var listOfAllCategories
+                //        = (
+                //        from category in db.Category.Include("Test")
+                //        select category
+                //        )
+                //        .ToList();
+
+                List<Category> listOfAllCategories = null;
+
+                if (this.isTeacher)
+                {
+                    listOfAllCategories
                         = (
                         from category in db.Category.Include("Test")
                         select category
                         )
                         .ToList();
+                }
+                else
+                {
+                    listOfAllCategories
+                        = (
+                        from category in db.Category.Include("Test")
+                        where category.Active == true
+                        select category
+                        )
+                        .ToList();
+                }
 
 
                 GridLineCategory gridLineCategory = null;
@@ -252,12 +329,14 @@ namespace WpfApp_TestingSystem
                     /*GridLineCategory */gridLineCategory
                         = new GridLineCategory(
                             i,
-                            listOfAllCategories[i]
+                            listOfAllCategories[i],
+                            this.isTeacher
                         );
 
                     // HACK ?! - добавляю id категории - чтоб при нажатии на кнопку (грид)
                     // вывести тесты данной категории - по добавленному id (в свойство gridLineButton).
                     //gridLineCategory.CategoryID = listOfAllCategories[i].Id;
+                    //gridLineCategory.IsTeacher = this.isTeacher;
 
                     // Установить стиль кнопки внутри grid
                     (gridLineCategory.Children[0] as Button).Style = (Style)(this.Resources["styleButtonForList"]);
@@ -896,8 +975,8 @@ namespace WpfApp_TestingSystem
                 // TODO загрузить все вопросы и ответы
                 this.questionsOfTheSelectedTest = (
                     from question in db.Question.Include("Answer")  // HACK или безотложная (много маленьких запросов)
-                                                                    //where question.Test.Name == this.listBoxAllTests.SelectedValue.ToString()
                     where question.Test.Id == gridLineTest.TestID
+                    where question.Active == true
                     select question
                     )
                     .ToList();
@@ -1023,7 +1102,7 @@ namespace WpfApp_TestingSystem
         private void ShowQuestionWithAnswers()
         {
             // Проверка на кол-во вопросов (номер вопроса)
-            if (this.numberOfTheCurrentQuestion < this.questionsOfTheSelectedTest.Count)
+            if (this.numberOfTheCurrentQuestion < this.questionsOfTheSelectedTest.Count())
             {
                 this.ShowCurrentQuestion();
 

@@ -26,10 +26,10 @@ namespace WpfApp_TestingSystem
         //}
 
         //public int CategoryID { get; set; } // TODO присваивать в Main или получать в конструкторе (если передавать в него сущность)
-
+        //public bool IsTeacher { get; set; }
 
         public GridLineCategory() {}
-        public GridLineCategory(int number, Category currentCategories)
+        public GridLineCategory(int number, Category currentCategories, bool isTeacher)
         {
             this.ColumnDefinitions.Add(new ColumnDefinition
             {
@@ -81,13 +81,27 @@ namespace WpfApp_TestingSystem
                 //,
                 //Padding = new Thickness(0, 15.0, 0, 15.0)
             };
-            TextBlockForNumber tbQuantityTests = new TextBlockForNumber
+
+            TextBlockForNumber tbQuantityTests = null;
+            if (isTeacher)
             {
-                Text = currentCategories.Test.Count().ToString(),
-                Background = Brushes.BurlyWood
-                //,
-                //Padding = new Thickness(0, 15.0, 0, 15.0)
-            };
+                tbQuantityTests = new TextBlockForNumber
+                {
+                    Text = currentCategories.Test.Count().ToString(),
+                    Background = Brushes.BurlyWood
+                };
+            }
+            else
+            {
+                tbQuantityTests = new TextBlockForNumber
+                {
+                    Text = currentCategories
+                    .Test
+                    .Where(t => t.Active == true)
+                    .Count().ToString(),
+                    Background = Brushes.BurlyWood
+                };
+            }
 
             // Добавление textBlock с данными в кнопку.
             gridLineButton.Children.Add(tbNumber);
@@ -286,7 +300,7 @@ namespace WpfApp_TestingSystem
         /// </summary>
         /// <param name="textBoxText"></param>
         /// <returns></returns>
-        internal static bool IsNameAlreadyExists(string categoryName)
+        internal static bool IsNameAlreadyExists(string categoryName/*, int entityId*/)
         {
             using (TestingSystemEntities db = new TestingSystemEntities())
             {

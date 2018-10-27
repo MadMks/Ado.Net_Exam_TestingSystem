@@ -23,7 +23,7 @@ namespace WpfApp_TestingSystem.EntityEditButton
                 .Where(x => x.Id == idTest)
                 .FirstOrDefault();
 
-            WindowEdit windowEdit = new WindowEdit(editTest.Name);
+            WindowEdit windowEdit = new WindowEdit(editTest);
             windowEdit.gridEditTest.Visibility = Visibility.Visible;
 
             windowEdit.textBoxTestName.MaxLength = 60;
