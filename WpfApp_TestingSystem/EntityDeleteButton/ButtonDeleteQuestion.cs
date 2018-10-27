@@ -54,10 +54,75 @@ namespace WpfApp_TestingSystem.EntityDeleteButton
                 db.Question.Remove(deleteQuestion);
                 db.SaveChanges();
 
+                // method установки Active после удаления.
+                this.EntityActivitySwitching(db, deleteQuestion);
+
                 return true;
             }
 
             return false;
+        }
+
+        private void EntityActivitySwitching(TestingSystemEntities db, Question deleteQuestion)
+        {
+            // =====
+            // Тест.
+
+            //int deleteAnswerTestId
+            //    = db.Question.Where(q => q.Id == deleteAnswer.QuestionId)
+            //    .Select(q => q.TestId).FirstOrDefault();
+
+            bool active;
+            // Если есть активные вопросы у теста
+            if (db.Question
+                .Where(q => q.TestId == deleteQuestion.TestId && q.Active == true)
+                //.Where(q => q.Active == true)
+                .Count() > 0)
+            {
+                active = true;
+                //MessageBox.Show("1");
+            }
+            else
+            {
+                active = false;
+            }
+            // Переключаем Тест
+            db.Test
+                .Where(t => t.Id == deleteQuestion.TestId)
+                .FirstOrDefault()
+                .Active = active;
+            // если тестов
+
+            db.SaveChanges();
+
+
+            // =====
+            // Категория.
+
+            int deleteAnswerCategoryId
+                = db.Test
+                .Where(t => t.Id == deleteQuestion.TestId)
+                .Select(t => t.CategoryId).FirstOrDefault();
+
+            // Если есть активные тесты у категории
+            if (db.Test
+                .Where(t => t.CategoryId == deleteAnswerCategoryId && t.Active == true)
+                .Count() > 0)
+            {
+                active = true;
+            }
+            else
+            {
+                active = false;
+            }
+            // Переключаем Тест
+            db.Category
+                .Where(c => c.Id == deleteAnswerCategoryId)
+                .FirstOrDefault()
+                .Active = active;
+            // если тестов
+
+            db.SaveChanges();
         }
     }
 }
