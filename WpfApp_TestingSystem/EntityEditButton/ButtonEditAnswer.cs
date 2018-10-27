@@ -124,7 +124,30 @@ namespace WpfApp_TestingSystem.EntityEditButton
             // =====
             // Категория
 
-            // TODO Актив Категории - при редактировании ответа.
+            int deleteAnswerCategoryId
+                = db.Test
+                .Where(t => t.Id == deleteAnswerTestId)
+                .Select(t => t.CategoryId).FirstOrDefault();
+
+            // Если есть активные тесты у категории
+            if (db.Test
+                .Where(t => t.CategoryId == deleteAnswerCategoryId && t.Active == true)
+                .Count() > 0)
+            {
+                active = true;
+            }
+            else
+            {
+                active = false;
+            }
+            // Переключаем Тест
+            db.Category
+                .Where(c => c.Id == deleteAnswerCategoryId)
+                .FirstOrDefault()
+                .Active = active;
+            // если тестов
+
+            db.SaveChanges();
         }
 
         private void SwitchingOtherAnswersToWrong(TestingSystemEntities db, int selectedIndex, int questionId)
