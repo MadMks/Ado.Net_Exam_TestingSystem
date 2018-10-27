@@ -141,10 +141,11 @@ namespace WpfApp_TestingSystem
                     gridLineTest
                        = new GridLineTest(
                            i,
-                           listTestsOfSelectedCategories[i]
+                           listTestsOfSelectedCategories[i],
+                           this.isTeacher
                        );
 
-                    gridLineTest.IsTeacher = this.isTeacher;
+                    //gridLineTest.IsTeacher = this.isTeacher;
 
                     // Установить стиль кнопки внутри grid
                     (gridLineTest.Children[0] as Button).Style = (Style)(this.Resources["styleButtonForList"]);
@@ -328,13 +329,14 @@ namespace WpfApp_TestingSystem
                     /*GridLineCategory */gridLineCategory
                         = new GridLineCategory(
                             i,
-                            listOfAllCategories[i]
+                            listOfAllCategories[i],
+                            this.isTeacher
                         );
 
                     // HACK ?! - добавляю id категории - чтоб при нажатии на кнопку (грид)
                     // вывести тесты данной категории - по добавленному id (в свойство gridLineButton).
                     //gridLineCategory.CategoryID = listOfAllCategories[i].Id;
-                    gridLineCategory.IsTeacher = this.isTeacher;
+                    //gridLineCategory.IsTeacher = this.isTeacher;
 
                     // Установить стиль кнопки внутри grid
                     (gridLineCategory.Children[0] as Button).Style = (Style)(this.Resources["styleButtonForList"]);

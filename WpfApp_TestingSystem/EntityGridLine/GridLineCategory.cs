@@ -26,10 +26,10 @@ namespace WpfApp_TestingSystem
         //}
 
         //public int CategoryID { get; set; } // TODO присваивать в Main или получать в конструкторе (если передавать в него сущность)
-        public bool IsTeacher { get; set; }
+        //public bool IsTeacher { get; set; }
 
         public GridLineCategory() {}
-        public GridLineCategory(int number, Category currentCategories)
+        public GridLineCategory(int number, Category currentCategories, bool isTeacher)
         {
             this.ColumnDefinitions.Add(new ColumnDefinition
             {
@@ -83,7 +83,7 @@ namespace WpfApp_TestingSystem
             };
 
             TextBlockForNumber tbQuantityTests = null;
-            if (this.IsTeacher)
+            if (isTeacher)
             {
                 tbQuantityTests = new TextBlockForNumber
                 {

@@ -32,13 +32,15 @@ namespace WpfApp_TestingSystem
         }
 
 
-        public bool IsTeacher { get; set; }
+        //public bool IsTeacher { get; set; }
 
 
         public GridLineTest() {}
 
-        public GridLineTest(int number, Test currentTest)
+        public GridLineTest(int number, Test currentTest, bool isTeacher)
         {
+            //this.IsTeacher = isTeacher;
+
             // Колонки для основного Grid
             this.ColumnDefinitions.Add(new ColumnDefinition
             {
@@ -93,7 +95,7 @@ namespace WpfApp_TestingSystem
             };
 
             TextBlockForNumber textBlockQuantityQuestions = null;
-            if (this.IsTeacher)
+            if (isTeacher)
             {
                 textBlockQuantityQuestions = new TextBlockForNumber
                 {
