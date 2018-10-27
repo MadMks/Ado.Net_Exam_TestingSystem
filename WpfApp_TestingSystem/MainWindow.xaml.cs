@@ -234,12 +234,34 @@ namespace WpfApp_TestingSystem
 
                 this.level = Level.AllCategories;
 
-                var listOfAllCategories
+                //var listOfAllCategories
+                //        = (
+                //        from category in db.Category.Include("Test")
+                //        select category
+                //        )
+                //        .ToList();
+
+                List<Category> listOfAllCategories = null;
+
+                if (this.isTeacher)
+                {
+                    listOfAllCategories
                         = (
                         from category in db.Category.Include("Test")
                         select category
                         )
                         .ToList();
+                }
+                else
+                {
+                    listOfAllCategories
+                        = (
+                        from category in db.Category.Include("Test")
+                        where category.Active == true
+                        select category
+                        )
+                        .ToList();
+                }
 
 
                 GridLineCategory gridLineCategory = null;
