@@ -122,41 +122,27 @@ namespace WpfApp_TestingSystem
                 db.Database.Log = Console.Write;
 
                 List<Test> listTestsOfSelectedCategories = null;
-
-                if (idCategory == null)
+                if (this.isTeacher)
                 {
-                    this.level = Level.AllTests;
-                    this.currentIdCategory = -1;    // TODO HACK ??? #14.
-
                     listTestsOfSelectedCategories
-                        = (
-                        from test in db.Test
-                        select test
-                        )
-                        .ToList();
+                        = this.GetListTestsOfSelectedCategories(idCategory, db);
                 }
                 else
                 {
-                    this.level = Level.TestsOfTheSelectedCategory;
-
                     listTestsOfSelectedCategories
-                        = (
-                        from test in db.Test
-                        where test.CategoryId == idCategory
-                        select test
-                        )
-                        .ToList();
+                        = this.GetActiveListTestsOfSelectedCategories(idCategory, db);
                 }
 
                 GridLineTest gridLineTest = null;
 
                 for (int i = 0; i < listTestsOfSelectedCategories.Count(); i++)
                 {
-                    /*GridLineTest*/ gridLineTest
-                        = new GridLineTest(
-                            i,
-                            listTestsOfSelectedCategories[i]
-                        );
+                    /*GridLineTest*/
+                    gridLineTest
+                       = new GridLineTest(
+                           i,
+                           listTestsOfSelectedCategories[i]
+                       );
 
                     // Установить стиль кнопки внутри grid
                     (gridLineTest.Children[0] as Button).Style = (Style)(this.Resources["styleButtonForList"]);
@@ -189,7 +175,73 @@ namespace WpfApp_TestingSystem
                 }
             }
         }
-        
+
+        private List<Test> GetListTestsOfSelectedCategories(int? idCategory, TestingSystemEntities db)
+        {
+            List<Test> listTestsOfSelectedCategories;
+
+            if (idCategory == null)
+            {
+                this.level = Level.AllTests;
+                this.currentIdCategory = -1;    // TODO HACK ??? #14.
+
+                listTestsOfSelectedCategories
+                    = (
+                    from test in db.Test
+                    select test
+                    )
+                    .ToList();
+            }
+            else
+            {
+                this.level = Level.TestsOfTheSelectedCategory;
+
+                listTestsOfSelectedCategories
+                    = (
+                    from test in db.Test
+                    where test.CategoryId == idCategory
+                    select test
+                    )
+                    .ToList();
+            }
+
+            return listTestsOfSelectedCategories;
+        }
+
+        private List<Test> GetActiveListTestsOfSelectedCategories(int? idCategory, TestingSystemEntities db)
+        {
+            List<Test> listTestsOfSelectedCategories;
+
+            if (idCategory == null)
+            {
+                this.level = Level.AllTests;
+                this.currentIdCategory = -1;    // TODO HACK ??? #14.
+
+                listTestsOfSelectedCategories
+                    = (
+                    from test in db.Test
+                    where test.Active == true
+                    select test
+                    )
+                    .ToList();
+            }
+            else
+            {
+                this.level = Level.TestsOfTheSelectedCategory;
+
+                listTestsOfSelectedCategories
+                    = (
+                    from test in db.Test
+                    where test.CategoryId == idCategory
+                    where test.Active == true
+                    select test
+                    )
+                    .ToList();
+            }
+
+            return listTestsOfSelectedCategories;
+        }
+
         // +
         private void ButtonCategory_Click(object sender, RoutedEventArgs e)
         {
