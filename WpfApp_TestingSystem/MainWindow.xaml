@@ -53,7 +53,7 @@
 
         <!--Select User Type-->
         <Grid Grid.Row="0" Name="gridUserTypeSelection" 
-              Background="Aqua" d:IsHidden="True"
+              Background="Gainsboro" d:IsHidden="True"
               Grid.RowSpan="2"
               >
             <!--Temp Visibility="Hidden"-->
@@ -61,20 +61,38 @@
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
+                <!--<RowDefinition Height="Auto"/>-->
                 <RowDefinition Height="Auto"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="1" Text="Выберите тип пользователя"
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                       Text="Выберите тип пользователя:"
                        HorizontalAlignment="Center"
-                       VerticalAlignment="Center"/>
-            <Button Grid.Row="2" Name="buttonTeacher"
-                    HorizontalAlignment="Center">
+                       VerticalAlignment="Center"
+                       Margin="0 0 0 25"
+                       FontSize="15"/>
+            <Button Grid.Row="2" Grid.Column="0"
+                    Name="buttonTeacher"
+                    HorizontalAlignment="Right"
+                    Margin="0 0 20 0"
+                    Padding="20 10 20 10"
+                    FontSize="15"
+                    Background="Red">
                 Учитель
             </Button>
-            <Button Grid.Row="3" Name="buttonStudent"
-                    HorizontalAlignment="Center">
+            <Button Grid.Row="2" Grid.Column="1"
+                    Name="buttonStudent"
+                    HorizontalAlignment="Left"
+                    Margin="20 0 0 0 "
+                    Padding="20 10 20 10"
+                    FontSize="15"
+                    Background="RoyalBlue">
                 Студент
             </Button>
             
