@@ -960,8 +960,12 @@ namespace WpfApp_TestingSystem
             //ButtonTestLine buttonTestLine = sender as ButtonTestLine;
             GridLineTest gridLineTest = senderButton.Parent as GridLineTest;
 
+            //this.textBlockPassing_Title.Text
+            //    = gridLineTest.CategoryName;
             this.textBlockPassing_Title.Text
-                = gridLineTest.CategoryName;
+                = gridLineTest.CategoryName
+                + " | "
+                + gridLineTest.TestName;
 
 
             this.answersToTheCurrentQuestion = new List<Answer>();
@@ -1168,7 +1172,7 @@ namespace WpfApp_TestingSystem
 
             // TODO динамическое создание элементов
 
-            Thickness margin = new Thickness(5.0);
+            Thickness margin = new Thickness(8.0);
 
             foreach (var answer in this.questionsOfTheSelectedTest[this.numberOfTheCurrentQuestion].Answer)
             {

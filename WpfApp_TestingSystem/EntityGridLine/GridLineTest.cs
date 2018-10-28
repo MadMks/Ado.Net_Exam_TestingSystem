@@ -18,6 +18,7 @@ namespace WpfApp_TestingSystem
         //private Button button = null;
         private Grid gridLineButton = null;
 
+        private TextBlockForText textBlockTestName = null;
         private TextBlockForNumber textBlockCategory = null;
 
         public int TestID { get; set; }
@@ -29,6 +30,11 @@ namespace WpfApp_TestingSystem
         {
             get { return textBlockCategory.Text; }
             set { textBlockCategory.Text = value; }    // TODO ?!?!?!? времменно написал - нужно правильно присваивать!
+        }
+
+        public string TestName
+        {
+            get { return textBlockTestName.Text; }
         }
 
 
@@ -83,7 +89,7 @@ namespace WpfApp_TestingSystem
                 Text = (number + 1).ToString(),
                 Background = Brushes.AliceBlue
             };
-            TextBlockForText textBlockTestName = new TextBlockForText
+            /*TextBlockForText*/ textBlockTestName = new TextBlockForText
             {
                 Text = currentTest.Name,
                 Background = Brushes.Aqua
