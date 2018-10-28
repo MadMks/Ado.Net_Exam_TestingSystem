@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:WpfApp_TestingSystem"
         mc:Ignorable="d"
         FontSize="12"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800"
+        Background="WhiteSmoke">
 
     <Window.Resources>
         <ResourceDictionary>
@@ -295,17 +296,16 @@
         
         <!--Страница прохождения теста-->
         <Grid Grid.Row="0" Name="gridPassingTheTest"
-              Background="WhiteSmoke"
               Visibility="Hidden"
               Grid.RowSpan="2"
-              >
+              Background="WhiteSmoke">
             <!--Visibility="Hidden"-->
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition />
+                <!--<RowDefinition />-->
             </Grid.RowDefinitions>
 
             <!--Title-->
@@ -318,7 +318,7 @@
                        FontSize="14"
                        Padding="15"/>
             <!--Answer-->
-            <Border Grid.Row="2"
+            <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto"
                     Background="White"
                     Margin="15"
                     Padding="5 10 5 10">
@@ -326,9 +326,10 @@
                     <!--<Grid.RowDefinitions></Grid.RowDefinitions>-->
 
                 </StackPanel>
-            </Border>
+            </ScrollViewer>
             <!--Reply-->
             <Button Grid.Row="3" Name="buttonPassing_Reply"
+                    Margin="0 0 0 15"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center">
                 Ответить
