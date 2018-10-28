@@ -972,7 +972,7 @@ namespace WpfApp_TestingSystem
 
                 //db.Configuration.LazyLoadingEnabled = false;
 
-                // TODO загрузить все вопросы и ответы
+                // Загружаем все активные вопросы текущего теста.
                 this.questionsOfTheSelectedTest = (
                     from question in db.Question.Include("Answer")  // HACK или безотложная (много маленьких запросов)
                     where question.Test.Id == gridLineTest.TestID
@@ -981,8 +981,7 @@ namespace WpfApp_TestingSystem
                     )
                     .ToList();
 
-                // пробую загрузить ответы для одого текущего теста.
-
+                // Загружаем ответы для активных вопросов теста.
                 foreach (var item in this.questionsOfTheSelectedTest)
                 {
                     this.answersToTheCurrentQuestion
@@ -1173,9 +1172,16 @@ namespace WpfApp_TestingSystem
 
             foreach (var answer in this.questionsOfTheSelectedTest[this.numberOfTheCurrentQuestion].Answer)
             {
+                TextBlock textBlock = new TextBlock
+                {
+                    Text = answer.ResponseText,
+                    TextWrapping = TextWrapping.Wrap
+                };
+
                 this.stackPanelPassing_Answer.Children.Add(
                     new RadioButton {
-                        Content = answer.ResponseText,
+                        //Content = answer.ResponseText,
+                        Content = textBlock,
                         Tag = answer.CorrectAnswer,
                         Margin = margin
                         }
