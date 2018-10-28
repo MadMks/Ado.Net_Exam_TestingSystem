@@ -295,7 +295,7 @@
         
         <!--Страница прохождения теста-->
         <Grid Grid.Row="0" Name="gridPassingTheTest"
-              Background="Blue"
+              Background="WhiteSmoke"
               Visibility="Hidden"
               Grid.RowSpan="2"
               >
@@ -310,20 +310,23 @@
 
             <!--Title-->
             <TextBlock Grid.Row="0" Name="textBlockPassing_Title"
-                       Padding="10"/>
+                       Padding="15"/>
             <!--Question-->
             <TextBlock Grid.Row="1" Name="textBlockPassing_Question"
-                       Background="CadetBlue"
+                       Background="Gainsboro"
                        TextWrapping="Wrap"
                        FontSize="14"
-                       Padding="10"/>
+                       Padding="15"/>
             <!--Answer-->
-            <StackPanel Grid.Row="2" Name="stackPanelPassing_Answer"
-                        Background="Chocolate"
-                        Margin="10">
-                <!--<Grid.RowDefinitions></Grid.RowDefinitions>-->
-                
-            </StackPanel>
+            <Border Grid.Row="2"
+                    Background="White"
+                    Margin="15"
+                    Padding="5 10 5 10">
+                <StackPanel Name="stackPanelPassing_Answer">
+                    <!--<Grid.RowDefinitions></Grid.RowDefinitions>-->
+
+                </StackPanel>
+            </Border>
             <!--Reply-->
             <Button Grid.Row="3" Name="buttonPassing_Reply"
                     HorizontalAlignment="Center"
