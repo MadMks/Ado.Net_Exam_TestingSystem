@@ -67,7 +67,8 @@ namespace WpfApp_TestingSystem.EntityGridLine
             TextBlockForText textBlockQuestionName = new TextBlockForText
             {
                 Text = currentAnswer.ResponseText,
-                Background = Brushes.Aqua
+                Background = Brushes.Aqua,
+                TextWrapping = TextWrapping.Wrap
             };
             //TextBlock textBlockQuantityAnswers = new TextBlock
             //{

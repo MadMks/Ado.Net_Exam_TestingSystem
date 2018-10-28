@@ -947,7 +947,7 @@ namespace WpfApp_TestingSystem
 
         private void LaunchingTestQuestions(Button senderButton)
         {
-            MessageBox.Show("запуск вопросов теста");
+            //MessageBox.Show("запуск вопросов теста");
             // загрузить страницу прохождения теста
             this.gridSelection.Visibility = Visibility.Hidden;
 

@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp_TestingSystem"
         mc:Ignorable="d"
+        FontSize="12"
         Title="MainWindow" Height="450" Width="800">
 
     <Window.Resources>
@@ -273,7 +274,7 @@
         </Grid>
 
         <!--TODO delete ?-->
-        <Grid Grid.Row="1" Name="gridTestSelection"
+        <!--<Grid Grid.Row="1" Name="gridTestSelection"
               Background="Beige"
               Visibility="Hidden">
 
@@ -289,7 +290,7 @@
                     Размещение категорий
                 </TabItem>
             </TabControl>
-        </Grid>
+        </Grid>-->
 
         
         <!--Страница прохождения теста-->
@@ -308,13 +309,18 @@
             </Grid.RowDefinitions>
 
             <!--Title-->
-            <TextBlock Grid.Row="0" Name="textBlockPassing_Title"/>
+            <TextBlock Grid.Row="0" Name="textBlockPassing_Title"
+                       Padding="10"/>
             <!--Question-->
             <TextBlock Grid.Row="1" Name="textBlockPassing_Question"
-                  Background="CadetBlue"/>
+                       Background="CadetBlue"
+                       TextWrapping="Wrap"
+                       FontSize="14"
+                       Padding="10"/>
             <!--Answer-->
             <StackPanel Grid.Row="2" Name="stackPanelPassing_Answer"
-                       Background="Chocolate">
+                        Background="Chocolate"
+                        Margin="10">
                 <!--<Grid.RowDefinitions></Grid.RowDefinitions>-->
                 
             </StackPanel>
