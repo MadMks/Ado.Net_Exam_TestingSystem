@@ -100,24 +100,30 @@
 
         <!--Select Category or all Test-->
         <Grid Grid.Row="1" Name="gridCategoryOrAllTest"
-              Background="Crimson"
+              Background="WhiteSmoke"
               Visibility="Hidden"
               >
 
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
+                <!--<RowDefinition Height="Auto"/>-->
                 <RowDefinition Height="Auto"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
             <Button Grid.Row="1" Name="buttonAllTests"
-                    HorizontalAlignment="Center">
+                    HorizontalAlignment="Center"
+                    Margin="0 0 0 20"
+                    Padding="20 10 20 10"
+                    FontSize="15">
                 Все тесты
             </Button>
             <Button Grid.Row="2" Name="buttonCategory"
-                    HorizontalAlignment="Center">
+                    HorizontalAlignment="Center"
+                    Margin="0 20 0 0"
+                    Padding="20 10 20 10"
+                    FontSize="15">
                 По категории
             </Button>
 
