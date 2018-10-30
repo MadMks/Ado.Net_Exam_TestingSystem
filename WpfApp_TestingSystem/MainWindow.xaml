@@ -144,7 +144,7 @@
             
             <!--All Header-->
             <Grid Grid.Row="1" 
-                  Background="DeepPink"
+                  Background="Gainsboro"
                   HorizontalAlignment="Left"
                   Width="{Binding ElementName=stackPanelSelection, Path=ActualWidth}">
 
@@ -276,12 +276,11 @@
                     
                     <!--Первая невидимая строка для привязки к ней размера grid в Кнопке-->
                     <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
-                               Name="textBlockHiddenForSizeButtonLine" Background="BlueViolet"
+                               Name="textBlockHiddenForSizeButtonLine"
                                Height="0"/>
 
                     <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" 
-                                Name="stackPanelSelection"
-                                Background="DodgerBlue"/>
+                                Name="stackPanelSelection"/>
 
                 </Grid>
             </ScrollViewer>

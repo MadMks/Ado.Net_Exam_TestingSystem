@@ -49,7 +49,10 @@ namespace WpfApp_TestingSystem
             button = new Button() /*{ Style = (Style)(this.Resources["styleButtonForList"]) }*/;
             // grid внутри главной кнопки
             /*Grid*/
-            gridLineButton = new Grid { Background = Brushes.MediumBlue };
+            gridLineButton = new Grid
+            {
+                Background = Brushes.White
+            };
             // Колонки главной кнопки.
             gridLineButton.ColumnDefinitions.Add(new ColumnDefinition
             {
@@ -68,7 +71,7 @@ namespace WpfApp_TestingSystem
             TextBlockForNumber tbNumber = new TextBlockForNumber
             {
                 Text = (number + 1).ToString(),
-                Background = Brushes.AliceBlue
+                //Background = Brushes.AliceBlue
                 //, Height = 35
                 //, HorizontalAlignment = HorizontalAlignment.Center
                 //,
@@ -77,7 +80,7 @@ namespace WpfApp_TestingSystem
             TextBlockForText tbNameCategory = new TextBlockForText
             {
                 Text = currentCategories.Name,
-                Background = Brushes.Aqua
+                //Background = Brushes.Aqua
                 //,
                 //Padding = new Thickness(0, 15.0, 0, 15.0)
             };
@@ -88,7 +91,7 @@ namespace WpfApp_TestingSystem
                 tbQuantityTests = new TextBlockForNumber
                 {
                     Text = currentCategories.Test.Count().ToString(),
-                    Background = Brushes.BurlyWood
+                    //Background = Brushes.BurlyWood
                 };
             }
             else
@@ -96,10 +99,10 @@ namespace WpfApp_TestingSystem
                 tbQuantityTests = new TextBlockForNumber
                 {
                     Text = currentCategories
-                    .Test
-                    .Where(t => t.Active == true)
-                    .Count().ToString(),
-                    Background = Brushes.BurlyWood
+                        .Test
+                        .Where(t => t.Active == true)
+                        .Count().ToString(),
+                    //Background = Brushes.BurlyWood
                 };
             }
 
@@ -138,7 +141,13 @@ namespace WpfApp_TestingSystem
             binding.Path = new PropertyPath("ActualWidth");
             gridLineButton.SetBinding(Grid.WidthProperty, binding);
 
-
+            //Border border = new Border
+            //{
+            //    BorderBrush = Brushes.WhiteSmoke,
+            //    BorderThickness = new Thickness(0, 0, 0, 1)
+            //};
+            //border.Child = button;
+            //this.Children.Add(border);
             this.Children.Add(button);
         }
 

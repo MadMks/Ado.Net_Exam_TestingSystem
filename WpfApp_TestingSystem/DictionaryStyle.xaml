@@ -4,7 +4,9 @@
     
     <!--Шаблон-->
     <ControlTemplate x:Key="templateButtonForList" TargetType="Button">
-        <Border Background="{TemplateBinding Background}">
+        <Border Background="{TemplateBinding Background}"
+                BorderBrush="WhiteSmoke"
+                BorderThickness="0 0 0 2">
             <Grid>
                 <TextBlock>
                     <ContentPresenter></ContentPresenter>
@@ -20,7 +22,7 @@
     <Style TargetType="Button" x:Key="styleButtonForList">
         <Style.Setters>
             <Setter Property="Template" Value="{StaticResource templateButtonForList}"/>
-            <Setter Property="Background" Value="Gray"/>
+            <!--<Setter Property="Background" Value="IndianRed"/>-->
             <!--<Setter Property="Padding" Value="5"/>-->
             <!--<Setter Property="VerticalContentAlignment" Value="Center"/>-->
             <!--<Setter Property="Height" Value="Auto"/>-->
