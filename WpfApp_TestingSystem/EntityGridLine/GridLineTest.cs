@@ -64,7 +64,10 @@ namespace WpfApp_TestingSystem
             // "Главная " кнопка
             button = new Button { Style = (Style)(this.Resources["styleButtonForList"]) };
             // grid внутри главной кнопки
-            gridLineButton = new Grid { Background = Brushes.MediumBlue };
+            gridLineButton = new Grid
+            {
+                Background = Brushes.White
+            };
             // Колонки главной кнопки.
             gridLineButton.ColumnDefinitions.Add(new ColumnDefinition
             {
@@ -86,18 +89,18 @@ namespace WpfApp_TestingSystem
             // Данные главной кнопки
             TextBlockForNumber textBlockNumber = new TextBlockForNumber
             {
-                Text = (number + 1).ToString(),
-                Background = Brushes.AliceBlue
+                Text = (number + 1).ToString()
+                //Background = Brushes.AliceBlue
             };
             /*TextBlockForText*/ textBlockTestName = new TextBlockForText
             {
-                Text = currentTest.Name,
-                Background = Brushes.Aqua
+                Text = currentTest.Name
+                //Background = Brushes.Aqua
             };
             /*TextBlock*/ textBlockCategory = new TextBlockForNumber
             {
-                Text = currentTest.Category.Name,
-                Background = Brushes.Bisque
+                Text = currentTest.Category.Name
+                //Background = Brushes.Bisque
             };
 
             TextBlockForNumber textBlockQuantityQuestions = null;
@@ -105,8 +108,8 @@ namespace WpfApp_TestingSystem
             {
                 textBlockQuantityQuestions = new TextBlockForNumber
                 {
-                    Text = currentTest.Question.Count().ToString(),
-                    Background = Brushes.BurlyWood
+                    Text = currentTest.Question.Count().ToString()
+                    //Background = Brushes.BurlyWood
                 };
             }
             else
@@ -115,8 +118,8 @@ namespace WpfApp_TestingSystem
                 {
                     Text = currentTest.Question
                     .Where(q => q.Active == true)
-                    .Count().ToString(),
-                    Background = Brushes.BurlyWood
+                    .Count().ToString()
+                    //Background = Brushes.BurlyWood
                 };
             }
 

@@ -70,7 +70,7 @@ namespace WpfApp_TestingSystem
             // Данные главной кнопки
             TextBlockForNumber tbNumber = new TextBlockForNumber
             {
-                Text = (number + 1).ToString(),
+                Text = (number + 1).ToString()
                 //Background = Brushes.AliceBlue
                 //, Height = 35
                 //, HorizontalAlignment = HorizontalAlignment.Center
@@ -79,7 +79,7 @@ namespace WpfApp_TestingSystem
             };
             TextBlockForText tbNameCategory = new TextBlockForText
             {
-                Text = currentCategories.Name,
+                Text = currentCategories.Name
                 //Background = Brushes.Aqua
                 //,
                 //Padding = new Thickness(0, 15.0, 0, 15.0)
@@ -90,7 +90,7 @@ namespace WpfApp_TestingSystem
             {
                 tbQuantityTests = new TextBlockForNumber
                 {
-                    Text = currentCategories.Test.Count().ToString(),
+                    Text = currentCategories.Test.Count().ToString()
                     //Background = Brushes.BurlyWood
                 };
             }
@@ -101,7 +101,7 @@ namespace WpfApp_TestingSystem
                     Text = currentCategories
                         .Test
                         .Where(t => t.Active == true)
-                        .Count().ToString(),
+                        .Count().ToString()
                     //Background = Brushes.BurlyWood
                 };
             }

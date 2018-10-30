@@ -42,7 +42,10 @@ namespace WpfApp_TestingSystem.EntityGridLine
             // "Главная " кнопка
             button = new Button { Style = (Style)(this.Resources["styleButtonForList"]) };
             // grid внутри главной кнопки
-            gridLineButton = new Grid { Background = Brushes.MediumBlue };
+            gridLineButton = new Grid
+            {
+                Background = Brushes.White
+            };
             // Колонки главной кнопки.
             gridLineButton.ColumnDefinitions.Add(new ColumnDefinition
             {
@@ -61,13 +64,13 @@ namespace WpfApp_TestingSystem.EntityGridLine
             // Данные главной кнопки
             TextBlockForNumber textBlockNumber = new TextBlockForNumber
             {
-                Text = (number + 1).ToString(),
-                Background = Brushes.AliceBlue
+                Text = (number + 1).ToString()
+                //Background = Brushes.AliceBlue
             };
             TextBlockForText textBlockQuestionName = new TextBlockForText
             {
                 Text = currentAnswer.ResponseText,
-                Background = Brushes.Aqua,
+                //Background = Brushes.Aqua,
                 TextWrapping = TextWrapping.Wrap
             };
             //TextBlock textBlockQuantityAnswers = new TextBlock
