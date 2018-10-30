@@ -13,6 +13,7 @@ namespace WpfApp_TestingSystem.EntityDeleteButton
         public ButtonDeleteEntity()
         {
             this.Content = "Del";
+            this.Margin = new Thickness(5.0);
 
             Grid.SetColumn(this, 2);
         }
