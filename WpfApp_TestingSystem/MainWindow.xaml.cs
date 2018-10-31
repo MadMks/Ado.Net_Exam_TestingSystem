@@ -306,6 +306,11 @@ namespace WpfApp_TestingSystem
                 // Если Учитель, то добавим кнопку "Добавить" категорию.
                 if (this.isTeacher)
                 {
+                    if (gridLineCategory == null)
+                    {
+                        gridLineCategory = new GridLineCategory();
+                    }
+
                     this.CreateAddButton(gridLineCategory);
                 }
             }
@@ -702,6 +707,18 @@ namespace WpfApp_TestingSystem
             this.gridUserTypeSelection.Visibility = Visibility.Hidden;
 
             this.gridCategoryOrAllTest.Visibility = Visibility.Visible;
+
+            using (TestingSystemEntities db = new TestingSystemEntities())
+            {
+                if (db.Test.Count() == 0)
+                {
+                    this.buttonAllTests.IsEnabled = false;
+                }
+                else
+                {
+                    this.buttonAllTests.IsEnabled = true;
+                }
+            }
 
             this.isTeacher = true;
         }
