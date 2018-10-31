@@ -82,6 +82,8 @@ namespace WpfApp_TestingSystem
             this.gridCategoryOrAllTest.Visibility = Visibility.Visible;
 
             this.isTeacher = false;
+
+            this.ButtonStateSwitchingAllTests();
         }
 
 
@@ -708,19 +710,31 @@ namespace WpfApp_TestingSystem
 
             this.gridCategoryOrAllTest.Visibility = Visibility.Visible;
 
-            using (TestingSystemEntities db = new TestingSystemEntities())
+            this.isTeacher = true;
+
+            this.ButtonStateSwitchingAllTests();
+        }
+
+        private void ButtonStateSwitchingAllTests()
+        {
+            if (this.isTeacher)
             {
-                if (db.Test.Count() == 0)
+                using (TestingSystemEntities db = new TestingSystemEntities())
                 {
-                    this.buttonAllTests.IsEnabled = false;
-                }
-                else
-                {
-                    this.buttonAllTests.IsEnabled = true;
+                    if (db.Test.Count() == 0)
+                    {
+                        this.buttonAllTests.IsEnabled = false;
+                    }
+                    else
+                    {
+                        this.buttonAllTests.IsEnabled = true;
+                    }
                 }
             }
-
-            this.isTeacher = true;
+            else
+            {
+                this.buttonAllTests.IsEnabled = true;
+            }
         }
 
         private void ButtonPassing_Reply_Click(object sender, RoutedEventArgs e)
