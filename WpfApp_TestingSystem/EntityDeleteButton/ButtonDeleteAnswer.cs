@@ -50,7 +50,10 @@ namespace WpfApp_TestingSystem.EntityDeleteButton
             // Вопрос.
 
             // если ответов
-            if (db.Answer.Where(x => x.QuestionId == deleteAnswer.QuestionId).Count() < 2)
+            if (db.Answer.Where(x => x.QuestionId == deleteAnswer.QuestionId).Count() < 2
+                ||
+                db.Answer.Where(a => a.QuestionId == deleteAnswer.QuestionId)
+                .Where(a => a.CorrectAnswer == true).FirstOrDefault() == null)
             {
                 // то вопрос делаем не активным
                 db.Question
