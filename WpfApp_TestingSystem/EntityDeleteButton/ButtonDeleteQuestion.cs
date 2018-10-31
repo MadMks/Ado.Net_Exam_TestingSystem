@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using WpfApp_TestingSystem.Entity;
 
 namespace WpfApp_TestingSystem.EntityDeleteButton
 {

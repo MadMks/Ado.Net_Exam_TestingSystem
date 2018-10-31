@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfApp_TestingSystem.Entity;
 using WpfApp_TestingSystem.EntityAddButton;
 using WpfApp_TestingSystem.EntityDeleteButton;
 using WpfApp_TestingSystem.EntityEditButton;

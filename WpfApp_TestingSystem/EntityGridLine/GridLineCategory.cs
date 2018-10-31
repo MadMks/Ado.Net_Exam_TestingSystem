@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
+using WpfApp_TestingSystem.Entity;
 using WpfApp_TestingSystem.EntityAddButton;
 using WpfApp_TestingSystem.EntityDeleteButton;
 using WpfApp_TestingSystem.EntityEditButton;

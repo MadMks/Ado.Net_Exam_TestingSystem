@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WpfApp_TestingSystem.Entity;
 using WpfApp_TestingSystem.EntityGridLine;
 
 namespace WpfApp_TestingSystem
