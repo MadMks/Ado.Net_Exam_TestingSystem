@@ -23,8 +23,6 @@ namespace WpfApp_TestingSystem.EntityAddButton
 
         public override bool AddEntity(TestingSystemEntities db)
         {
-            db.Database.Log = Console.Write;
-
             WindowEdit windowAdd = new WindowEdit(this.CategoryId);
             windowAdd.gridEditTest.Visibility = Visibility.Visible;
 

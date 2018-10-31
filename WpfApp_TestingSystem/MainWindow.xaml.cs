@@ -104,8 +104,6 @@ namespace WpfApp_TestingSystem
 
             using (TestingSystemEntities db = new TestingSystemEntities())
             {
-                db.Database.Log = Console.Write;
-
                 List<Test> listTestsOfSelectedCategories = null;
                 if (this.isTeacher)
                 {
@@ -255,8 +253,6 @@ namespace WpfApp_TestingSystem
 
             using (TestingSystemEntities db = new TestingSystemEntities())
             {
-                db.Database.Log = Console.Write;
-
                 this.level = Level.AllCategories;
 
                 List<Category> listOfAllCategories = null;
@@ -337,8 +333,6 @@ namespace WpfApp_TestingSystem
         {
             using (TestingSystemEntities db = new TestingSystemEntities())
             {
-                db.Database.Log = Console.Write;
-
                 if (sender is ButtonAddEntity)
                 {
                     bool isAdded = (sender as ButtonAddEntity).AddEntity(db);
@@ -375,8 +369,6 @@ namespace WpfApp_TestingSystem
 
             using (TestingSystemEntities db = new TestingSystemEntities())
             {
-                db.Database.Log = Console.Write;
-
                 if (sender is ButtonDeleteEntity)
                 {
                     bool isRemoved = (sender as ButtonDeleteEntity).DeletingEntity(db);
@@ -398,8 +390,6 @@ namespace WpfApp_TestingSystem
 
             using (TestingSystemEntities db = new TestingSystemEntities())
             {
-                db.Database.Log = Console.Write;
-
                 if (sender is ButtonEditEntity)
                 {
                     bool isEdited = (sender as ButtonEditEntity).EditingEntity(db);
@@ -526,8 +516,6 @@ namespace WpfApp_TestingSystem
 
             using (TestingSystemEntities db = new TestingSystemEntities())
             {
-                db.Database.Log = Console.Write;
-
                 this.level = Level.QuestionsOfTheSelectedTest;
 
                 var listOfQuestionsCurrentTest
@@ -607,8 +595,6 @@ namespace WpfApp_TestingSystem
 
             using (TestingSystemEntities db = new TestingSystemEntities())
             {
-                db.Database.Log = Console.Write;
-
                 this.level = Level.AnswersForSelectedOfQuestion;
 
                 var listOfAnswersCurrentQuestion
@@ -685,8 +671,6 @@ namespace WpfApp_TestingSystem
 
             using (TestingSystemEntities db = new TestingSystemEntities())
             {
-                db.Database.Log = Console.Write;
-
                 // Загружаем все активные вопросы текущего теста.
                 this.questionsOfTheSelectedTest = (
                     from question in db.Question.Include("Answer")  // HACK или безотложная (много маленьких запросов)
