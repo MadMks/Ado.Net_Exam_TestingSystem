@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WpfApp_TestingSystem
+namespace WpfApp_TestingSystem.Entity
 {
     using System;
     using System.Data.Entity;

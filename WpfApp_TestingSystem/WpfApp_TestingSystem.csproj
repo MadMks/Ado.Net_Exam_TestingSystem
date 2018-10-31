@@ -66,10 +66,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Answer.cs">
+    <Compile Include="Entity\Answer.cs">
       <DependentUpon>TestingSystemModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Category.cs">
+    <Compile Include="Entity\Category.cs">
       <DependentUpon>TestingSystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityAddButton\ButtonAddAnswer.cs" />
@@ -96,23 +96,23 @@
     <Compile Include="EntityGridLine\GridLineQuestion.cs" />
     <Compile Include="EntityGridLine\GridLineTest.cs" />
     <Compile Include="EnumLevels.cs" />
-    <Compile Include="Question.cs">
+    <Compile Include="Entity\Question.cs">
       <DependentUpon>TestingSystemModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Test.cs">
+    <Compile Include="Entity\Test.cs">
       <DependentUpon>TestingSystemModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="TestingSystemModel.Context.cs">
+    <Compile Include="Entity\TestingSystemModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TestingSystemModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="TestingSystemModel.cs">
+    <Compile Include="Entity\TestingSystemModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TestingSystemModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="TestingSystemModel.Designer.cs">
+    <Compile Include="Entity\TestingSystemModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TestingSystemModel.edmx</DependentUpon>
@@ -164,11 +164,11 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <EntityDeploy Include="TestingSystemModel.edmx">
+    <EntityDeploy Include="Entity\TestingSystemModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>TestingSystemModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="TestingSystemModel.edmx.diagram">
+    <None Include="Entity\TestingSystemModel.edmx.diagram">
       <DependentUpon>TestingSystemModel.edmx</DependentUpon>
     </None>
   </ItemGroup>
@@ -176,12 +176,12 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="TestingSystemModel.Context.tt">
+    <Content Include="Entity\TestingSystemModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>TestingSystemModel.edmx</DependentUpon>
       <LastGenOutput>TestingSystemModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="TestingSystemModel.tt">
+    <Content Include="Entity\TestingSystemModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>TestingSystemModel.edmx</DependentUpon>
       <LastGenOutput>TestingSystemModel.cs</LastGenOutput>
