@@ -105,7 +105,7 @@ namespace WpfApp_TestingSystem
             // HACK добавляю в Tag id категории
             button.Tag = currentCategories.Id;
 
-            // TODO возможно вместо верхней (если она еще и не используется).
+            // HACK возможно вместо верхней (если она не используется).
             this.CategoryId = currentCategories.Id;
 
             // Установка кнопки в первую колонку

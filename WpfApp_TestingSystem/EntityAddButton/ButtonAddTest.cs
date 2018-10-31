@@ -9,7 +9,7 @@ namespace WpfApp_TestingSystem.EntityAddButton
 {
     public class ButtonAddTest : ButtonAddEntity
     {
-        // TODO предположительно
+        // HACK предположительно
         // если обьединить кнопки add edit и del
         // наследниками одного класса, то это свойство
         // унаследуется.

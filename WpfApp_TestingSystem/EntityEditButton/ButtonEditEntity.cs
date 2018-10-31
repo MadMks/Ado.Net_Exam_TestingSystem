@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace WpfApp_TestingSystem.EntityEditButton // TODO IEdit
+namespace WpfApp_TestingSystem.EntityEditButton
 {
     abstract public class ButtonEditEntity : Button, IEdit
     {

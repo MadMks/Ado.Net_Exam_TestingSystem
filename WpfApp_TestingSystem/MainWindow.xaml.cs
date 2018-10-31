@@ -28,7 +28,7 @@ namespace WpfApp_TestingSystem
         /// <summary>
         /// Кол-во правильных ответов студента.
         /// </summary>
-        private int numberOfCorrectAnswersStudent; // HACK можно поменять на свойство в связи
+        private int numberOfCorrectAnswersStudent; // HACK можно поменять на свойство в связи (если писать результат в бд)
         /// <summary>
         /// Результат тестирования в процентах.
         /// </summary>
@@ -71,7 +71,7 @@ namespace WpfApp_TestingSystem
             this.buttonPassing_Reply.Click += ButtonPassing_Reply_Click;
         }
 
-        // +
+
         private void ButtonStudent_Click(object sender, RoutedEventArgs e)
         {
             this.level = Level.SelectCategoryOrAllTest;
@@ -83,7 +83,7 @@ namespace WpfApp_TestingSystem
             this.isTeacher = false;
         }
 
-        // +
+
         private void ButtonAllTests_Click(object sender, RoutedEventArgs e)
         {
             this.gridCategoryOrAllTest.Visibility = Visibility.Hidden;
@@ -92,16 +92,14 @@ namespace WpfApp_TestingSystem
 
             this.ShowTestsOfSelectedCategories(null);
         }
-        // +
+
+
         private void ShowTestsOfSelectedCategories(int? idCategory)
         {
             this.ShowHeaderTest();
 
-            if (this.stackPanelSelection.Children.Count > 0)
-            {
-                this.stackPanelSelection.Children.Clear();
-            }
-            
+            this.ClearTheList();
+
 
             using (TestingSystemEntities db = new TestingSystemEntities())
             {
@@ -196,7 +194,7 @@ namespace WpfApp_TestingSystem
             if (idCategory == null)
             {
                 this.level = Level.AllTests;
-                this.currentIdCategory = -1;    // TODO HACK ??? #14.
+                this.currentIdCategory = -1;
 
                 listTestsOfSelectedCategories
                     = (
@@ -223,7 +221,7 @@ namespace WpfApp_TestingSystem
             return listTestsOfSelectedCategories;
         }
 
-        // +
+        
         private void ButtonCategory_Click(object sender, RoutedEventArgs e)
         {
             this.gridCategoryOrAllTest.Visibility = Visibility.Hidden;
@@ -248,16 +246,11 @@ namespace WpfApp_TestingSystem
             }
         }
 
-        // +
         private void ShowAllCategories()
         {
             this.ShowHeaderCategory();
 
-            // TODO clear stackP
-            if (this.stackPanelSelection.Children.Count > 0)
-            {
-                this.stackPanelSelection.Children.Clear();
-            }
+            this.ClearTheList();
 
             using (TestingSystemEntities db = new TestingSystemEntities())
             {
@@ -318,6 +311,14 @@ namespace WpfApp_TestingSystem
                 {
                     this.CreateAddButton(gridLineCategory);
                 }
+            }
+        }
+
+        private void ClearTheList()
+        {
+            if (this.stackPanelSelection.Children.Count > 0)
+            {
+                this.stackPanelSelection.Children.Clear();
             }
         }
 
@@ -465,7 +466,7 @@ namespace WpfApp_TestingSystem
             }
         }
 
-        // TODO +
+
         private void ButtonCategoryLine_Click(object sender, RoutedEventArgs e)
         {
             if (this.isTeacher)
@@ -519,10 +520,7 @@ namespace WpfApp_TestingSystem
         {
             this.ShowHeaderQuestion();
 
-            if (this.stackPanelSelection.Children.Count > 0)
-            {
-                this.stackPanelSelection.Children.Clear();
-            }
+            this.ClearTheList();
             
 
             using (TestingSystemEntities db = new TestingSystemEntities())
@@ -603,10 +601,7 @@ namespace WpfApp_TestingSystem
         {
             this.ShowHeaderAnswer();
 
-            if (this.stackPanelSelection.Children.Count > 0)
-            {
-                this.stackPanelSelection.Children.Clear();
-            }
+            this.ClearTheList();
 
 
             using (TestingSystemEntities db = new TestingSystemEntities())
@@ -790,7 +785,8 @@ namespace WpfApp_TestingSystem
 
             this.ResetTest();
 
-            // TODO здесь можно записать результат в таблицу.
+            // TODO здесь можно записать результат в таблицу,
+            // когда результаты будут хранится в бд.
 
             this.gridPassingTheTest.Visibility = Visibility.Hidden;
             this.gridSelection.Visibility = Visibility.Visible;

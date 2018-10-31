@@ -131,7 +131,7 @@ namespace WpfApp_TestingSystem
             button.Content = gridLineButton;
 
             // HACK добавляю в Tag id теста
-            button.Tag = currentTest.Id;   // TODO ??? убрать
+            button.Tag = currentTest.Id;   // HACK возможно не используется (заменено нижней строкой).
             // заменил нижней строкой.
             this.TestID = currentTest.Id;
 

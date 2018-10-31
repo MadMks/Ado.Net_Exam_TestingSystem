@@ -141,7 +141,7 @@
             </Grid.RowDefinitions>
 
 
-            
+
             <!--All Header-->
             <Grid Grid.Row="1" 
                   Background="Gainsboro"
@@ -177,7 +177,7 @@
                                Style="{StaticResource styleTextBlockForHeaderNumber}"
                                Padding="0 5 0 5">
                         Кол-во тестов</TextBlock>
-                    
+
                 </Grid>
 
                 <!--Header Test-->
@@ -273,7 +273,7 @@
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
-                    
+
                     <!--Первая невидимая строка для привязки к ней размера grid в Кнопке-->
                     <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
                                Name="textBlockHiddenForSizeButtonLine"
@@ -284,7 +284,7 @@
 
                 </Grid>
             </ScrollViewer>
-            
+
             <!--For button "Add"-->
             <Grid Grid.Row="3"
                   Name="gridForButtonAddEntity">
@@ -292,31 +292,12 @@
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                
+
             </Grid>
 
         </Grid>
 
-        <!--TODO delete ?-->
-        <!--<Grid Grid.Row="1" Name="gridTestSelection"
-              Background="Beige"
-              Visibility="Hidden">
 
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-
-            <TabControl Name="tabControlForStudent">
-                <TabItem Header="Полный список">
-                    <ListBox Name="listBoxAllTests"/>
-                </TabItem>
-                <TabItem Header="Категории">
-                    Размещение категорий
-                </TabItem>
-            </TabControl>
-        </Grid>-->
-
-        
         <!--Страница прохождения теста-->
         <Grid Grid.Row="0" Name="gridPassingTheTest"
               Visibility="Hidden"
