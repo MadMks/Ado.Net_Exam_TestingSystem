@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:WpfApp_TestingSystem"
         mc:Ignorable="d"
         FontSize="12"
-        Title="MainWindow" Height="450" Width="800"
+        Title="Тестирующая система" Height="450" Width="800"
+        MinWidth="600" MinHeight="350"
         Background="WhiteSmoke">
 
     <Window.Resources>

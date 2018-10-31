@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp_TestingSystem"
         mc:Ignorable="d"
-        Title="Редактирование" Height="300" Width="500">
+        Title="Редактирование" Height="300" Width="500"
+        ResizeMode="NoResize">
     <Grid>
 
         <Grid.RowDefinitions>
