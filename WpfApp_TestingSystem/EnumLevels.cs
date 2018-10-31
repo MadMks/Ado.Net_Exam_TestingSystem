@@ -11,4 +11,10 @@ namespace WpfApp_TestingSystem
         QuestionsOfTheSelectedTest,
         AnswersForSelectedOfQuestion
     }
+
+    internal enum Result
+    {
+        Correct,
+        NotCorrect
+    }
 }

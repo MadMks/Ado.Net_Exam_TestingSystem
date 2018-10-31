@@ -30,7 +30,7 @@ namespace WpfApp_TestingSystem.EntityEditButton
             // Ставим значение
             windowEdit.comboBoxAnswerValue.SelectedIndex
                 = editAnswer.CorrectAnswer == true
-                ? 0 : 1 ;   // TODO enum or stringValue
+                ? (int)Result.Correct : (int)Result.NotCorrect;
 
             bool? result = windowEdit.ShowDialog();
 
@@ -42,7 +42,7 @@ namespace WpfApp_TestingSystem.EntityEditButton
 
                 editAnswer.ResponseText = windowEdit.textBoxAnswerText.Text;
                 editAnswer.CorrectAnswer
-                    = windowEdit.comboBoxAnswerValue.SelectedIndex == 0
+                    = windowEdit.comboBoxAnswerValue.SelectedIndex == (int)Result.Correct
                     ? true : false;
 
                 db.SaveChanges();
