@@ -28,7 +28,6 @@ namespace WpfApp_TestingSystem.EntityAddButton
             windowAdd.textBoxAnswerText.MaxLength = 300;
 
             // Ставим значение по умолчанию
-            //windowAdd.comboBoxAnswerValue.SelectedIndex = 1;   // TODO enum or stringValue
             windowAdd.comboBoxAnswerValue.SelectedIndex = (int)Result.NotCorrect;
 
 
@@ -44,7 +43,6 @@ namespace WpfApp_TestingSystem.EntityAddButton
                 addAnswer.ResponseText = windowAdd.AnswerName;
                 addAnswer.CorrectAnswer
                     = windowAdd
-                    //.comboBoxAnswerValue.SelectedIndex == 0
                     .comboBoxAnswerValue.SelectedIndex == (int)Result.Correct
                     ? true : false;
 
