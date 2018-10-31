@@ -27,6 +27,7 @@ namespace WpfApp_TestingSystem.EntityEditButton
 
             WindowEdit windowEdit = new WindowEdit(editCategory);
             windowEdit.gridEditCategory.Visibility = Visibility.Visible;
+            windowEdit.textBoxCategoryName.Focus();
 
             windowEdit.CategoryName = editCategory.Name;
 

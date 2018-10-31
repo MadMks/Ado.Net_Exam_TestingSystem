@@ -24,6 +24,7 @@ namespace WpfApp_TestingSystem.EntityEditButton
 
             WindowEdit windowEdit = new WindowEdit(editQuestion);
             windowEdit.gridEditQuestion.Visibility = Visibility.Visible;
+            windowEdit.textBoxQuestionName.Focus();
 
             windowEdit.textBoxQuestionName.MaxLength = 500;
 

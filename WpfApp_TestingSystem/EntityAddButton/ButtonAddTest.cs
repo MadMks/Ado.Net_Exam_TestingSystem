@@ -25,6 +25,7 @@ namespace WpfApp_TestingSystem.EntityAddButton
         {
             WindowEdit windowAdd = new WindowEdit(this.CategoryId);
             windowAdd.gridEditTest.Visibility = Visibility.Visible;
+            windowAdd.textBoxTestName.Focus();
 
             windowAdd.buttonOk.Content = "Добавить";
             windowAdd.Title = "Добавление теста";

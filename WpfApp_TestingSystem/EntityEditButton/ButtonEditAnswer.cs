@@ -23,6 +23,7 @@ namespace WpfApp_TestingSystem.EntityEditButton
 
             WindowEdit windowEdit = new WindowEdit(editAnswer);
             windowEdit.gridEditAnswer.Visibility = Visibility.Visible;
+            windowEdit.textBoxAnswerText.Focus();
 
             windowEdit.textBoxAnswerText.MaxLength = 300;
 

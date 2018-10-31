@@ -20,6 +20,7 @@ namespace WpfApp_TestingSystem.EntityAddButton
         {
             WindowEdit windowAdd = new WindowEdit();
             windowAdd.gridEditCategory.Visibility = Visibility.Visible;
+            windowAdd.textBoxCategoryName.Focus();
             windowAdd.buttonOk.Content = "Добавить";
             windowAdd.Title = "Добавление категории";
 
