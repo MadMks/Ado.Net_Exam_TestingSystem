@@ -8,7 +8,7 @@ using System.Windows.Controls;
 
 namespace WpfApp_TestingSystem.EntityAddButton
 {
-    abstract public class ButtonAddEntity : Button
+    abstract public class ButtonAddEntity : Button, IAdding
     {
         public ButtonAddEntity()
         {
