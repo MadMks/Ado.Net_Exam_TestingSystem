@@ -73,7 +73,6 @@ namespace WpfApp_TestingSystem.EntityEditButton
                 && x.CorrectAnswer == true).Count() > 0)
                 )
             {
-                // то вопрос делаем активным
                 active = true;
             }
             else
@@ -97,15 +96,12 @@ namespace WpfApp_TestingSystem.EntityEditButton
                 = db.Question.Where(q => q.Id == editAnswer.QuestionId)
                 .Select(q => q.TestId).FirstOrDefault();
 
-            //bool active;
             // Если есть активные вопросы у теста
             if (db.Question
                 .Where(q => q.TestId == deleteAnswerTestId && q.Active == true)
-                //.Where(q => q.Active == true)
                 .Count() > 0)
             {
                 active = true;
-                //MessageBox.Show("1");
             }
             else
             {
@@ -116,7 +112,6 @@ namespace WpfApp_TestingSystem.EntityEditButton
                 .Where(t => t.Id == deleteAnswerTestId)
                 .FirstOrDefault()
                 .Active = active;
-            // если тестов
 
             db.SaveChanges();
 
@@ -145,7 +140,6 @@ namespace WpfApp_TestingSystem.EntityEditButton
                 .Where(c => c.Id == deleteAnswerCategoryId)
                 .FirstOrDefault()
                 .Active = active;
-            // если тестов
 
             db.SaveChanges();
         }

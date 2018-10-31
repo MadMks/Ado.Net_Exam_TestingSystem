@@ -52,7 +52,7 @@ namespace WpfApp_TestingSystem.EntityAddButton
                 db.SaveChanges();
 
 
-                // method установки Active
+                // Установка Active
                 this.EntityActivitySwitching(db, addAnswer);
 
                 return true;
@@ -68,13 +68,8 @@ namespace WpfApp_TestingSystem.EntityAddButton
         /// <param name="addAnswer"></param>
         private void EntityActivitySwitching(TestingSystemEntities db, Answer addAnswer)
         {
-            // TODO >>> попробовать Актив
-
-
             // =====
             // Вопрос.
-
-            // если ответов
 
             bool active;
 
@@ -85,7 +80,6 @@ namespace WpfApp_TestingSystem.EntityAddButton
                 && x.CorrectAnswer == true).Count() > 0
                 )
             {
-                // то вопрос делаем активным
                 active = true;
             }
             else
@@ -104,15 +98,12 @@ namespace WpfApp_TestingSystem.EntityAddButton
 
             // =====
             // Тест.
-
-            // если вопросов
+            
             if (db.Question
                 .Where(q => q.TestId == addAnswer.Question.TestId && q.Active == true)
-                //.Where(q => q.Active == true)
                 .Count() > 0)
             {
                 active = true;
-                //MessageBox.Show("1");
             }
             else
             {
@@ -123,7 +114,6 @@ namespace WpfApp_TestingSystem.EntityAddButton
                 .Where(t => t.Id == addAnswer.Question.TestId)
                 .FirstOrDefault()
                 .Active = active;
-            // если тестов
 
             db.SaveChanges();
 
@@ -152,7 +142,6 @@ namespace WpfApp_TestingSystem.EntityAddButton
                 .Where(c => c.Id == deleteAnswerCategoryId)
                 .FirstOrDefault()
                 .Active = active;
-            // если тестов
 
             db.SaveChanges();
         }

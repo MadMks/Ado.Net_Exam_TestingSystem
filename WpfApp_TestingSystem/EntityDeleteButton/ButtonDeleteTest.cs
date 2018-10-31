@@ -35,13 +35,10 @@ namespace WpfApp_TestingSystem.EntityDeleteButton
             {
                 if (questionsCount > 0)
                 {
-                    //int[] delQuestionsId = (from question in db.Question select question.Id).ToArray();
-
                     // question
                     var deleteQuestions
                         = (
                         from question in db.Question
-                        //where (delQuestionsId).Contains(question.TestId)
                         where question.TestId == deleteTest.Id
                         select question
                         )
@@ -73,7 +70,7 @@ namespace WpfApp_TestingSystem.EntityDeleteButton
                 db.Test.Remove(deleteTest);
                 db.SaveChanges();
 
-                // method установки Active после удаления.
+                // Установка Active после удаления.
                 this.EntityActivitySwitching(db, deleteTest);
 
                 return true;
@@ -110,7 +107,6 @@ namespace WpfApp_TestingSystem.EntityDeleteButton
                 .Where(c => c.Id == deleteTest.CategoryId)
                 .FirstOrDefault()
                 .Active = active;
-            // если тестов
 
             db.SaveChanges();
         }

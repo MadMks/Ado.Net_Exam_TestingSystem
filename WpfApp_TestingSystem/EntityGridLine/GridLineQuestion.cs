@@ -65,18 +65,15 @@ namespace WpfApp_TestingSystem.EntityGridLine
             TextBlockForNumber textBlockNumber = new TextBlockForNumber
             {
                 Text = (number + 1).ToString()
-                //Background = Brushes.AliceBlue
             };
             TextBlockForText textBlockQuestionName = new TextBlockForText
             {
                 Text = currentQuestion.QuestionText,
-                //Background = Brushes.Aqua,
                 TextWrapping = TextWrapping.Wrap
             };
             TextBlockForNumber textBlockQuantityAnswers = new TextBlockForNumber
             {
                 Text = currentQuestion.Answer.Count().ToString()
-                //Background = Brushes.BurlyWood
             };
 
             // Добавление textBlock с данными в кнопку.

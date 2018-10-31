@@ -22,7 +22,6 @@ namespace WpfApp_TestingSystem.EntityEditButton
 
             var editCategory = db.Category
                 .Where(x => x.Id == idCategory)
-                //.Select(x => x.Name)
                 .FirstOrDefault();
 
             WindowEdit windowEdit = new WindowEdit(editCategory);
@@ -36,11 +35,10 @@ namespace WpfApp_TestingSystem.EntityEditButton
 
             if (result == true)
             {
-                // запишем в базу
+                // Запишем в базу
                 editCategory.Name = windowEdit.CategoryName;
                 db.SaveChanges();
-
-                //this.ShowAllCategories();
+                
                 return true;
             }
 

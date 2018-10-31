@@ -18,7 +18,6 @@ namespace WpfApp_TestingSystem.EntityDeleteButton
 
         public override bool DeletingEntity(TestingSystemEntities db)
         {
-            //int idCategory = Convert.ToInt32((sender as Button).Tag);
             int idCategory = Convert.ToInt32((this).Tag);
 
             var deleteCategory = db.Category.Where(x => x.Id == idCategory).FirstOrDefault();
@@ -48,7 +47,6 @@ namespace WpfApp_TestingSystem.EntityDeleteButton
                     var deleteQuestions
                         = (
                         from question in db.Question
-                            //where (from test in deleteTests select test.Id).Contains(question.TestId)
                         where (delTestsId).Contains(question.TestId)
                         select question
                         )
@@ -80,8 +78,7 @@ namespace WpfApp_TestingSystem.EntityDeleteButton
 
                 db.Category.Remove(deleteCategory);
                 db.SaveChanges();
-
-                //this.ShowAllCategories();
+                
                 return true;
             }
 

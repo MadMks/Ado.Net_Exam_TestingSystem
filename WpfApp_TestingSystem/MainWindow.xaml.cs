@@ -41,12 +41,6 @@ namespace WpfApp_TestingSystem
         private List<Question> questionsOfTheSelectedTest;
         private List<Answer> answersToTheCurrentQuestion;
 
-        //private TextBlock textBlockHiddenForSizeButtonLine = null;
-
-        //public TextBlock TextBlockHiddenForSizeButtonLine
-        //{
-        //    get { return textBlockHiddenForSizeButtonLine; }
-        //}
 
         private Level level;
         private int currentIdTest;
@@ -62,13 +56,8 @@ namespace WpfApp_TestingSystem
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            // new memory
             this.categories = new List<Category>();
             this.tests = new List<Test>();
-
-            // await
-            //this.LoadingCategoriesFromTheDatabase();
-
 
             this.numberOfTheCurrentQuestion = 0;
             this.numberOfCorrectAnswersStudent = 0;
@@ -78,8 +67,7 @@ namespace WpfApp_TestingSystem
 
             this.buttonAllTests.Click += ButtonAllTests_Click;
             this.buttonCategory.Click += ButtonCategory_Click;
-
-            //this.listBoxAllTests.MouseLeftButtonUp += ListBoxAllTests_MouseLeftButtonUp;
+            
             this.buttonPassing_Reply.Click += ButtonPassing_Reply_Click;
         }
 
@@ -99,8 +87,7 @@ namespace WpfApp_TestingSystem
         private void ButtonAllTests_Click(object sender, RoutedEventArgs e)
         {
             this.gridCategoryOrAllTest.Visibility = Visibility.Hidden;
-
-            //this.stackPanelSelection.Visibility = Visibility.Visible;
+            
             this.gridSelection.Visibility = Visibility.Visible;
 
             this.ShowTestsOfSelectedCategories(null);
@@ -114,8 +101,7 @@ namespace WpfApp_TestingSystem
             {
                 this.stackPanelSelection.Children.Clear();
             }
-
-            //this.LoadingCategoriesFromTheDatabase();
+            
 
             using (TestingSystemEntities db = new TestingSystemEntities())
             {
@@ -137,21 +123,18 @@ namespace WpfApp_TestingSystem
 
                 for (int i = 0; i < listTestsOfSelectedCategories.Count(); i++)
                 {
-                    /*GridLineTest*/
                     gridLineTest
                        = new GridLineTest(
                            i,
                            listTestsOfSelectedCategories[i],
                            this.isTeacher
                        );
-
-                    //gridLineTest.IsTeacher = this.isTeacher;
+                    
 
                     // Установить стиль кнопки внутри grid
                     (gridLineTest.Children[0] as Button).Style = (Style)(this.Resources["styleButtonForList"]);
 
-                    // TODO написать обработчик нажатия на название теста (Test).
-                    //(gridLineTest.Children[0] as Button).Click += ButtonCategoryLine_Click;   //TODO !!! обработчик
+                    // Обработчик нажатия на название теста (Test).
                     (gridLineTest.Children[0] as Button).Click += ButtonInGridLineTest_Click;
 
                     if (this.isTeacher)
@@ -160,11 +143,6 @@ namespace WpfApp_TestingSystem
                     }
 
                     this.stackPanelSelection.Children.Add(gridLineTest);
-
-
-                    //buttonTestLine.Click += ButtonTestLine_Click;
-
-                    // TODO CREATE method "button ADD Test"
                 }
 
                 if (this.isTeacher)
@@ -186,7 +164,7 @@ namespace WpfApp_TestingSystem
             if (idCategory == null)
             {
                 this.level = Level.AllTests;
-                this.currentIdCategory = -1;    // TODO HACK ??? #14.
+                this.currentIdCategory = -1;
 
                 listTestsOfSelectedCategories
                     = (
@@ -250,10 +228,8 @@ namespace WpfApp_TestingSystem
         {
             this.gridCategoryOrAllTest.Visibility = Visibility.Hidden;
 
-            //this.stackPanelSelection.Visibility = Visibility.Visible;
             this.gridSelection.Visibility = Visibility.Visible;
 
-            //this.ShowHeaderCategory();
             
             this.ShowAllCategories();
         }
@@ -289,13 +265,6 @@ namespace WpfApp_TestingSystem
 
                 this.level = Level.AllCategories;
 
-                //var listOfAllCategories
-                //        = (
-                //        from category in db.Category.Include("Test")
-                //        select category
-                //        )
-                //        .ToList();
-
                 List<Category> listOfAllCategories = null;
 
                 if (this.isTeacher)
@@ -323,20 +292,13 @@ namespace WpfApp_TestingSystem
 
                 for (int i = 0; i < listOfAllCategories.Count(); i++)
                 {
-                    // TODO new line fo list category - method
-
-                    // TEST создаю gridLine и передаю в него сущность
-                    /*GridLineCategory */gridLineCategory
+                    gridLineCategory
                         = new GridLineCategory(
                             i,
                             listOfAllCategories[i],
                             this.isTeacher
                         );
 
-                    // HACK ?! - добавляю id категории - чтоб при нажатии на кнопку (грид)
-                    // вывести тесты данной категории - по добавленному id (в свойство gridLineButton).
-                    //gridLineCategory.CategoryID = listOfAllCategories[i].Id;
-                    //gridLineCategory.IsTeacher = this.isTeacher;
 
                     // Установить стиль кнопки внутри grid
                     (gridLineCategory.Children[0] as Button).Style = (Style)(this.Resources["styleButtonForList"]);
@@ -352,7 +314,6 @@ namespace WpfApp_TestingSystem
                 }
 
                 // Если Учитель, то добавим кнопку "Добавить" категорию.
-                // TODO ! метод - проверка (если учитель) -> то создать кнопку Add (abstract)
                 if (this.isTeacher)
                 {
                     this.CreateAddButton(gridLineCategory);
@@ -366,9 +327,6 @@ namespace WpfApp_TestingSystem
                 gridLineEntity.AddingAnAddEntityButton();
             gridLineEntity.ButtonAdd.Click += ButtonAddEntity_Click;
 
-            //this.stackPanelSelection.Children.Add(buttonAddEntity);
-
-            // test 20.10
             this.gridForButtonAddEntity.Children.Clear();
             this.gridForButtonAddEntity.Children.Add(buttonAddEntity);
         }
@@ -385,115 +343,28 @@ namespace WpfApp_TestingSystem
 
                     if (isAdded)
                     {
-                        // TODO HACK должна выводится та сущность, которую добавили!
-
+                        // Выводим ту сущность, которую добавили
                         this.ShowGridLineEntity(sender);
                     }
                 }
             }
         }
 
-        // TODO перместить реализацию в класс добавления для каждой сущности.
-        private void ButtonAddCategory_Click(object sender, RoutedEventArgs e)
-        {
-            using (TestingSystemEntities db = new TestingSystemEntities())
-            {
-                db.Database.Log = Console.Write;
-
-                WindowEdit windowAdd = new WindowEdit();
-                windowAdd.gridEditCategory.Visibility = Visibility.Visible;
-                windowAdd.buttonOk.Content = "Добавить";
-
-
-                bool? result = windowAdd.ShowDialog();
-
-                if (result == true)
-                {
-                    // запишем в базу
-
-                    Category category = new Category();
-                    category.Name = windowAdd.CategoryName;
-
-                    db.Category.Add(category);
-                    db.SaveChanges();
-
-                    this.ShowAllCategories();
-                }
-            }
-        }
 
         private void CreateEditingButtons(GridLineEntity gridLineEntity, int idEntity)
         {
-            // открытие зарезервированного места для кнопок редактирования
+            // Открытие зарезервированного места для кнопок редактирования
             Grid.SetColumnSpan(this.textBlockHiddenForSizeButtonLine, 1);
 
             gridLineEntity.OpenAReservedPlaceForEditingButtons();
 
 
             // Добавление кнопок админа.
-
-            #region ForDelete_workingCode_addButtonEditAndDelete
-
-            
-            //if (gridLineEntity is GridLineCategory)
-            //{
-            //    //// Кнопка "Редактирровать".
-            //    //Button buttonEditCategory = new Button { Content = "Edit", Tag = idEntity };
-            //    //gridLineEntity.Children.Add(buttonEditCategory);
-            //    //Grid.SetColumn(buttonEditCategory, 1);
-            //    //// Кнопка "Удалить".
-            //    //Button buttonDelCategory = new Button { Content = "Del", Tag = idEntity };
-            //    //gridLineEntity.Children.Add(buttonDelCategory);
-            //    //Grid.SetColumn(buttonDelCategory, 2);
-
-            //    //buttonEditCategory.Click += ButtonEditCategory_Click;
-            //    //buttonDelCategory.Click += ButtonDelCategory_Click;
-
-
-
-            //    // Кнопка "Редактировать".
-            //    ButtonEditCategory buttonEditCategory = new ButtonEditCategory(idEntity);
-            //    gridLineEntity.Children.Add(buttonEditCategory);
-            //    // Кнопка "Удалить".
-            //    ButtonDeleteCategory buttonDeleteCategory = new ButtonDeleteCategory(idEntity);
-            //    gridLineEntity.Children.Add(buttonDeleteCategory);
-
-            //    buttonEditCategory.Click += ButtonEditEntity_Click;
-            //    buttonDeleteCategory.Click += ButtonDeleteEntity_Click;
-            //}
-            //else if (gridLineEntity is GridLineTest)
-            //{
-            //    // TODO добавить в каждый gridLineTest кнопки редактирования тестов.
-            //}
-            #endregion
-
-            // проба общего кода (абстракция, интерфейс).
             gridLineEntity.AddingAdminButtons(idEntity);
             gridLineEntity.ButtonEdit.Click += ButtonEditEntity_Click;
             gridLineEntity.ButtonDelete.Click += ButtonDeleteEntity_Click;
         }
 
-        //private void AddingEditingButtons(GridLineCategory gridLineCategory, int idCategory)
-        //{
-        //    // открытие зарезервированного места для кнопок редактирования
-        //    Grid.SetColumnSpan(this.textBlockHiddenForSizeButtonLine, 1);
-
-        //    gridLineCategory.OpenAReservedPlaceForEditingButtons();
-
-        //    // Добавление кнопок редактирования.
-
-        //    // Кнопка "Редактирровать".
-        //    Button buttonEditCategory = new Button { Content = "Edit", Tag = idCategory };
-        //    gridLineCategory.Children.Add(buttonEditCategory);
-        //    Grid.SetColumn(buttonEditCategory, 1);
-        //    // Кнопка "Удалить".
-        //    Button buttonDelCategory = new Button { Content = "Del", Tag = idCategory };
-        //    gridLineCategory.Children.Add(buttonDelCategory);
-        //    Grid.SetColumn(buttonDelCategory, 2);
-
-        //    buttonEditCategory.Click += ButtonEditCategory_Click;
-        //    buttonDelCategory.Click += ButtonDelCategory_Click;
-        //}
 
         private void ButtonDeleteEntity_Click(object sender, RoutedEventArgs e)
         {
@@ -504,85 +375,13 @@ namespace WpfApp_TestingSystem
             {
                 db.Database.Log = Console.Write;
 
-                #region ForDelete_DeletingFullCategory
-
-                //if (sender is ButtonDeleteCategory)
-                //{
-                //    int idCategory = Convert.ToInt32((sender as Button).Tag);
-
-                //    var deleteCategory = db.Category.Where(x => x.Id == idCategory).FirstOrDefault();
-
-                //    int testsCount = deleteCategory.Test.Count();
-
-                //    MessageBoxResult result = MessageBox.Show(
-                //        $"Категория {deleteCategory.Name} содержит {testsCount} тестов."
-                //        + " \nУдалить?",
-                //        $"Удаление категории {deleteCategory.Name}",
-                //        MessageBoxButton.YesNo);
-
-                //    if (result == MessageBoxResult.Yes)
-                //    {
-                //        if (testsCount > 0)
-                //        {
-                //            var deleteTests
-                //                = (
-                //                from test in db.Test
-                //                where test.CategoryId == deleteCategory.Id
-                //                select test
-                //                )
-                //                .ToList();
-
-                //            Int16[] delTestsId = (from test in deleteTests select test.Id).ToArray();
-
-                //            var deleteQuestions
-                //                = (
-                //                from question in db.Question
-                //                    //where (from test in deleteTests select test.Id).Contains(question.TestId)
-                //            where (delTestsId).Contains(question.TestId)
-                //                select question
-                //                )
-                //                .ToList();
-
-                //            if (deleteQuestions.Count > 0)
-                //            {
-                //                int[] delQuestionId = (from question in deleteQuestions select question.Id).ToArray();
-
-                //                // answer
-                //                var deleteAnswer
-                //                    = (
-                //                    from answer in db.Answer
-                //                    where (delQuestionId).Contains(answer.QuestionId)
-                //                    select answer
-                //                    )
-                //                    .ToList();
-
-                //                if (deleteAnswer.Count > 0)
-                //                {
-                //                    db.Answer.RemoveRange(deleteAnswer);
-                //                }
-
-                //                db.Question.RemoveRange(deleteQuestions);
-                //            }
-
-                //            db.Test.RemoveRange(deleteTests);
-                //        }
-
-                //        db.Category.Remove(deleteCategory);
-                //        db.SaveChanges();
-
-                //        this.ShowAllCategories();
-                //    }
-                //}
-                #endregion
-
                 if (sender is ButtonDeleteEntity)
                 {
                     bool isRemoved = (sender as ButtonDeleteEntity).DeletingEntity(db);
 
                     if (isRemoved)
                     {
-                        // TODO HACK должна выводится та сущность, которую редактировали!
-
+                        // Выводим ту сущность, которую редактировали.
                         this.ShowGridLineEntity(sender);
                     }
                 }
@@ -594,39 +393,6 @@ namespace WpfApp_TestingSystem
 
         private void ButtonEditEntity_Click(object sender, RoutedEventArgs e)
         {
-            #region ForrDelete_EditingCategory
-
-            
-            // TODO new form
-
-            //int idCategory = Convert.ToInt32((sender as Button).Tag);
-
-            //using (TestingSystemEntities db = new TestingSystemEntities())
-            //{
-            //    db.Database.Log = Console.Write;
-
-            //    WindowEdit windowEdit = new WindowEdit();
-            //    windowEdit.gridEditCategory.Visibility = Visibility.Visible;
-
-            //    var editCategory = db.Category
-            //                        .Where(x => x.Id == idCategory)
-            //                        //.Select(x => x.Name)
-            //                        .FirstOrDefault();
-
-            //    windowEdit.CategoryName = editCategory.Name;
-
-            //    bool? result = windowEdit.ShowDialog();
-
-            //    if (result == true)
-            //    {
-            //        // запишем в базу
-            //        editCategory.Name = windowEdit.CategoryName;
-            //        db.SaveChanges();
-
-            //        this.ShowAllCategories();
-            //    }
-            //}
-            #endregion
 
             using (TestingSystemEntities db = new TestingSystemEntities())
             {
@@ -638,8 +404,7 @@ namespace WpfApp_TestingSystem
                     
                     if (isEdited)
                     {
-                        // TODO HACK должна выводится та сущность, которую редактировали!
-
+                        // Выводим ту сущность, которую редактировали.
                         this.ShowGridLineEntity(sender);
                     }
                 }
@@ -686,8 +451,7 @@ namespace WpfApp_TestingSystem
                 || sender is ButtonAddAnswer)
             {
                 int idQuestion;
-                // TODO возможно сравнение заменить строкой:
-                // >>> idQuestion = this.currentIdCategory;
+
                 if ((sender as Button).Parent is GridLineAnswer)
                 {
                     idQuestion = ((sender as Button).Parent as GridLineAnswer).QuestionId;
@@ -704,13 +468,6 @@ namespace WpfApp_TestingSystem
         // TODO +
         private void ButtonCategoryLine_Click(object sender, RoutedEventArgs e)
         {
-            //this.ShowHeaderTest();
-            //this.ShowHeaderEntity(sender);
-
-            // TODO показать в стекПанел тесты данной категории.
-
-            //this.ShowTestsOfCurrentCategory(sender as ButtonCategoryLine);
-
             if (this.isTeacher)
             {
                 this.currentIdCategory = ((sender as Button).Parent as GridLineCategory).CategoryId;
@@ -719,34 +476,11 @@ namespace WpfApp_TestingSystem
             this.ShowTestsOfSelectedCategories(Convert.ToInt32((sender as Button).Tag));
         }
 
-        //private void ShowHeaderEntity(object sender)
-        //{
-        //    if (sender is GridLineCategory)
-        //    {
-        //        this.ShowHeaderTest();
-        //    }
-        //    else if (sender is GridLineTest)
-        //    {
-                
-        //    }
-        //}
 
         private void ButtonInGridLineTest_Click(object sender, RoutedEventArgs e)
         {
-
-            //Level tempLevel = this.level;
-            //int tempCurrentIdCategory = this.currentIdCategory;
-            // если учитель
-            // то загружаем кнопки Вопросов
-
-            // если студент
-            // то загружаем Вопросы теста (сдача теста).
-
             if (this.isTeacher)
             {
-                // TODO CREATE method
-
-                //int idTest = ((sender as Button).Parent as GridLineTest).TestID;
                 this.currentIdTest = ((sender as Button).Parent as GridLineTest).TestID;
 
                 this.ShowQuestionsOfSelectedOfTest(this.currentIdTest);
@@ -758,11 +492,8 @@ namespace WpfApp_TestingSystem
                     this.currentIdCategory = ((sender as Button).Parent as GridLineTest).CategoryId;
                 }
 
-                // TODO при нажатии на тест - запуск вопросов теста
+                // При нажатии на тест - запуск вопросов теста
                 this.LaunchingTestQuestions(sender as Button);
-
-                //this.level = tempLevel;
-                //this.currentIdCategory = tempCurrentIdCategory;
             }
         }
 
@@ -812,7 +543,7 @@ namespace WpfApp_TestingSystem
 
                 for (int i = 0; i < listOfQuestionsCurrentTest.Count(); i++)
                 {
-                    /*GridLineQuestion*/ gridLineQuestion
+                    gridLineQuestion
                         = new GridLineQuestion(
                             i,
                             listOfQuestionsCurrentTest[i]
@@ -821,13 +552,11 @@ namespace WpfApp_TestingSystem
                     // Установить стиль кнопки внутри grid
                     (gridLineQuestion.Children[0] as Button).Style = (Style)(this.Resources["styleButtonForList"]);
 
-                    // TODO написать обработчик нажатия на название Вопроса (Question).
+                    // Обработчик нажатия на название Вопроса (Question).
                     (gridLineQuestion.Children[0] as Button).Click += ButtonInGridLineQuestion_Click;
 
-                    //if (this.isTeacher)
-                    //{
-                        this.CreateEditingButtons(gridLineQuestion, listOfQuestionsCurrentTest[i].Id);
-                    //}
+
+                    this.CreateEditingButtons(gridLineQuestion, listOfQuestionsCurrentTest[i].Id);
 
                     this.stackPanelSelection.Children.Add(gridLineQuestion);
                 }
@@ -861,8 +590,6 @@ namespace WpfApp_TestingSystem
 
         private void ButtonInGridLineQuestion_Click(object sender, RoutedEventArgs e)
         {
-            // TODO показать Ответы выбранного вопроса
-
             this.currentIdQuestion = ((sender as Button).Parent as GridLineQuestion).QuestionID;
 
             this.ShowAnswersForSelectedOfQuestion(this.currentIdQuestion);
@@ -900,7 +627,7 @@ namespace WpfApp_TestingSystem
 
                 for (int i = 0; i < listOfAnswersCurrentQuestion.Count(); i++)
                 {
-                    /*GridLineAnswer*/ gridLineAnswer
+                    gridLineAnswer
                         = new GridLineAnswer(
                             i,
                             listOfAnswersCurrentQuestion[i]
@@ -908,9 +635,6 @@ namespace WpfApp_TestingSystem
 
                     // Установить стиль кнопки внутри grid
                     (gridLineAnswer.Children[0] as Button).Style = (Style)(this.Resources["styleButtonForList"]);
-
-                    // TODO написать обработчик нажатия на Ответ
-                    //
 
                     this.CreateEditingButtons(gridLineAnswer, listOfAnswersCurrentQuestion[i].Id);
 
@@ -947,21 +671,14 @@ namespace WpfApp_TestingSystem
 
         private void LaunchingTestQuestions(Button senderButton)
         {
-            //MessageBox.Show("запуск вопросов теста");
-            // загрузить страницу прохождения теста
+            // Загрузить страницу прохождения теста
             this.gridSelection.Visibility = Visibility.Hidden;
 
             this.gridPassingTheTest.Visibility = Visibility.Visible;
 
-            // Title название теста   // TODO название категории
-            //this.textBlockPassing_Title.Text
-            //    = this.listBoxAllTests.SelectedValue.ToString();
-
-            //ButtonTestLine buttonTestLine = sender as ButtonTestLine;
             GridLineTest gridLineTest = senderButton.Parent as GridLineTest;
 
-            //this.textBlockPassing_Title.Text
-            //    = gridLineTest.CategoryName;
+
             this.textBlockPassing_Title.Text
                 = gridLineTest.CategoryName
                 + " | "
@@ -973,8 +690,6 @@ namespace WpfApp_TestingSystem
             using (TestingSystemEntities db = new TestingSystemEntities())
             {
                 db.Database.Log = Console.Write;
-
-                //db.Configuration.LazyLoadingEnabled = false;
 
                 // Загружаем все активные вопросы текущего теста.
                 this.questionsOfTheSelectedTest = (
@@ -1000,20 +715,6 @@ namespace WpfApp_TestingSystem
 
 
 
-
-
-
-
-
-        //
-        //
-        //
-        // Work code - #1
-        //
-        //
-        //
-
-
         private void ButtonTeacher_Click(object sender, RoutedEventArgs e)
         {
             this.level = Level.SelectCategoryOrAllTest;
@@ -1027,7 +728,6 @@ namespace WpfApp_TestingSystem
 
         private void ButtonPassing_Reply_Click(object sender, RoutedEventArgs e)
         {
-            // TODO подсчет правильных ответов - метод
             this.CheckingTheCorrectAnswers();
 
             this.numberOfTheCurrentQuestion++;
@@ -1063,45 +763,7 @@ namespace WpfApp_TestingSystem
             return item.IsChecked == true && Convert.ToBoolean(item.Tag) == true;
         }
 
-        private void ListBoxAllTests_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            // загрузить страницу прохождения теста
-            //this.gridTestSelection.Visibility = Visibility.Hidden;
-
-            //this.gridPassingTheTest.Visibility = Visibility.Visible;
-
-            //// Title название теста   // TODO название категории
-            //this.textBlockPassing_Title.Text
-            //    = this.listBoxAllTests.SelectedValue.ToString();
-
-            //this.answers = new List<Answer>();
-
-            //using (TestingSystemEntities db = new TestingSystemEntities())
-            //{
-            //    db.Database.Log = Console.Write;
-
-            //    //db.Configuration.LazyLoadingEnabled = false;
-
-            //    // TODO загрузить все вопросы и ответы
-            //    questions = (
-            //        from question in db.Question.Include("Answer")  // HACK или безотложная (много маленьких запросов)
-            //        where question.Test.Name == this.listBoxAllTests.SelectedValue.ToString()
-            //        select question
-            //        )
-            //        .ToList();
-
-            //    // пробую загрузить ответы для одого текущего теста.
-                
-            //    foreach (var item in this.questions)
-            //    {
-            //        this.answers.AddRange(item.Answer.Where(x => x.QuestionId == item.Id).Select(x => x));
-            //    }
-
-
-            //    this.ShowQuestionWithAnswers();
-            //}
-        }
-
+        
         private void ShowQuestionWithAnswers()
         {
             // Проверка на кол-во вопросов (номер вопроса)
@@ -1122,7 +784,6 @@ namespace WpfApp_TestingSystem
         /// </summary>
         private void ComputeOfResults()
         {
-            // TODO подсчет
             this.ComputeOfPercent();
 
             this.ShowTestResult();
@@ -1170,8 +831,7 @@ namespace WpfApp_TestingSystem
                 this.stackPanelPassing_Answer.Children.Clear();
             }
 
-            // TODO динамическое создание элементов
-
+            
             Thickness margin = new Thickness(8.0);
 
             foreach (var answer in this.questionsOfTheSelectedTest[this.numberOfTheCurrentQuestion].Answer)
@@ -1184,7 +844,6 @@ namespace WpfApp_TestingSystem
 
                 this.stackPanelPassing_Answer.Children.Add(
                     new RadioButton {
-                        //Content = answer.ResponseText,
                         Content = textBlock,
                         Tag = answer.CorrectAnswer,
                         Margin = margin
@@ -1203,26 +862,7 @@ namespace WpfApp_TestingSystem
 
         }
 
-        //private void buttonStudent_Click(object sender, RoutedEventArgs e)
-        //{
-        //    this.gridUserTypeSelection.Visibility = Visibility.Hidden;
-
-        //    this.gridTestSelection.Visibility = Visibility.Visible;
-
-
-        //    using (TestingSystemEntities db = new TestingSystemEntities())
-        //    {
-        //        db.Database.Log = Console.Write;
-
-        //        this.listBoxAllTests.ItemsSource
-        //            = (
-        //            from test in db.Test
-        //            select test.Name
-        //            )
-        //            .ToList();
-        //    }
-        //}
-
+        
         private void buttonMenuBack_Click(object sender, RoutedEventArgs e)
         {
             if (this.level == Level.SelectCategoryOrAllTest)
@@ -1237,7 +877,6 @@ namespace WpfApp_TestingSystem
                 Grid.SetColumnSpan(this.gridHeaderCategory, 2);
                 Grid.SetColumnSpan(this.gridHeaderTest, 2);
 
-                // test 20.10
                 this.gridForButtonAddEntity.Children.Clear();
             }
             else if (this.level == Level.AllTests)
@@ -1256,8 +895,6 @@ namespace WpfApp_TestingSystem
             }
             else if (this.level == Level.TestsOfTheSelectedCategory)
             {
-                //this.gridCategoryOrAllTest.Visibility = Visibility.Hidden;
-
                 this.ShowAllCategories();
             }
             else if (this.level == Level.QuestionsOfTheSelectedTest)
@@ -1294,7 +931,6 @@ namespace WpfApp_TestingSystem
 
             this.gridUserTypeSelection.Visibility = Visibility.Visible;
 
-            // test 20.10
             this.gridForButtonAddEntity.Children.Clear();
 
             // Закрытие зарезервированного места для кнопок редактирования

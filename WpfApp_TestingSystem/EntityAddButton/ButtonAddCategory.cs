@@ -30,8 +30,6 @@ namespace WpfApp_TestingSystem.EntityAddButton
 
             if (result == true)
             {
-                // запишем в базу
-
                 Category category = new Category();
                 category.Name = windowAdd.CategoryName;
 
@@ -39,7 +37,6 @@ namespace WpfApp_TestingSystem.EntityAddButton
                 db.SaveChanges();
 
                 return true;
-                //this.ShowAllCategories();
             }
 
             return false;

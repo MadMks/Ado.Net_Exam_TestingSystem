@@ -15,9 +15,6 @@ namespace WpfApp_TestingSystem
     {
         internal Button button = null;
 
-        //internal ButtonEditEntity buttonEdit = null;
-        //internal ButtonDeleteEntity buttonDelete = null;
-
         private const double currentPadding = 7.0;
 
         internal class TextBlockForNumber : TextBlock

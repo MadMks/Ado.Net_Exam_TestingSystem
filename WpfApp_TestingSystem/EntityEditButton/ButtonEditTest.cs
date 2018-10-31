@@ -31,7 +31,7 @@ namespace WpfApp_TestingSystem.EntityEditButton
             var categoriesTest
                 = (
                 from category in db.Category
-                select category/*.Name*/
+                select category
                 )
                 .ToList();
 

@@ -17,7 +17,6 @@ namespace WpfApp_TestingSystem.EntityGridLine
     {
         private Grid gridLineButton = null;
 
-        // test для получения id вопроса из кнопки.
         public int QuestionId { get; set; }
 
         public GridLineAnswer() {}
@@ -65,23 +64,13 @@ namespace WpfApp_TestingSystem.EntityGridLine
             TextBlockForNumber textBlockNumber = new TextBlockForNumber
             {
                 Text = (number + 1).ToString()
-                //Background = Brushes.AliceBlue
             };
             TextBlockForText textBlockQuestionName = new TextBlockForText
             {
                 Text = currentAnswer.ResponseText,
-                //Background = Brushes.Aqua,
                 TextWrapping = TextWrapping.Wrap
             };
-            //TextBlock textBlockQuantityAnswers = new TextBlock
-            //{
-            //    Text = currentQuestion.Answer.Count().ToString(),
-            //    Background = Brushes.BurlyWood
-            //};
-            //RadioButton radioButton = new RadioButton
-            //{
-            //    GroupName = "radioButtonGroupAnswer"
-            //};
+
             CheckBox checkBox = new CheckBox
             {
                 IsEnabled = false,
@@ -113,7 +102,7 @@ namespace WpfApp_TestingSystem.EntityGridLine
             // Добавим в кнопку grid с текстБлоками (в которых данные).
             button.Content = gridLineButton;
 
-            // test для получения id вопроса из кнопки.
+            // Для получения id вопроса из кнопки.
             this.QuestionId = currentAnswer.QuestionId;
 
             // Установка кнопки в первую колонку

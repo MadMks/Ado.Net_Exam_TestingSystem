@@ -54,7 +54,7 @@ namespace WpfApp_TestingSystem.EntityDeleteButton
                 db.Question.Remove(deleteQuestion);
                 db.SaveChanges();
 
-                // method установки Active после удаления.
+                // Установка Active после удаления.
                 this.EntityActivitySwitching(db, deleteQuestion);
 
                 return true;
@@ -68,19 +68,13 @@ namespace WpfApp_TestingSystem.EntityDeleteButton
             // =====
             // Тест.
 
-            //int deleteAnswerTestId
-            //    = db.Question.Where(q => q.Id == deleteAnswer.QuestionId)
-            //    .Select(q => q.TestId).FirstOrDefault();
-
             bool active;
             // Если есть активные вопросы у теста
             if (db.Question
                 .Where(q => q.TestId == deleteQuestion.TestId && q.Active == true)
-                //.Where(q => q.Active == true)
                 .Count() > 0)
             {
                 active = true;
-                //MessageBox.Show("1");
             }
             else
             {
@@ -91,7 +85,6 @@ namespace WpfApp_TestingSystem.EntityDeleteButton
                 .Where(t => t.Id == deleteQuestion.TestId)
                 .FirstOrDefault()
                 .Active = active;
-            // если тестов
 
             db.SaveChanges();
 
@@ -120,7 +113,6 @@ namespace WpfApp_TestingSystem.EntityDeleteButton
                 .Where(c => c.Id == deleteAnswerCategoryId)
                 .FirstOrDefault()
                 .Active = active;
-            // если тестов
 
             db.SaveChanges();
         }

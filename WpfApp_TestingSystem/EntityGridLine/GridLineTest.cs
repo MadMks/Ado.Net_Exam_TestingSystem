@@ -13,9 +13,8 @@ using WpfApp_TestingSystem.EntityEditButton;
 
 namespace WpfApp_TestingSystem
 {
-    public class GridLineTest : /*Grid*/GridLineEntity
+    public class GridLineTest : GridLineEntity
     {
-        //private Button button = null;
         private Grid gridLineButton = null;
 
         private TextBlockForText textBlockTestName = null;
@@ -23,13 +22,12 @@ namespace WpfApp_TestingSystem
 
         public int TestID { get; set; }
 
-        // test
         public int CategoryId { get; set; }
 
         public string CategoryName
         {
             get { return textBlockCategory.Text; }
-            set { textBlockCategory.Text = value; }    // TODO ?!?!?!? времменно написал - нужно правильно присваивать!
+            set { textBlockCategory.Text = value; }
         }
 
         public string TestName
@@ -38,14 +36,10 @@ namespace WpfApp_TestingSystem
         }
 
 
-        //public bool IsTeacher { get; set; }
-
-
         public GridLineTest() {}
 
         public GridLineTest(int number, Test currentTest, bool isTeacher)
         {
-            //this.IsTeacher = isTeacher;
 
             // Колонки для основного Grid
             this.ColumnDefinitions.Add(new ColumnDefinition
@@ -90,17 +84,14 @@ namespace WpfApp_TestingSystem
             TextBlockForNumber textBlockNumber = new TextBlockForNumber
             {
                 Text = (number + 1).ToString()
-                //Background = Brushes.AliceBlue
             };
-            /*TextBlockForText*/ textBlockTestName = new TextBlockForText
+            textBlockTestName = new TextBlockForText
             {
                 Text = currentTest.Name
-                //Background = Brushes.Aqua
             };
-            /*TextBlock*/ textBlockCategory = new TextBlockForNumber
+            textBlockCategory = new TextBlockForNumber
             {
                 Text = currentTest.Category.Name
-                //Background = Brushes.Bisque
             };
 
             TextBlockForNumber textBlockQuantityQuestions = null;
@@ -109,7 +100,6 @@ namespace WpfApp_TestingSystem
                 textBlockQuantityQuestions = new TextBlockForNumber
                 {
                     Text = currentTest.Question.Count().ToString()
-                    //Background = Brushes.BurlyWood
                 };
             }
             else
@@ -119,7 +109,6 @@ namespace WpfApp_TestingSystem
                     Text = currentTest.Question
                     .Where(q => q.Active == true)
                     .Count().ToString()
-                    //Background = Brushes.BurlyWood
                 };
             }
 
@@ -146,7 +135,7 @@ namespace WpfApp_TestingSystem
             // заменил нижней строкой.
             this.TestID = currentTest.Id;
 
-            // test
+
             this.CategoryId = currentTest.CategoryId;
 
             // Установка кнопки в первую колонку
@@ -181,10 +170,9 @@ namespace WpfApp_TestingSystem
 
         public override void AddingAdminButtons(int idEntity)
         {
-            // TODO добавить кнопку ButtonEditTest
             this.ButtonEdit = new ButtonEditTest(idEntity);
             this.Children.Add(this.ButtonEdit);
-            // TODO добавить кнопку ButtonDeleteTest
+
             this.ButtonDelete = new ButtonDeleteTest(idEntity);
             this.Children.Add(this.ButtonDelete);
         }
@@ -192,8 +180,7 @@ namespace WpfApp_TestingSystem
         public override ButtonAddEntity AddingAnAddEntityButton()
         {
             this.ButtonAdd = new ButtonAddTest();
-
-            //this.ButtonAdd.Tag = this.CategoryId;
+            
             (this.ButtonAdd as ButtonAddTest).CategoryId
                 = this.CategoryId;
 

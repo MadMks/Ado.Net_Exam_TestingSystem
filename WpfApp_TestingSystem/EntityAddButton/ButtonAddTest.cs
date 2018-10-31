@@ -26,8 +26,7 @@ namespace WpfApp_TestingSystem.EntityAddButton
 
             WindowEdit windowAdd = new WindowEdit(this.CategoryId);
             windowAdd.gridEditTest.Visibility = Visibility.Visible;
-            //windowAdd.textBlockCategoryName.Text
-            //    = "Название теста:";
+
             windowAdd.buttonOk.Content = "Добавить";
             windowAdd.Title = "Добавление теста";
 
@@ -38,7 +37,7 @@ namespace WpfApp_TestingSystem.EntityAddButton
             var categoriesTest
                 = (
                 from category in db.Category
-                select category/*.Name*/
+                select category
                 )
                 .ToList();
             // Заполняем названия доступных категорий.

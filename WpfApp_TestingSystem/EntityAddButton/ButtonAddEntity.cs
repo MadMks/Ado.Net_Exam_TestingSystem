@@ -17,8 +17,7 @@ namespace WpfApp_TestingSystem.EntityAddButton
             this.Padding = new Thickness(10.0, 5.0, 10.0, 5.0);
             this.HorizontalAlignment = HorizontalAlignment.Right;
         }
-
-        // HACK сдесь реализовую добавление
+        
         public abstract bool AddEntity(TestingSystemEntities db);
     }
 }
